@@ -11,7 +11,9 @@
     ],
     "noEmit": true,
     "allowJs": true,
-    "incremental": true
+    "incremental": true,
+    "rootDir": ".",
+    "outDir": ".next"
   },
   "include": [
     "src",

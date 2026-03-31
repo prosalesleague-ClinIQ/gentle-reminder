@@ -25,13 +25,14 @@ interface DemoFamilyMember {
   photoUrl?: string;
   voiceMessageUrl?: string;
   isActive: boolean;
+  message: string;
 }
 
 const DEMO_FAMILY: DemoFamilyMember[] = [
-  { id: '1', displayName: 'Lisa', relationship: 'Daughter', isActive: true },
-  { id: '2', displayName: 'Robert', relationship: 'Spouse', isActive: true },
-  { id: '3', displayName: 'Emma', relationship: 'Grandchild', isActive: true },
-  { id: '4', displayName: 'James', relationship: 'Son', isActive: true },
+  { id: '1', displayName: 'Lisa', relationship: 'Daughter', isActive: true, message: 'Lisa sends her love! \u{1F495}' },
+  { id: '2', displayName: 'Robert', relationship: 'Spouse', isActive: true, message: 'Robert is thinking of you! \u{1F49B}' },
+  { id: '3', displayName: 'Emma', relationship: 'Grandchild', isActive: true, message: 'Emma drew you a picture! \u{1F308}' },
+  { id: '4', displayName: 'James', relationship: 'Son', isActive: true, message: 'James says hello from work! \u{1F44B}' },
 ];
 
 export default function FamilyScreen() {
@@ -94,6 +95,14 @@ export default function FamilyScreen() {
                   size={200}
                 />
 
+                <SafeText variant="subheading" bold center>
+                  {selectedMember.displayName} — {selectedMember.relationship}
+                </SafeText>
+
+                <SafeText variant="body" center style={styles.modalMessage}>
+                  {selectedMember.message}
+                </SafeText>
+
                 <BigButton
                   title="Close"
                   onPress={closeModal}
@@ -151,6 +160,9 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 400,
     gap: spacing.xl,
+  },
+  modalMessage: {
+    paddingHorizontal: spacing.lg,
   },
   modalButton: {
     width: '100%',
