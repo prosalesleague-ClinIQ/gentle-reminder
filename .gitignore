@@ -45,3 +45,4 @@ android/
 
 # Prisma
 packages/database/prisma/migrations/**/migration_lock.toml
+.vercel
