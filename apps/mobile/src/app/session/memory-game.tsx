@@ -69,10 +69,10 @@ export default function MemoryGameScreen() {
 
     switch (localExerciseIndex) {
       case 0:
-        generated = generateCategoryPrompt(patientContext);
+        generated = generateCategoryPrompt();
         break;
       case 1:
-        generated = generateObjectPrompt(patientContext);
+        generated = generateObjectPrompt();
         break;
     }
 
@@ -93,9 +93,11 @@ export default function MemoryGameScreen() {
 
       let evaluation;
       if (localExerciseIndex === 0) {
-        evaluation = evaluateCategoryAnswer(answer, prompt.expectedAnswer, prompt.acceptableAnswers);
+        // evaluateCategoryAnswer(givenAnswer, acceptableAnswers, expectedCount)
+        evaluation = evaluateCategoryAnswer(answer, prompt.acceptableAnswers, 3);
       } else {
-        evaluation = evaluateObjectAnswer(answer, prompt.expectedAnswer, prompt.acceptableAnswers);
+        // evaluateObjectAnswer(givenAnswer, acceptableAnswers, expectedAnswer)
+        evaluation = evaluateObjectAnswer(answer, prompt.acceptableAnswers, prompt.expectedAnswer);
       }
 
       setFeedbackType(evaluation.feedbackType);
@@ -117,14 +119,16 @@ export default function MemoryGameScreen() {
   );
 
   const handleSessionComplete = useCallback(() => {
-    setIsCompleted(true);
-    const message = getCompletionMessage(
-      demoCelebrated,
-      TOTAL_EXERCISES_PER_SESSION,
-      preferredName,
-    );
-    speak(message);
-  }, [demoCelebrated, preferredName, speak]);
+    const score = (demoCelebrated + 1) / TOTAL_EXERCISES_PER_SESSION;
+    router.replace({
+      pathname: '/session/complete',
+      params: {
+        score: score.toFixed(2),
+        celebrated: String(demoCelebrated + 1),
+        total: String(TOTAL_EXERCISES_PER_SESSION),
+      },
+    });
+  }, [demoCelebrated, router]);
 
   const handleGoHome = useCallback(() => {
     router.replace('/(tabs)/home');

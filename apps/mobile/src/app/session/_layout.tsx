@@ -21,6 +21,7 @@ export default function SessionLayout() {
       <Stack.Screen name="orientation" />
       <Stack.Screen name="identity" />
       <Stack.Screen name="memory-game" />
+      <Stack.Screen name="complete" options={{ animation: 'fade' }} />
     </Stack>
   );
 }
