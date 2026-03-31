@@ -4,6 +4,7 @@ const navItems = [
   { href: '/', label: 'Overview', icon: '\u25A3' },
   { href: '/patients', label: 'Patients', icon: '\u2639' },
   { href: '/alerts', label: 'Alerts', icon: '\u26A0' },
+  { href: '/analytics', label: 'Analytics', icon: '\u2261' },
   { href: '#', label: 'Settings', icon: '\u2699' },
 ];
 

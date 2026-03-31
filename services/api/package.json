@@ -8,7 +8,7 @@
     "dev": "nodemon",
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "jest --passWithNoTests",
+    "test": "jest --forceExit --detectOpenHandles",
     "lint": "eslint src --ext .ts",
     "clean": "rm -rf dist"
   },
@@ -37,6 +37,40 @@
     "jest": "^29.7.0",
     "@types/jest": "^29.5.0",
     "ts-jest": "^29.1.0",
+    "supertest": "^6.3.3",
+    "@types/supertest": "^2.0.16",
     "typescript": "^5.4.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/__tests__"
+    ],
+    "moduleNameMapper": {
+      "^@gentle-reminder/database$": "<rootDir>/../../packages/database/src",
+      "^@gentle-reminder/auth$": "<rootDir>/../../packages/auth/src",
+      "^@gentle-reminder/shared-types$": "<rootDir>/../../packages/shared-types/src",
+      "^@gentle-reminder/cognitive-engine$": "<rootDir>/../../packages/cognitive-engine/src",
+      "^(\\.{1,2}/.*)\\.js$": "$1"
+    },
+    "transform": {
+      "^.+\\.tsx?$": [
+        "ts-jest",
+        {
+          "tsconfig": {
+            "module": "commonjs",
+            "moduleResolution": "node",
+            "esModuleInterop": true,
+            "allowJs": true,
+            "strict": true,
+            "resolveJsonModule": true
+          }
+        }
+      ]
+    },
+    "testMatch": [
+      "**/__tests__/**/*.test.ts"
+    ]
   }
 }

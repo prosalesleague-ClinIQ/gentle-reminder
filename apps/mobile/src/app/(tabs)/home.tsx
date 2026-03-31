@@ -49,6 +49,19 @@ export default function HomeScreen() {
 
         <VoicePrompt isSpeaking={isSpeaking} label="Speaking..." />
 
+        <View style={styles.lastSessionCard}>
+          <SafeText variant="body" bold color={colors.text.primary}>
+            {profile?.recentCognitiveScore
+              ? 'Your last session was recently'
+              : "You haven't had a session yet"}
+          </SafeText>
+          <SafeText variant="body" color={colors.text.secondary}>
+            {profile?.recentCognitiveScore
+              ? 'Keep it up - every session helps!'
+              : 'Whenever you are ready, tap Start Session below.'}
+          </SafeText>
+        </View>
+
         <View style={styles.actions}>
           <BigButton
             title="Start Session"
@@ -95,6 +108,13 @@ const styles = StyleSheet.create({
   scrollContent: {
     padding: layout.screenPadding,
     paddingBottom: 120, // Space for tab bar
+  },
+  lastSessionCard: {
+    marginTop: spacing.lg,
+    backgroundColor: colors.background.card,
+    borderRadius: layout.borderRadius,
+    padding: spacing.lg,
+    gap: spacing.sm,
   },
   actions: {
     gap: spacing.lg,

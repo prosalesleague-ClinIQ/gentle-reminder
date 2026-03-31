@@ -6,6 +6,8 @@ export enum ExerciseType {
   MEMORY_SEQUENCE = 'memory_sequence',
   MEMORY_OBJECT = 'memory_object',
   MEMORY_CATEGORY = 'memory_category',
+  PATTERN_MATCHING = 'pattern_matching',
+  CLOCK_TIME = 'clock_time',
 }
 
 export enum FeedbackType {

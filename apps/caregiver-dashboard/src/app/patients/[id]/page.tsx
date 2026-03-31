@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { patients, alerts } from '../../../data/mock';
 import AlertBadge from '../../../components/AlertBadge';
+import CognitiveChart from '../../../components/CognitiveChart';
 
 const stageColors: Record<string, { bg: string; color: string }> = {
   Mild: { bg: '#EBF5EC', color: '#3D8158' },
@@ -226,6 +227,11 @@ export default async function PatientDetailPage({ params }: { params: Promise<{ 
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Cognitive Trends Chart */}
+      <div style={{ marginBottom: 24 }}>
+        <CognitiveChart title={`${patient.name} \u2014 Cognitive Trends`} days={30} />
       </div>
 
       {/* Recent Sessions */}

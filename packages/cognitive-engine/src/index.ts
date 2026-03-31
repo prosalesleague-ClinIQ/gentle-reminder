@@ -22,6 +22,16 @@ export {
   evaluateSequenceAnswer,
 } from './exercises/memory';
 
+export {
+  generatePatternPrompt,
+  evaluatePatternAnswer,
+} from './exercises/pattern';
+
+export {
+  generateClockPrompt,
+  evaluateClockAnswer,
+} from './exercises/clock';
+
 // Scoring
 export {
   calculateSessionScores,
