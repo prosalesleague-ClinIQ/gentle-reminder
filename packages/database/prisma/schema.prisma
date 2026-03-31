@@ -179,6 +179,8 @@ enum ExerciseType {
   memory_sequence
   memory_object
   memory_category
+  pattern_matching
+  clock_time
 }
 
 enum CognitiveDomain {

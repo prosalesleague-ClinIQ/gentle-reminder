@@ -49,6 +49,16 @@ export default function TabsLayout() {
           tabBarAccessibilityLabel: 'Stories and memories tab',
         }}
       />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: 'Settings',
+          tabBarIcon: ({ focused }) => (
+            <Text style={[styles.icon, focused && styles.iconActive]}>{'⚙️'}</Text>
+          ),
+          tabBarAccessibilityLabel: 'Settings and accessibility',
+        }}
+      />
     </Tabs>
   );
 }

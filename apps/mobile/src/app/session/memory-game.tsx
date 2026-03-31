@@ -111,13 +111,18 @@ export default function MemoryGameScreen() {
         if (localExerciseIndex < MEMORY_EXERCISE_COUNT - 1) {
           setLocalExerciseIndex((i) => i + 1);
         } else {
-          handleSessionComplete();
+          // Advance to pattern exercises
+          router.push({
+            pathname: '/session/pattern',
+            params: { celebrated: String(demoCelebrated + (evaluation.feedbackType === FeedbackType.CELEBRATED ? 1 : 0)) },
+          });
         }
       }, AUTO_ADVANCE_DELAY_MS);
     },
-    [prompt, showFeedback, localExerciseIndex],
+    [prompt, showFeedback, localExerciseIndex, demoCelebrated, router],
   );
 
+  // Keep handleSessionComplete for backwards compat but unused now
   const handleSessionComplete = useCallback(() => {
     const score = (demoCelebrated + 1) / TOTAL_EXERCISES_PER_SESSION;
     router.replace({
