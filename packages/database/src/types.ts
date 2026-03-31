@@ -1,0 +1,19 @@
+// Re-export Prisma generated types for convenience
+export type {
+  User,
+  Patient,
+  Caregiver,
+  CaregiverAssignment,
+  FamilyMember,
+  Session,
+  ExerciseResult,
+  CognitiveScore,
+  Memory,
+  MemoryTag,
+  StoryTranscript,
+  Photo,
+  VoiceRecording,
+  EngagementMetric,
+  Alert,
+  AuditLog,
+} from '@prisma/client';

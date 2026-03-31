@@ -1,0 +1,13 @@
+# Phase 2: Staging deployment
+name: Deploy Staging
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Phase 2 - Staging deployment pipeline"

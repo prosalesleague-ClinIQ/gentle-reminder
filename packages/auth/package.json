@@ -1,0 +1,21 @@
+{
+  "name": "@gentle-reminder/auth",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.0",
+    "bcryptjs": "^2.4.3",
+    "@gentle-reminder/shared-types": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/jsonwebtoken": "^9.0.0",
+    "@types/bcryptjs": "^2.4.0"
+  }
+}

@@ -1,0 +1,12 @@
+# Default owners
+* @team-leads
+
+# Clinical scoring requires review
+packages/cognitive-engine/ @clinical-team @team-leads
+
+# Database schema changes require review
+packages/database/prisma/ @backend-team @team-leads
+
+# Patient-facing UI requires accessibility review
+apps/mobile/src/app/ @ux-team @clinical-team
+packages/ui-components/ @ux-team

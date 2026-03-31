@@ -1,0 +1,13 @@
+# Phase 2: Production deployment
+name: Deploy Production
+
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Phase 2 - Production deployment pipeline"

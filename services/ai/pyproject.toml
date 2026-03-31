@@ -1,0 +1,8 @@
+[project]
+name = "gentle-reminder-ai"
+version = "0.1.0"
+description = "AI services for Gentle Reminder cognitive platform"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

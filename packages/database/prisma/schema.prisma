@@ -1,0 +1,402 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── USER & AUTH ────────────────────────────────────────────
+
+enum UserRole {
+  patient
+  family_member
+  caregiver
+  clinician
+  facility_admin
+  system_admin
+}
+
+model User {
+  id              String    @id @default(uuid())
+  email           String    @unique
+  passwordHash    String    @map("password_hash")
+  firstName       String    @map("first_name")
+  lastName        String    @map("last_name")
+  role            UserRole
+  profilePhotoUrl String?   @map("profile_photo_url")
+  isActive        Boolean   @default(true) @map("is_active")
+  lastLoginAt     DateTime? @map("last_login_at")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  patient              Patient?
+  caregiver            Caregiver?
+  familyMemberProfiles FamilyMember[]
+  auditLogs            AuditLog[]
+
+  @@map("users")
+}
+
+// ─── PATIENT ────────────────────────────────────────────────
+
+enum CognitiveStage {
+  mild
+  moderate
+  severe
+  unknown
+}
+
+model Patient {
+  id              String         @id @default(uuid())
+  userId          String         @unique @map("user_id")
+  dateOfBirth     DateTime       @map("date_of_birth")
+  diagnosisDate   DateTime?      @map("diagnosis_date")
+  cognitiveStage  CognitiveStage @default(unknown) @map("cognitive_stage")
+  preferredName   String         @map("preferred_name")
+  city            String
+  timezone        String         @default("America/New_York")
+  primaryLanguage String         @default("en") @map("primary_language")
+  notes           String?
+  createdAt       DateTime       @default(now()) @map("created_at")
+  updatedAt       DateTime       @updatedAt @map("updated_at")
+
+  user                User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  caregiverAssignments CaregiverAssignment[]
+  familyMembers       FamilyMember[]
+  sessions            Session[]
+  cognitiveScores     CognitiveScore[]
+  memories            Memory[]
+  photos              Photo[]
+  voiceRecordings     VoiceRecording[]
+  engagementMetrics   EngagementMetric[]
+  alerts              Alert[]
+
+  @@map("patients")
+}
+
+// ─── CAREGIVER ──────────────────────────────────────────────
+
+model Caregiver {
+  id            String   @id @default(uuid())
+  userId        String   @unique @map("user_id")
+  licenseNumber String?  @map("license_number")
+  specialty     String?
+  facilityName  String?  @map("facility_name")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  user        User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assignments CaregiverAssignment[]
+
+  @@map("caregivers")
+}
+
+model CaregiverAssignment {
+  id          String   @id @default(uuid())
+  caregiverId String   @map("caregiver_id")
+  patientId   String   @map("patient_id")
+  isPrimary   Boolean  @default(false) @map("is_primary")
+  assignedAt  DateTime @default(now()) @map("assigned_at")
+  removedAt   DateTime? @map("removed_at")
+
+  caregiver Caregiver @relation(fields: [caregiverId], references: [id], onDelete: Cascade)
+  patient   Patient   @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@unique([caregiverId, patientId])
+  @@map("caregiver_assignments")
+}
+
+// ─── FAMILY ─────────────────────────────────────────────────
+
+enum Relationship {
+  spouse
+  child
+  grandchild
+  sibling
+  parent
+  friend
+  caregiver
+  other
+}
+
+model FamilyMember {
+  id              String       @id @default(uuid())
+  patientId       String       @map("patient_id")
+  userId          String?      @map("user_id")
+  displayName     String       @map("display_name")
+  relationship    Relationship
+  photoUrl        String?      @map("photo_url")
+  voiceMessageUrl String?      @map("voice_message_url")
+  videoMessageUrl String?      @map("video_message_url")
+  dateOfBirth     DateTime?    @map("date_of_birth")
+  notes           String?
+  isActive        Boolean      @default(true) @map("is_active")
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime     @updatedAt @map("updated_at")
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  user    User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("family_members")
+}
+
+// ─── SESSION & EXERCISES ────────────────────────────────────
+
+enum SessionStatus {
+  started
+  in_progress
+  completed
+  abandoned
+}
+
+model Session {
+  id              String        @id @default(uuid())
+  patientId       String        @map("patient_id")
+  status          SessionStatus @default(started)
+  startedAt       DateTime      @default(now()) @map("started_at")
+  completedAt     DateTime?     @map("completed_at")
+  durationSeconds Int?          @map("duration_seconds")
+  exerciseCount   Int           @default(0) @map("exercise_count")
+  overallScore    Float?        @map("overall_score")
+  notes           String?
+  createdAt       DateTime      @default(now()) @map("created_at")
+
+  patient         Patient          @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  exerciseResults ExerciseResult[]
+  cognitiveScore  CognitiveScore?
+
+  @@index([patientId, startedAt])
+  @@map("sessions")
+}
+
+enum ExerciseType {
+  orientation_date
+  orientation_name
+  orientation_location
+  identity_recognition
+  memory_sequence
+  memory_object
+  memory_category
+}
+
+enum CognitiveDomain {
+  orientation
+  identity
+  memory
+  language
+  executive_function
+  attention
+}
+
+enum FeedbackType {
+  celebrated
+  guided
+  supported
+}
+
+model ExerciseResult {
+  id             String          @id @default(uuid())
+  sessionId      String          @map("session_id")
+  exerciseType   ExerciseType    @map("exercise_type")
+  domain         CognitiveDomain
+  prompt         String
+  expectedAnswer String          @map("expected_answer")
+  givenAnswer    String          @map("given_answer")
+  isCorrect      Boolean         @map("is_correct")
+  responseTimeMs Int             @map("response_time_ms")
+  feedbackType   FeedbackType    @map("feedback_type")
+  score          Float
+  attemptNumber  Int             @default(1) @map("attempt_number")
+  createdAt      DateTime        @default(now()) @map("created_at")
+
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([sessionId])
+  @@index([exerciseType, createdAt])
+  @@map("exercise_results")
+}
+
+// ─── COGNITIVE SCORES ───────────────────────────────────────
+
+model CognitiveScore {
+  id                     String   @id @default(uuid())
+  patientId              String   @map("patient_id")
+  sessionId              String   @unique @map("session_id")
+  overallScore           Float    @map("overall_score")
+  orientationScore       Float    @map("orientation_score")
+  identityScore          Float    @map("identity_score")
+  memoryScore            Float    @map("memory_score")
+  languageScore          Float    @default(0) @map("language_score")
+  executiveFunctionScore Float    @default(0) @map("executive_function_score")
+  attentionScore         Float    @default(0) @map("attention_score")
+  recordedAt             DateTime @default(now()) @map("recorded_at")
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@index([patientId, recordedAt])
+  @@map("cognitive_scores")
+}
+
+// ─── MEMORIES & MEDIA ───────────────────────────────────────
+
+enum MemoryType {
+  story
+  photo
+  voice_recording
+  video
+  music
+}
+
+model Memory {
+  id            String     @id @default(uuid())
+  patientId     String     @map("patient_id")
+  type          MemoryType
+  title         String
+  description   String?
+  mediaUrl      String?    @map("media_url")
+  thumbnailUrl  String?    @map("thumbnail_url")
+  transcription String?
+  aiSummary     String?    @map("ai_summary")
+  isFavorite    Boolean    @default(false) @map("is_favorite")
+  recordedAt    DateTime?  @map("recorded_at")
+  createdAt     DateTime   @default(now()) @map("created_at")
+  updatedAt     DateTime   @updatedAt @map("updated_at")
+
+  patient    Patient     @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  tags       MemoryTag[]
+  transcript StoryTranscript?
+
+  @@index([patientId, type])
+  @@map("memories")
+}
+
+model MemoryTag {
+  id       String @id @default(uuid())
+  memoryId String @map("memory_id")
+  tag      String
+
+  memory Memory @relation(fields: [memoryId], references: [id], onDelete: Cascade)
+
+  @@unique([memoryId, tag])
+  @@index([tag])
+  @@map("memory_tags")
+}
+
+model StoryTranscript {
+  id                   String   @id @default(uuid())
+  memoryId             String   @unique @map("memory_id")
+  rawTranscription     String   @map("raw_transcription")
+  cleanedTranscription String?  @map("cleaned_transcription")
+  aiSummary            String?  @map("ai_summary")
+  keyPeople            String[] @default([]) @map("key_people")
+  keyPlaces            String[] @default([]) @map("key_places")
+  keyEvents            String[] @default([]) @map("key_events")
+  emotionalTone        String?  @map("emotional_tone")
+  createdAt            DateTime @default(now()) @map("created_at")
+
+  memory Memory @relation(fields: [memoryId], references: [id], onDelete: Cascade)
+
+  @@map("story_transcripts")
+}
+
+model Photo {
+  id          String   @id @default(uuid())
+  patientId   String   @map("patient_id")
+  url         String
+  thumbnailUrl String? @map("thumbnail_url")
+  caption     String?
+  takenAt     DateTime? @map("taken_at")
+  uploadedAt  DateTime @default(now()) @map("uploaded_at")
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([patientId])
+  @@map("photos")
+}
+
+model VoiceRecording {
+  id            String   @id @default(uuid())
+  patientId     String   @map("patient_id")
+  url           String
+  durationMs    Int      @map("duration_ms")
+  transcription String?
+  recordedAt    DateTime @default(now()) @map("recorded_at")
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([patientId])
+  @@map("voice_recordings")
+}
+
+// ─── ANALYTICS & MONITORING ─────────────────────────────────
+
+model EngagementMetric {
+  id                    String   @id @default(uuid())
+  patientId             String   @map("patient_id")
+  date                  DateTime @db.Date
+  sessionsCompleted     Int      @default(0) @map("sessions_completed")
+  sessionsAbandoned     Int      @default(0) @map("sessions_abandoned")
+  totalExercises        Int      @default(0) @map("total_exercises")
+  averageResponseTimeMs Int?     @map("average_response_time_ms")
+  averageScore          Float?   @map("average_score")
+  totalDurationSeconds  Int      @default(0) @map("total_duration_seconds")
+  createdAt             DateTime @default(now()) @map("created_at")
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@unique([patientId, date])
+  @@map("engagement_metrics")
+}
+
+enum AlertType {
+  cognitive_decline
+  missed_sessions
+  emotional_change
+  response_time_increase
+  session_abandonment
+}
+
+enum AlertSeverity {
+  low
+  medium
+  high
+  critical
+}
+
+model Alert {
+  id        String        @id @default(uuid())
+  patientId String        @map("patient_id")
+  type      AlertType
+  severity  AlertSeverity
+  message   String
+  data      Json?
+  isRead    Boolean       @default(false) @map("is_read")
+  createdAt DateTime      @default(now()) @map("created_at")
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([patientId, isRead])
+  @@map("alerts")
+}
+
+// ─── AUDIT LOG ──────────────────────────────────────────────
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  userId     String?  @map("user_id")
+  action     String
+  resource   String
+  resourceId String?  @map("resource_id")
+  details    Json?
+  ipAddress  String?  @map("ip_address")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+  @@index([resource, resourceId])
+  @@map("audit_logs")
+}
