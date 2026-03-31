@@ -72,6 +72,14 @@ model Patient {
   voiceRecordings     VoiceRecording[]
   engagementMetrics   EngagementMetric[]
   alerts              Alert[]
+  behavioralSignals   BehavioralSignal[]
+  biomarkerScores     BiomarkerScore[]
+  speechBiomarkers    SpeechBiomarker[]
+  riskPredictions     RiskPrediction[]
+  movementPatterns    MovementPattern[]
+  voiceProfiles       VoiceProfile[]
+  cognitiveStateLogs  CognitiveStateLog[]
+  conversationLogs    ConversationLog[]
 
   @@map("patients")
 }
@@ -382,6 +390,204 @@ model Alert {
 
   @@index([patientId, isRead])
   @@map("alerts")
+}
+
+// ─── BEHAVIORAL SIGNALS & BIOMARKERS ────────────────────────
+
+enum SignalSource {
+  wearable
+  mobile_app
+  speech_analysis
+  cognitive_test
+  location
+  manual
+}
+
+model BehavioralSignal {
+  id        String       @id @default(uuid())
+  patientId String       @map("patient_id")
+  source    SignalSource
+  signalType String     @map("signal_type")
+  value     Float
+  unit      String?
+  metadata  Json?
+  recordedAt DateTime   @map("recorded_at")
+  createdAt DateTime    @default(now()) @map("created_at")
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([patientId, signalType, recordedAt])
+  @@index([source, recordedAt])
+  @@map("behavioral_signals")
+}
+
+enum BiomarkerType {
+  cognitive_response_delay
+  routine_disruption
+  sleep_irregularity
+  mobility_decline
+  speech_hesitation
+  medication_adherence
+  overall_cognitive_health
+}
+
+model BiomarkerScore {
+  id            String        @id @default(uuid())
+  patientId     String        @map("patient_id")
+  biomarkerType BiomarkerType @map("biomarker_type")
+  score         Float
+  confidence    Float         @default(0)
+  trend         String?       // improving, stable, declining
+  periodStart   DateTime      @map("period_start")
+  periodEnd     DateTime      @map("period_end")
+  metadata      Json?
+  createdAt     DateTime      @default(now()) @map("created_at")
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([patientId, biomarkerType, createdAt])
+  @@map("biomarker_scores")
+}
+
+model SpeechBiomarker {
+  id                String   @id @default(uuid())
+  patientId         String   @map("patient_id")
+  sessionId         String?  @map("session_id")
+  speechRate        Float?   @map("speech_rate")
+  hesitationCount   Int?     @map("hesitation_count")
+  pauseDurationMs   Int?     @map("pause_duration_ms")
+  sentenceComplexity Float?  @map("sentence_complexity")
+  wordRecallLatency Int?     @map("word_recall_latency")
+  emotionalTone     String?  @map("emotional_tone")
+  confidence        Float    @default(0)
+  recordedAt        DateTime @map("recorded_at")
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([patientId, recordedAt])
+  @@map("speech_biomarkers")
+}
+
+// ─── RISK PREDICTIONS ───────────────────────────────────────
+
+enum RiskType {
+  fall_risk
+  wandering_risk
+  confusion_episode
+  medication_nonadherence
+  cognitive_decline
+  hospitalization
+}
+
+model RiskPrediction {
+  id           String   @id @default(uuid())
+  patientId    String   @map("patient_id")
+  riskType     RiskType @map("risk_type")
+  probability  Float
+  timeframeDay Int      @map("timeframe_days")
+  confidence   Float    @default(0)
+  factors      Json?
+  modelVersion String   @map("model_version")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([patientId, riskType, createdAt])
+  @@map("risk_predictions")
+}
+
+// ─── MOVEMENT & LOCATION ────────────────────────────────────
+
+model MovementPattern {
+  id           String   @id @default(uuid())
+  patientId    String   @map("patient_id")
+  latitude     Float?
+  longitude    Float?
+  locationName String?  @map("location_name")
+  isInGeofence Boolean  @default(true) @map("is_in_geofence")
+  stepCount    Int?     @map("step_count")
+  distanceM    Float?   @map("distance_meters")
+  speedMps     Float?   @map("speed_mps")
+  isAnomaly    Boolean  @default(false) @map("is_anomaly")
+  recordedAt   DateTime @map("recorded_at")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([patientId, recordedAt])
+  @@index([isAnomaly])
+  @@map("movement_patterns")
+}
+
+// ─── VOICE PROFILES ─────────────────────────────────────────
+
+model VoiceProfile {
+  id              String   @id @default(uuid())
+  familyMemberId  String   @map("family_member_id")
+  patientId       String   @map("patient_id")
+  providerVoiceId String?  @map("provider_voice_id")
+  provider        String   @default("elevenlabs")
+  displayName     String   @map("display_name")
+  sampleAudioUrl  String?  @map("sample_audio_url")
+  isActive        Boolean  @default(true) @map("is_active")
+  consentGivenAt  DateTime @map("consent_given_at")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([patientId])
+  @@map("voice_profiles")
+}
+
+// ─── COGNITIVE STATE TRACKING ───────────────────────────────
+
+enum CognitiveStateType {
+  calm
+  confused
+  anxious
+  disoriented
+  agitated
+  sad
+  engaged
+}
+
+model CognitiveStateLog {
+  id          String             @id @default(uuid())
+  patientId   String             @map("patient_id")
+  state       CognitiveStateType
+  confidence  Float              @default(0)
+  triggerSource String?          @map("trigger_source")
+  signals     Json?
+  duration    Int?               @map("duration_seconds")
+  recordedAt  DateTime           @map("recorded_at")
+  createdAt   DateTime           @default(now()) @map("created_at")
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([patientId, recordedAt])
+  @@index([state])
+  @@map("cognitive_state_logs")
+}
+
+// ─── CONVERSATION LOG ───────────────────────────────────────
+
+model ConversationLog {
+  id            String   @id @default(uuid())
+  patientId     String   @map("patient_id")
+  speakerRole   String   @map("speaker_role")
+  voiceProfileId String? @map("voice_profile_id")
+  message       String
+  intent        String?
+  cognitiveState String? @map("cognitive_state")
+  responseTimeMs Int?    @map("response_time_ms")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([patientId, createdAt])
+  @@map("conversation_logs")
 }
 
 // ─── AUDIT LOG ──────────────────────────────────────────────

@@ -50,6 +50,16 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
+        name="voices"
+        options={{
+          title: 'Voices',
+          tabBarIcon: ({ focused }) => (
+            <Text style={[styles.icon, focused && styles.iconActive]}>{'🗣️'}</Text>
+          ),
+          tabBarAccessibilityLabel: 'Family voices tab',
+        }}
+      />
+      <Tabs.Screen
         name="history"
         options={{
           title: 'History',

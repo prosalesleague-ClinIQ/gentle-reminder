@@ -8,6 +8,8 @@ import sessionsRoutes from './sessions.routes.js';
 import exercisesRoutes from './exercises.routes.js';
 import memoriesRoutes from './memories.routes.js';
 import analyticsRoutes from './analytics.routes.js';
+import voiceRoutes from './voice.routes.js';
+import wearablesRoutes from './wearables.routes.js';
 
 const router = Router();
 
@@ -20,5 +22,7 @@ router.use('/sessions', sessionsRoutes);
 router.use('/exercises', exercisesRoutes);
 router.use('/memories', memoriesRoutes);
 router.use('/analytics', analyticsRoutes);
+router.use('/voices', voiceRoutes);
+router.use('/wearables', wearablesRoutes);
 
 export default router;
