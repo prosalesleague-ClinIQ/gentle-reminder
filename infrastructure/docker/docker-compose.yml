@@ -17,19 +17,140 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - gentle-reminder
 
-  # Phase 2: Neo4j for memory graph
-  # neo4j:
-  #   image: neo4j:5-community
-  #   container_name: gentle-reminder-graph
-  #   environment:
-  #     NEO4J_AUTH: neo4j/local_dev_password
-  #   ports:
-  #     - '7474:7474'
-  #     - '7687:7687'
-  #   volumes:
-  #     - neo4j_data:/data
+  neo4j:
+    image: neo4j:5-community
+    container_name: gentle-reminder-graph
+    environment:
+      NEO4J_AUTH: neo4j/local_dev_password
+      NEO4J_PLUGINS: '["apoc"]'
+    ports:
+      - '7474:7474'
+      - '7687:7687'
+    volumes:
+      - neo4j_data:/data
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -qO- http://localhost:7474 || exit 1']
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+    networks:
+      - gentle-reminder
+
+  redis:
+    image: redis:7-alpine
+    container_name: gentle-reminder-cache
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - gentle-reminder
+
+  api:
+    build:
+      context: ../../
+      dockerfile: infrastructure/docker/Dockerfile.api
+    container_name: gentle-reminder-api
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://gentle_reminder:local_dev_password@postgres:5432/gentle_reminder_dev
+      REDIS_URL: redis://redis:6379
+      NEO4J_URI: bolt://neo4j:7687
+      NEO4J_USER: neo4j
+      NEO4J_PASSWORD: local_dev_password
+      JWT_SECRET: dev_jwt_secret_do_not_use_in_production
+      JWT_REFRESH_SECRET: dev_jwt_refresh_secret_do_not_use_in_production
+      AI_SERVICE_URL: http://ai:8000
+      MEMORY_GRAPH_URL: http://memory-graph:3001
+      LOG_LEVEL: debug
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -qO- http://localhost:3000/health || exit 1']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - gentle-reminder
+
+  ai:
+    build:
+      context: ../../
+      dockerfile: infrastructure/docker/Dockerfile.ai
+    container_name: gentle-reminder-ai
+    ports:
+      - '8000:8000'
+    environment:
+      NEO4J_URI: bolt://neo4j:7687
+      NEO4J_USER: neo4j
+      NEO4J_PASSWORD: local_dev_password
+      REDIS_URL: redis://redis:6379
+      API_URL: http://api:3000
+      LOG_LEVEL: debug
+    depends_on:
+      neo4j:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -qO- http://localhost:8000/health || exit 1']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    networks:
+      - gentle-reminder
+
+  memory-graph:
+    build:
+      context: ../../
+      dockerfile: infrastructure/docker/Dockerfile.memory-graph
+    container_name: gentle-reminder-memory-graph
+    ports:
+      - '3001:3001'
+    environment:
+      NODE_ENV: development
+      NEO4J_URI: bolt://neo4j:7687
+      NEO4J_USER: neo4j
+      NEO4J_PASSWORD: local_dev_password
+      REDIS_URL: redis://redis:6379
+      API_URL: http://api:3000
+      LOG_LEVEL: debug
+    depends_on:
+      neo4j:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -qO- http://localhost:3001/health || exit 1']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - gentle-reminder
 
 volumes:
   postgres_data:
-  # neo4j_data:
+  neo4j_data:
+  redis_data:
+
+networks:
+  gentle-reminder:
+    driver: bridge

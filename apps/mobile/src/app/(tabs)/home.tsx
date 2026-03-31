@@ -83,6 +83,14 @@ export default function HomeScreen() {
             variant="accent"
             accessibilityHint="Listen to and record your stories"
           />
+
+          <BigButton
+            title="Brain Games"
+            onPress={() => router.push('/tests')}
+            variant="primary"
+            style={{ backgroundColor: '#7C4DFF' }}
+            accessibilityHint="Play fun brain training games"
+          />
         </View>
 
         {profile?.recentCognitiveScore && (

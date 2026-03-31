@@ -13,7 +13,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@gentle-reminder/shared-types": "workspace:*"
+    "@gentle-reminder/shared-types": "*"
   },
   "devDependencies": {
     "@types/jest": "^29.5.0",

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gentle-reminder
+  labels:
+    app.kubernetes.io/part-of: gentle-reminder
+    app.kubernetes.io/managed-by: kubectl
