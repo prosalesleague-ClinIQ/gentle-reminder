@@ -18,7 +18,7 @@ export const MIN_SESSION_DURATION_SECONDS = 60;
 
 /**
  * Default exercise order within a session.
- * Orientation first (grounding), then identity (social), then memory (cognitive).
+ * Orientation (grounding) → Identity (social) → Memory (cognitive) → Pattern (executive) → Clock (temporal) → Object (memory).
  */
 export const DEFAULT_EXERCISE_ORDER: ExerciseType[] = [
   ExerciseType.ORIENTATION_DATE,
@@ -26,6 +26,8 @@ export const DEFAULT_EXERCISE_ORDER: ExerciseType[] = [
   ExerciseType.ORIENTATION_LOCATION,
   ExerciseType.IDENTITY_RECOGNITION,
   ExerciseType.MEMORY_CATEGORY,
+  ExerciseType.PATTERN_MATCHING,
+  ExerciseType.CLOCK_TIME,
   ExerciseType.MEMORY_OBJECT,
 ];
 
@@ -43,6 +45,14 @@ export const PHASE_EXERCISES: Record<string, ExerciseType[]> = {
   ],
   [SessionPhase.MEMORY]: [
     ExerciseType.MEMORY_CATEGORY,
+  ],
+  pattern: [
+    ExerciseType.PATTERN_MATCHING,
+  ],
+  clock: [
+    ExerciseType.CLOCK_TIME,
+  ],
+  object: [
     ExerciseType.MEMORY_OBJECT,
   ],
 };
@@ -65,12 +75,22 @@ export const ORIENTATION_EXERCISE_COUNT = 3;
 /** Number of exercises per identity phase */
 export const IDENTITY_EXERCISE_COUNT = 1;
 
-/** Number of exercises per memory phase */
-export const MEMORY_EXERCISE_COUNT = 2;
+/** Number of exercises per memory phase (category naming only) */
+export const MEMORY_EXERCISE_COUNT = 1;
+
+/** Number of pattern matching exercises */
+export const PATTERN_EXERCISE_COUNT = 1;
+
+/** Number of clock/time exercises */
+export const CLOCK_EXERCISE_COUNT = 1;
+
+/** Number of object recognition exercises */
+export const OBJECT_EXERCISE_COUNT = 1;
 
 /** Total exercises per session */
 export const TOTAL_EXERCISES_PER_SESSION =
-  ORIENTATION_EXERCISE_COUNT + IDENTITY_EXERCISE_COUNT + MEMORY_EXERCISE_COUNT;
+  ORIENTATION_EXERCISE_COUNT + IDENTITY_EXERCISE_COUNT + MEMORY_EXERCISE_COUNT +
+  PATTERN_EXERCISE_COUNT + CLOCK_EXERCISE_COUNT + OBJECT_EXERCISE_COUNT;
 
 /** Maximum number of attempts per exercise before moving on */
 export const MAX_ATTEMPTS_PER_EXERCISE = 2;
