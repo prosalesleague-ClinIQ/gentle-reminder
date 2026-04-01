@@ -23,7 +23,7 @@ export default function HomeScreen() {
   const router = useRouter();
   const { user } = useAuth();
   const { profile, isLoadingProfile, refreshProfile } = usePatient();
-  const { speak, isSpeaking } = useVoice();
+  const { speak, speakWarmly, isSpeaking } = useVoice();
 
   const preferredName = profile?.preferredName || user?.firstName || 'Friend';
   const profilePhotoUrl = profile?.user?.profilePhotoUrl;
@@ -32,7 +32,7 @@ export default function HomeScreen() {
   useEffect(() => {
     if (preferredName) {
       const greeting = getGreeting(preferredName);
-      speak(greeting);
+      speakWarmly(greeting);
     }
   }, [preferredName]);
 

@@ -17,14 +17,14 @@ import { colors, spacing, layout, shadows } from '../../constants/theme';
  */
 export default function SessionStartScreen() {
   const router = useRouter();
-  const { speak, isSpeaking } = useVoice();
+  const { speak, speakWarmly, isSpeaking } = useVoice();
 
   const preferredName = 'Friend';
   const duration = formatDuration(DEFAULT_SESSION_DURATION_SECONDS);
 
   useEffect(() => {
-    speak(
-      `Hello ${preferredName}! Let's do some fun exercises together. This will take about ${duration}. Ready when you are!`,
+    speakWarmly(
+      `Hello, ${preferredName}. Let's do some gentle exercises together. This will take about ${duration}. There's no rush at all. Ready when you are.`,
     );
   }, []);
 

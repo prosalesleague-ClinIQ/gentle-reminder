@@ -15,7 +15,7 @@ import { colors, spacing, layout, shadows } from '../../constants/theme';
 export default function SessionCompleteScreen() {
   const router = useRouter();
   const params = useLocalSearchParams<{ score?: string; celebrated?: string; total?: string }>();
-  const { speak } = useVoice();
+  const { speakWarmly } = useVoice();
 
   const celebrated = parseInt(params.celebrated || '0', 10);
   const total = parseInt(params.total || '6', 10);
@@ -23,9 +23,9 @@ export default function SessionCompleteScreen() {
 
   // Choose message based on performance - always positive
   const getMessage = () => {
-    if (score >= 0.8) return "What a wonderful session! You did a fantastic job today!";
-    if (score >= 0.5) return "Great work today! You showed real effort and that matters!";
-    return "Thank you for spending time exercising your mind today. You're doing great!";
+    if (score >= 0.8) return "What a wonderful session, dear. You should be so proud of yourself. You really did beautifully today.";
+    if (score >= 0.5) return "That was really lovely, dear. You put in such good effort today, and it shows. Well done.";
+    return "Thank you for spending this time with me, dear. Every moment you practice makes a difference. You did beautifully.";
   };
 
   const getEmoji = () => {
@@ -37,7 +37,7 @@ export default function SessionCompleteScreen() {
   const message = getMessage();
 
   useEffect(() => {
-    speak(message);
+    speakWarmly(message);
   }, []);
 
   return (

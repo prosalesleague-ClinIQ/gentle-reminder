@@ -12,7 +12,7 @@ const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'Ju
 
 export default function MorningOrientationScreen() {
   const router = useRouter();
-  const { speak } = useVoice();
+  const { speakWarmly } = useVoice();
   const now = new Date();
   const dayName = DAY_NAMES[now.getDay()];
   const monthName = MONTH_NAMES[now.getMonth()];
@@ -24,9 +24,9 @@ export default function MorningOrientationScreen() {
   const timeOfDay = hour < 12 ? 'morning' : hour < 17 ? 'afternoon' : 'evening';
 
   useEffect(() => {
-    speak(
-      `${greeting}! Today is ${dayName}, ${monthName} ${date}, ${year}. ` +
-      `You are safe at home. It's a beautiful ${timeOfDay}.`
+    speakWarmly(
+      `${greeting}, dear. Today is ${dayName}, ${monthName} ${date}. ` +
+      `You are safe at home. Everything is just fine.`
     );
   }, []);
 

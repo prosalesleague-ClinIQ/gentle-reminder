@@ -31,7 +31,7 @@ const RESPONSES: Record<string, { message: string; voice: string }> = {
 
 export default function MoodScreen() {
   const router = useRouter();
-  const { speak } = useVoice();
+  const { speakWarmly } = useVoice();
   const [selected, setSelected] = useState<MoodChoice>(null);
   const lastPressRef = useRef(0);
 
@@ -52,7 +52,7 @@ export default function MoodScreen() {
       setSelected(mood);
       const response = RESPONSES[mood];
       if (response) {
-        speak(response.voice);
+        speakWarmly(response.voice);
       }
     },
     [speak]

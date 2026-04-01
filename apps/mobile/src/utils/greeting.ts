@@ -1,13 +1,11 @@
 /**
- * Time-of-day greeting generator.
- * Produces warm, friendly greetings personalized for the patient.
+ * Warm, personal greeting generator.
+ * These greetings are spoken aloud, so they should sound like
+ * a caring family member welcoming the patient.
  */
 
 type TimeOfDay = 'morning' | 'afternoon' | 'evening';
 
-/**
- * Determine the time of day based on the current hour.
- */
 function getTimeOfDay(hour?: number): TimeOfDay {
   const h = hour ?? new Date().getHours();
   if (h < 12) return 'morning';
@@ -16,46 +14,54 @@ function getTimeOfDay(hour?: number): TimeOfDay {
 }
 
 /**
- * Get a greeting prefix based on time of day.
- */
-function getGreetingPrefix(timeOfDay: TimeOfDay): string {
-  switch (timeOfDay) {
-    case 'morning':
-      return 'Good morning';
-    case 'afternoon':
-      return 'Good afternoon';
-    case 'evening':
-      return 'Good evening';
-  }
-}
-
-/**
- * Generate a personalized greeting.
- *
- * @example
- * getGreeting('Maggie') // "Good morning, Maggie!"
- * getGreeting('Maggie', 14) // "Good afternoon, Maggie!"
+ * Generate a warm, spoken greeting.
+ * These rotate so the patient doesn't hear the same thing every time.
  */
 export function getGreeting(preferredName: string, hour?: number): string {
   const timeOfDay = getTimeOfDay(hour);
-  const prefix = getGreetingPrefix(timeOfDay);
-  return `${prefix}, ${preferredName}!`;
+  const name = preferredName || 'dear';
+
+  const morningGreetings = [
+    `Good morning, ${name}. It's so lovely to see you today.`,
+    `Hello, ${name}. What a beautiful morning. I hope you slept well.`,
+    `Good morning, ${name}. The sun is up and it's going to be a wonderful day.`,
+  ];
+
+  const afternoonGreetings = [
+    `Good afternoon, ${name}. I hope you're having a nice day so far.`,
+    `Hello, ${name}. It's a lovely afternoon. How are you feeling?`,
+    `Good afternoon, ${name}. It's so good to see you.`,
+  ];
+
+  const eveningGreetings = [
+    `Good evening, ${name}. I hope you've had a wonderful day.`,
+    `Hello, ${name}. It's a peaceful evening. Let's take it easy.`,
+    `Good evening, ${name}. You've done so well today. Time to relax.`,
+  ];
+
+  const greetings = timeOfDay === 'morning'
+    ? morningGreetings
+    : timeOfDay === 'afternoon'
+    ? afternoonGreetings
+    : eveningGreetings;
+
+  // Pick based on day of month so it changes daily but stays consistent within a day
+  const dayIndex = new Date().getDate() % greetings.length;
+  return greetings[dayIndex];
 }
 
 /**
- * Get a short greeting without the name (for compact displays).
+ * Short greeting for display (not spoken).
  */
 export function getShortGreeting(hour?: number): string {
   const timeOfDay = getTimeOfDay(hour);
-  return getGreetingPrefix(timeOfDay);
+  switch (timeOfDay) {
+    case 'morning': return 'Good morning';
+    case 'afternoon': return 'Good afternoon';
+    case 'evening': return 'Good evening';
+  }
 }
 
-/**
- * Format today's date in a friendly, readable format.
- *
- * @example
- * getFriendlyDate() // "Sunday, March 30, 2026"
- */
 export function getFriendlyDate(date?: Date): string {
   const d = date ?? new Date();
   return d.toLocaleDateString('en-US', {
@@ -66,12 +72,6 @@ export function getFriendlyDate(date?: Date): string {
   });
 }
 
-/**
- * Get today's day of the week.
- *
- * @example
- * getDayOfWeek() // "Sunday"
- */
 export function getDayOfWeek(date?: Date): string {
   const d = date ?? new Date();
   return d.toLocaleDateString('en-US', { weekday: 'long' });

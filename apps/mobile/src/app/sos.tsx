@@ -15,7 +15,7 @@ type SOSState = 'idle' | 'confirming' | 'sent';
 
 export default function SOSScreen() {
   const router = useRouter();
-  const { speak } = useVoice();
+  const { speakWarmly } = useVoice();
   const [state, setState] = useState<SOSState>('idle');
   const lastPressRef = useRef(0);
 
@@ -34,9 +34,9 @@ export default function SOSScreen() {
 
     setTimeout(() => {
       setState('sent');
-      speak("Don't worry, help is coming. Sarah has been notified.");
+      speakWarmly("Everything is okay, dear. Don't worry. Sarah has been notified and help is on the way. You are safe.");
     }, 1500);
-  }, [speak]);
+  }, [speakWarmly]);
 
   const handleDismiss = useCallback(() => {
     if (Platform.OS !== 'web') {
