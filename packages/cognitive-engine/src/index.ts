@@ -45,6 +45,11 @@ export {
   evaluateLanguageAnswer,
 } from './exercises/language';
 
+export {
+  generateWordFindingPrompt,
+  evaluateWordFindingAnswer,
+} from './exercises/word-finding';
+
 export type {
   MemoryCard,
   ReviewResult,

@@ -31,6 +31,7 @@ export default function RootLayout() {
         <Stack.Screen name="mood" options={{ animation: 'fade', gestureEnabled: true }} />
         <Stack.Screen name="profile" options={{ animation: 'slide_from_right' }} />
         <Stack.Screen name="export" options={{ animation: 'slide_from_right' }} />
+        <Stack.Screen name="breathing" options={{ animation: 'fade' }} />
         <Stack.Screen name="music" options={{ animation: 'slide_from_right' }} />
         <Stack.Screen name="journal" options={{ animation: 'slide_from_right' }} />
         <Stack.Screen name="calendar" options={{ animation: 'slide_from_right' }} />

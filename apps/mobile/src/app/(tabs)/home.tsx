@@ -110,11 +110,11 @@ export default function HomeScreen() {
           />
 
           <BigButton
-            title="Music & Calm"
-            onPress={() => router.push('/music')}
+            title="Relax & Breathe"
+            onPress={() => router.push('/breathing')}
             variant="primary"
             style={{ backgroundColor: '#00897B' }}
-            accessibilityHint="Listen to calming music and memory songs"
+            accessibilityHint="Try a calming guided breathing exercise"
           />
         </View>
 
