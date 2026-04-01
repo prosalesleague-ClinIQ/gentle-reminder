@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity, Switch, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 import { SafeText } from '../../components/SafeText';
 import { BigButton } from '../../components/BigButton';
 import { useSettingsStore } from '../../stores/settingsStore';
@@ -13,6 +14,7 @@ import { MIN_BUTTON_HEIGHT } from '../../constants/accessibility';
  * All controls are large and clearly labeled for dementia patients.
  */
 export default function SettingsScreen() {
+  const router = useRouter();
   const {
     fontScale,
     voiceEnabled,
@@ -52,6 +54,28 @@ export default function SettingsScreen() {
         <SafeText variant="display" bold center color={colors.primary[500]} style={styles.heading}>
           Settings
         </SafeText>
+
+        {/* Edit Profile */}
+        <View style={styles.navButtonContainer}>
+          <BigButton
+            title="Edit Profile"
+            onPress={() => router.push('/profile')}
+            variant="primary"
+            accessibilityLabel="Edit Profile"
+            accessibilityHint="Opens your profile editing screen"
+          />
+        </View>
+
+        {/* Export My Data */}
+        <View style={styles.navButtonContainer}>
+          <BigButton
+            title="Export My Data"
+            onPress={() => router.push('/export')}
+            variant="accent"
+            accessibilityLabel="Export My Data"
+            accessibilityHint="Opens the data export and sharing screen"
+          />
+        </View>
 
         {/* Font Size Control */}
         <View style={styles.section}>
@@ -213,6 +237,9 @@ const styles = StyleSheet.create({
   switch: {
     transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }],
     marginLeft: spacing.lg,
+  },
+  navButtonContainer: {
+    marginBottom: spacing.lg,
   },
   resetContainer: {
     marginTop: spacing.xl,

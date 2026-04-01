@@ -10,6 +10,7 @@ const navItems = [
   { href: '/sleep', label: 'Sleep', icon: '\u263D' },
   { href: '/risk', label: 'Risk', icon: '\u26A1' },
   { href: '/handoff', label: 'Handoff', icon: '\u2398' },
+  { href: '/tasks', label: 'Tasks', icon: '\u2713' },
   { href: '/messages', label: 'Messages', icon: '\u2709' },
   { href: '#', label: 'Settings', icon: '\u2699' },
 ];

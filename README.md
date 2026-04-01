@@ -1,50 +1,133 @@
 # Gentle Reminder
 
-A clinical-grade dementia and Alzheimer's cognitive support platform designed for iPad.
+A clinical-grade dementia and Alzheimer's cognitive support platform. Built as a full-stack monorepo with a patient-facing iPad app, real-time caregiver dashboards, and clinical analytics -- all designed around evidence-based therapeutic methods and WCAG AAA accessibility standards.
 
-## What It Does
+## Live Links
 
-Gentle Reminder helps dementia patients maintain cognitive function through daily exercises, family connection, and memory preservation. It supports patients, families, caregivers, and clinicians with evidence-based therapeutic approaches.
-
-### Core Features
-
-- **Cognitive Sessions** - Guided orientation, identity recognition, and memory exercises
-- **Family Connections** - Photo grid with voice/video messages from loved ones
-- **Story Vault** - Voice recording and transcription of life memories
-- **Gentle Scoring** - Never shows "wrong"; only celebrated, guided, or supported feedback
-- **Caregiver Analytics** - Cognitive trends, engagement metrics, decline alerts
-
-### Clinical Methods
-
-- Reminiscence therapy (photo/music triggered recall)
-- Validation therapy (emotionally supportive, never contradicts)
-- Reality orientation (daily reinforcement of identity, date, location)
-- Spaced repetition memory training
-- Neuroplasticity training
+| Resource | URL |
+|----------|-----|
+| GitHub Repository | [github.com/ChristoMac/gentle-reminder](https://github.com/ChristoMac/gentle-reminder) |
+| Caregiver Dashboard | [gentle-reminder-dashboard.vercel.app](https://gentle-reminder-dashboard.vercel.app) |
+| Clinician Dashboard | [gentle-reminder-clinical.vercel.app](https://gentle-reminder-clinical.vercel.app) |
 
 ## Architecture
 
-Turborepo monorepo with npm workspaces:
-
 ```
 gentle-reminder/
-  apps/
-    mobile/              Expo React Native (iPad)
-    caregiver-dashboard/ Next.js (Phase 2)
-    clinician-dashboard/ Next.js (Phase 3)
-  packages/
-    shared-types/        TypeScript interfaces
-    ui-components/       Accessible primitives + theme
-    auth/                JWT + RBAC
-    database/            Prisma schema (PostgreSQL)
-    cognitive-engine/    Exercise logic + scoring
-  services/
-    api/                 Express backend
-    ai/                  Python FastAPI (Phase 2)
-  infrastructure/
-    docker/              Local development
-    terraform/           AWS (Phase 2)
+|
+|-- apps/
+|   |-- mobile/                  Expo React Native (iPad) - Patient-facing app
+|   |-- caregiver-dashboard/     Next.js - Real-time caregiver portal
+|   |-- clinician-dashboard/     Next.js - Clinical analytics and reporting
+|
+|-- packages/
+|   |-- shared-types/            TypeScript interfaces shared across all apps
+|   |-- ui-components/           Accessible UI primitives + theme system
+|   |-- auth/                    JWT authentication + RBAC (6 roles)
+|   |-- database/                Prisma ORM schema (PostgreSQL)
+|   |-- cognitive-engine/        Exercise logic, scoring, session management
+|   |-- report-generator/        PDF clinical report generation
+|
+|-- services/
+|   |-- api/                     Express REST API + WebSocket server
+|   |-- ai/                      Python FastAPI (Whisper, NLP, sentiment)
+|
+|-- infrastructure/
+|   |-- docker/                  Local development (PostgreSQL, Redis)
+|   |-- terraform/               AWS deployment configuration
 ```
+
+## Features
+
+### Mobile App (Expo / React Native)
+
+- **Cognitive Sessions** -- Orientation, identity recognition, memory exercises with adaptive difficulty
+- **Morning Routine** -- Daily guided check-in with date, weather, and mood tracking
+- **Story Vault** -- Voice recording and transcription of life memories
+- **Family Photos** -- Photo grid with voice and video messages from loved ones
+- **Medications** -- Medication reminders with confirmation tracking
+- **Tutorial Walkthrough** -- 4-step onboarding for new patients
+- **Gentle Scoring** -- No negative feedback; only celebrated, guided, or supported states
+- **SOS / Mood Check** -- Instant safety alerts and emotional state capture
+- **Voice Companion** -- Conversational AI for comfort and engagement
+- **Passive Cognitive Tests** -- Pattern recognition, clock drawing, reaction time
+
+### Caregiver Dashboard (Next.js)
+
+- **Patient Overview** -- Real-time cognitive scores, engagement metrics, and trends
+- **Care Tasks** -- Urgent/daily/upcoming task management with priority and status tracking
+- **Shift Handoff** -- Structured handoff notes between caregiver shifts
+- **Family Portal** -- Family engagement tracking and communication hub
+- **Alerts** -- Decline detection, missed medication, fall risk notifications
+- **Analytics** -- Cognitive trend charts, session completion rates, engagement heatmaps
+- **Engagement Tracking** -- Per-patient engagement scores and activity logs
+- **Sleep Monitoring** -- Sleep pattern visualization and anomaly detection
+- **Risk Assessment** -- Fall risk, wandering risk, and behavioral risk scoring
+- **Messaging** -- Caregiver-to-family and caregiver-to-clinician messaging
+
+### Clinician Dashboard (Next.js)
+
+- **Clinical Overview** -- Facility-wide patient status and cognitive metrics
+- **Patient Detail** -- Deep-dive into individual patient cognitive trajectories
+- **Clinical Reports** -- PDF export of cognitive assessments for medical records
+- **Biomarker Tracking** -- Longitudinal biomarker visualization
+- **Treatment Plans** -- Evidence-based care plan management
+- **Data Pipeline** -- Automated data collection, validation, and clinical export
+
+### Backend (Express + PostgreSQL)
+
+- **REST API** -- Full CRUD for patients, sessions, scores, medications, families
+- **WebSocket Server** -- Real-time updates for dashboards and alerts
+- **Authentication** -- JWT with role-based access control (Patient, Caregiver, Family, Clinician, Admin, System)
+- **Medication Service** -- Scheduling, reminders, and adherence tracking
+- **Session Management** -- Cognitive session orchestration and scoring pipeline
+
+### Packages
+
+- **cognitive-engine** -- Exercise generation, adaptive difficulty, scoring algorithms, spaced repetition
+- **shared-types** -- TypeScript interfaces for patients, sessions, scores, medications, alerts
+- **ui-components** -- Accessible primitives enforcing minimum font sizes, button heights, contrast ratios
+- **auth** -- JWT token management, RBAC middleware, session validation
+- **database** -- Prisma schema with 20+ models, migrations, seed data
+- **report-generator** -- PDF clinical report templates and generation
+
+## Clinical Methods
+
+| Method | Implementation |
+|--------|---------------|
+| Reminiscence Therapy | Photo and music triggered recall sessions |
+| Validation Therapy | Emotionally supportive responses, never contradicts the patient |
+| Reality Orientation | Daily reinforcement of identity, date, location |
+| Spaced Repetition | Adaptive memory training with increasing intervals |
+| Neuroplasticity Training | Progressive cognitive exercises targeting multiple domains |
+
+## UX Design Constraints
+
+All enforced at the component level (hard constraints, not guidelines):
+
+| Constraint | Value | Enforcement |
+|-----------|-------|-------------|
+| Minimum font size | 24pt | Text primitive floor |
+| Minimum button height | 80px | Button primitive floor |
+| Maximum choices per screen | 3 | Component validation |
+| Contrast ratio | 7:1 (WCAG AAA) | Color palette design |
+| Negative feedback | None | Only celebrated / guided / supported states |
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Mobile | Expo, React Native, TypeScript |
+| Web Dashboards | Next.js 14, React, TypeScript |
+| Backend | Node.js, Express, TypeScript |
+| Database | PostgreSQL, Prisma ORM |
+| Real-time | WebSocket (ws) |
+| State Management | Zustand |
+| Authentication | JWT, RBAC (6 roles) |
+| AI Services | Python, FastAPI, Whisper |
+| PDF Reports | report-generator package |
+| Monorepo | Turborepo, npm workspaces |
+| Deployment | Vercel (dashboards), Docker (services) |
 
 ## Quick Start
 
@@ -75,28 +158,22 @@ npm run dev --workspace=services/api
 
 # Start mobile app (in another terminal)
 npm run dev --workspace=apps/mobile
+
+# Start caregiver dashboard (in another terminal)
+npm run dev --workspace=apps/caregiver-dashboard
+
+# Start clinician dashboard (in another terminal)
+npm run dev --workspace=apps/clinician-dashboard
 ```
 
-### Demo Accounts
+## Demo Accounts
 
-| Role       | Email                    | Password    |
-|------------|--------------------------|-------------|
-| Patient    | margaret@example.com     | demo123456  |
-| Caregiver  | nurse.sarah@example.com  | demo123456  |
-| Family     | lisa.thompson@example.com| demo123456  |
-| Clinician  | dr.chen@example.com      | demo123456  |
-
-## UX Design Principles
-
-All enforced at the component level (not guidelines - hard constraints):
-
-| Constraint | Value | Enforcement |
-|-----------|-------|-------------|
-| Minimum font size | 24pt | `Text` primitive floor |
-| Minimum button height | 80px | `Button` primitive floor |
-| Maximum choices per screen | 3 | Component validation |
-| Contrast ratio | 7:1 (WCAG AAA) | Color palette design |
-| Negative feedback | None | Only celebrated/guided/supported states |
+| Role | Email | Password |
+|------|-------|----------|
+| Patient | margaret@example.com | demo123456 |
+| Caregiver | nurse.sarah@example.com | demo123456 |
+| Family | lisa.thompson@example.com | demo123456 |
+| Clinician | dr.chen@example.com | demo123456 |
 
 ## Testing
 
@@ -106,26 +183,34 @@ npm test
 
 # Run specific package tests
 npm test --workspace=packages/cognitive-engine
+npm test --workspace=packages/auth
+npm test --workspace=services/api
 ```
 
-## Tech Stack
+## Project Stats
 
-| Layer | Technology |
-|-------|-----------|
-| Mobile | Expo, React Native, TypeScript |
-| Web Dashboards | Next.js, React |
-| Backend | Node.js, Express, TypeScript |
-| Database | PostgreSQL, Prisma ORM |
-| State | Zustand |
-| Auth | JWT, RBAC (6 roles) |
-| AI (Phase 2) | Python, FastAPI, Whisper |
-| Graph (Phase 2) | Neo4j |
-| Cloud (Phase 2) | AWS |
+| Metric | Value |
+|--------|-------|
+| Total Files | 770+ |
+| Lines of Code | 30,000+ |
+| Test Suites | 185+ tests |
+| Commits | 15 |
+| Packages | 6 |
+| Apps | 3 |
+| API Routes | 25+ |
+| Database Models | 20+ |
 
 ## Roadmap
 
-- **Phase 1** (Current) - Mobile app MVP, backend API, database
-- **Phase 2** - Caregiver dashboard, AI services, speech transcription
-- **Phase 3** - Clinician dashboard, clinical reports, FDA SaMD preparation
-- **Phase 4** - Memory graph (Neo4j), digital cognitive twin
-- **Phase 5** - Clinical trial integration, hospital deployment
+- **Apple Watch Integration** -- Passive health data collection (heart rate, sleep, movement)
+- **Real Whisper Integration** -- On-device speech-to-text for Story Vault and voice commands
+- **FHIR Compliance** -- HL7 FHIR R4 resource mapping for EHR interoperability
+- **FDA SaMD Pathway** -- Software as a Medical Device regulatory preparation
+- **Memory Graph (Neo4j)** -- Digital cognitive twin mapping patient memories and associations
+- **Clinical Trial Integration** -- Standardized data export for research protocols
+- **Hospital Deployment** -- Multi-tenant architecture for institutional use
+- **Multilingual Support** -- Spanish, Mandarin, and additional language packs
+
+## License
+
+Proprietary. All rights reserved.
