@@ -152,7 +152,7 @@ export default function NotesPage() {
         </label>
         <select
           value={selectedPatient}
-          onChange={(e) => setSelectedPatient(e.target.value)}
+          onChange={(e: any) => setSelectedPatient(e.target.value)}
           style={{
             padding: '8px 12px',
             borderRadius: 6,
@@ -201,7 +201,7 @@ export default function NotesPage() {
               </label>
               <select
                 value={newNotePatient}
-                onChange={(e) => setNewNotePatient(e.target.value)}
+                onChange={(e: any) => setNewNotePatient(e.target.value)}
                 style={{
                   width: '100%',
                   padding: '8px 12px',
@@ -234,7 +234,7 @@ export default function NotesPage() {
               </label>
               <select
                 value={newNoteType}
-                onChange={(e) => setNewNoteType(e.target.value as NoteType)}
+                onChange={(e: any) => setNewNoteType(e.target.value as NoteType)}
                 style={{
                   width: '100%',
                   padding: '8px 12px',
@@ -268,7 +268,7 @@ export default function NotesPage() {
             </label>
             <textarea
               value={newNoteContent}
-              onChange={(e) => setNewNoteContent(e.target.value)}
+              onChange={(e: any) => setNewNoteContent(e.target.value)}
               placeholder="Enter note content..."
               rows={4}
               style={{
