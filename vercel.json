@@ -1,6 +1,6 @@
 {
-  "buildCommand": "npx turbo build --filter=@gentle-reminder/clinician-dashboard",
-  "outputDirectory": "apps/clinician-dashboard/.next",
+  "buildCommand": "npx turbo build --filter=@gentle-reminder/caregiver-dashboard",
+  "outputDirectory": "apps/caregiver-dashboard/.next",
   "framework": "nextjs",
   "installCommand": "npm install"
 }
