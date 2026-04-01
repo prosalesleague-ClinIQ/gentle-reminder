@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { GreetingHeader } from '../../components/GreetingHeader';
@@ -103,6 +103,19 @@ export default function HomeScreen() {
             </SafeText>
           </View>
         )}
+
+        <TouchableOpacity
+          style={styles.needHelpLink}
+          onPress={() => router.push('/sos')}
+          activeOpacity={0.7}
+          accessibilityRole="button"
+          accessibilityLabel="Need help? Tap to go to emergency screen"
+          accessibilityHint="Opens the emergency help screen"
+        >
+          <SafeText variant="body" center color={colors.text.muted}>
+            Need Help?
+          </SafeText>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -135,5 +148,12 @@ const styles = StyleSheet.create({
     padding: spacing.xl,
     alignItems: 'center',
     gap: spacing.sm,
+  },
+  needHelpLink: {
+    marginTop: spacing.xxxl,
+    padding: spacing.lg,
+    alignItems: 'center',
+    borderTopWidth: 1,
+    borderTopColor: colors.border.light,
   },
 });

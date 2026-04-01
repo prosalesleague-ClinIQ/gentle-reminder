@@ -60,6 +60,16 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
+        name="sleep"
+        options={{
+          title: 'Sleep',
+          tabBarIcon: ({ focused }) => (
+            <Text style={[styles.icon, focused && styles.iconActive]}>{'\u{1F4A4}'}</Text>
+          ),
+          tabBarAccessibilityLabel: 'Sleep tracking tab',
+        }}
+      />
+      <Tabs.Screen
         name="history"
         options={{
           title: 'History',
