@@ -12,6 +12,8 @@ import voiceRoutes from './voice.routes.js';
 import wearablesRoutes from './wearables.routes.js';
 import medicationsRoutes from './medications.routes.js';
 import messagesRoutes from './messages.routes.js';
+import reportsRoutes from './reports.routes.js';
+import biomarkersRoutes from './biomarkers.routes.js';
 
 const router = Router();
 
@@ -28,5 +30,7 @@ router.use('/voices', voiceRoutes);
 router.use('/wearables', wearablesRoutes);
 router.use('/medications', medicationsRoutes);
 router.use('/messages', messagesRoutes);
+router.use('/reports', reportsRoutes);
+router.use('/biomarkers', biomarkersRoutes);
 
 export default router;

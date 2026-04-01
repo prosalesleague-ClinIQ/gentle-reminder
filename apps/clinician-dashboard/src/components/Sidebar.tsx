@@ -6,6 +6,9 @@ import { usePathname } from 'next/navigation';
 const navItems = [
   { href: '/', label: 'Overview', icon: 'grid' },
   { href: '/patients', label: 'Patients', icon: 'users' },
+  { href: '/biomarkers', label: 'Biomarkers', icon: 'chart' },
+  { href: '/timeline', label: 'Timeline', icon: 'file' },
+  { href: '/medications', label: 'Medications', icon: 'grid' },
   { href: '/reports', label: 'Reports', icon: 'file' },
   { href: '/research', label: 'Research', icon: 'chart' },
   { href: '/settings', label: 'Settings', icon: 'gear' },

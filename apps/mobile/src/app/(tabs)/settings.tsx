@@ -173,6 +173,17 @@ export default function SettingsScreen() {
             accessibilityHint="Restores font size, voice guidance, and contrast to original values"
           />
         </View>
+
+        {/* About Button */}
+        <View style={styles.aboutContainer}>
+          <BigButton
+            title="About"
+            onPress={() => router.push('/about')}
+            variant="secondary"
+            accessibilityLabel="About Gentle Reminder"
+            accessibilityHint="Opens the about screen with app information"
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -243,5 +254,8 @@ const styles = StyleSheet.create({
   },
   resetContainer: {
     marginTop: spacing.xl,
+  },
+  aboutContainer: {
+    marginTop: spacing.lg,
   },
 });

@@ -82,6 +82,7 @@ model Patient {
   conversationLogs    ConversationLog[]
   medications         Medication[]
   medicationLogs      MedicationLog[]
+  incidents           Incident[]
 
   @@map("patients")
 }
@@ -590,6 +591,29 @@ model ConversationLog {
 
   @@index([patientId, createdAt])
   @@map("conversation_logs")
+}
+
+// ─── INCIDENTS ──────────────────────────────────────────────
+
+model Incident {
+  id          String   @id @default(uuid())
+  patientId   String   @map("patient_id")
+  reportedBy  String   @map("reported_by")
+  type        String
+  severity    String
+  description String
+  witnesses   String?
+  actionsTaken String? @map("actions_taken")
+  status      String   @default("open")
+  occurredAt  DateTime @map("occurred_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([patientId, occurredAt])
+  @@index([type, severity])
+  @@map("incidents")
 }
 
 // ─── MEDICATIONS ─────────────────────────────────────────────
