@@ -4,6 +4,7 @@ const navItems = [
   { href: '/briefing', label: 'Briefing', icon: '\u2600' },
   { href: '/', label: 'Overview', icon: '\u25A3' },
   { href: '/patients', label: 'Patients', icon: '\u2639' },
+  { href: '/compare', label: 'Compare', icon: '\u2696' },
   { href: '/family', label: 'Family', icon: '\u2302' },
   { href: '/care-plans', label: 'Care Plans', icon: '\u{1F4CB}' },
   { href: '/alerts', label: 'Alerts', icon: '\u26A0' },
@@ -17,6 +18,7 @@ const navItems = [
   { href: '/messages', label: 'Messages', icon: '\u2709' },
   { href: '/notifications', label: 'Notifications', icon: '\uD83D\uDD14' },
   { href: '#', label: 'Settings', icon: '\u2699' },
+  { href: '/resources', label: 'Resources', icon: '\uD83D\uDCD6' },
   { href: '/system', label: 'System', icon: '\u2316' },
 ];
 

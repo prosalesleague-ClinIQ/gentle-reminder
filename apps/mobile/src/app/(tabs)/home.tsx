@@ -102,6 +102,14 @@ export default function HomeScreen() {
           />
 
           <BigButton
+            title="Memory Review"
+            onPress={() => router.push('/review')}
+            variant="primary"
+            style={{ backgroundColor: '#4A148C' }}
+            accessibilityHint="Practice remembering important people and places"
+          />
+
+          <BigButton
             title="Music & Calm"
             onPress={() => router.push('/music')}
             variant="primary"

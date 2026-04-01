@@ -39,6 +39,12 @@ export {
   generateFamilyCards,
 } from './exercises/spaced-repetition';
 
+export {
+  generateSentenceCompletionPrompt,
+  generateWordAssociationPrompt,
+  evaluateLanguageAnswer,
+} from './exercises/language';
+
 export type {
   MemoryCard,
   ReviewResult,
