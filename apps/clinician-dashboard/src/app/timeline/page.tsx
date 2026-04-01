@@ -101,7 +101,7 @@ export default function TimelinePage() {
         </label>
         <select
           value={selectedPatient}
-          onChange={(e) => setSelectedPatient(e.target.value)}
+          onChange={(e: any) => setSelectedPatient(e.target.value)}
           style={{
             padding: '10px 14px',
             borderRadius: 8,
