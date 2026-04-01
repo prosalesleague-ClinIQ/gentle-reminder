@@ -34,3 +34,11 @@ export { processBiometricSignals } from './signals/BiometricSignalProcessor';
 
 // Response adaptation
 export { ResponsePolicyManager } from './adaptation/ResponsePolicyManager';
+
+// Sundowning detection
+export {
+  detectSundowningRisk,
+  getEveningRoutineSteps,
+  type SundowningSignals,
+  type SundowningRisk,
+} from './SundowningDetector';

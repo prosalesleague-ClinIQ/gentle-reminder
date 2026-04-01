@@ -70,13 +70,19 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
+        name="activity"
+        options={{
+          title: 'Activity',
+          tabBarIcon: ({ focused }) => (
+            <Text style={[styles.icon, focused && styles.iconActive]}>{'📋'}</Text>
+          ),
+          tabBarAccessibilityLabel: 'Activity timeline tab',
+        }}
+      />
+      <Tabs.Screen
         name="history"
         options={{
-          title: 'History',
-          tabBarIcon: ({ focused }) => (
-            <Text style={[styles.icon, focused && styles.iconActive]}>{'📊'}</Text>
-          ),
-          tabBarAccessibilityLabel: 'Session history tab',
+          href: null,
         }}
       />
       <Tabs.Screen

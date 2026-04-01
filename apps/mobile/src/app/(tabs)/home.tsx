@@ -10,7 +10,7 @@ import { usePatient } from '../../hooks/usePatient';
 import { useVoice } from '../../hooks/useVoice';
 import { useAuth } from '../../hooks/useAuth';
 import { getGreeting } from '../../utils/greeting';
-import { colors, spacing, layout } from '../../constants/theme';
+import { colors, spacing, layout, shadows } from '../../constants/theme';
 
 /**
  * Home Dashboard screen.
@@ -48,6 +48,15 @@ export default function HomeScreen() {
         />
 
         <VoicePrompt isSpeaking={isSpeaking} label="Speaking..." />
+
+        {/* Cognitive Health Score */}
+        <View style={styles.healthScoreCard}>
+          <View style={[styles.scoreCircle, { borderColor: colors.feedback.celebrated }]}>
+            <SafeText variant="display" bold color={colors.feedback.celebrated}>78</SafeText>
+          </View>
+          <SafeText variant="h3" bold center>Cognitive Health Score</SafeText>
+          <SafeText variant="body" center color={colors.text.secondary}>Stable - last 7 days</SafeText>
+        </View>
 
         <View style={styles.lastSessionCard}>
           <SafeText variant="body" bold color={colors.text.primary}>
@@ -148,6 +157,24 @@ const styles = StyleSheet.create({
     padding: spacing.xl,
     alignItems: 'center',
     gap: spacing.sm,
+  },
+  healthScoreCard: {
+    backgroundColor: colors.background.card,
+    borderRadius: layout.borderRadius,
+    padding: spacing.xxl,
+    alignItems: 'center',
+    gap: spacing.md,
+    marginBottom: spacing.lg,
+    ...shadows.card,
+  },
+  scoreCircle: {
+    width: 140,
+    height: 140,
+    borderRadius: 70,
+    borderWidth: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: spacing.sm,
   },
   needHelpLink: {
     marginTop: spacing.xxxl,
