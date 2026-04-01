@@ -137,7 +137,7 @@ export default function IncidentsPage() {
             </label>
             <select
               value={formPatient}
-              onChange={(e) => setFormPatient(e.target.value)}
+              onChange={(e: any) => setFormPatient(e.target.value)}
               style={{
                 width: '100%',
                 padding: '10px 12px',
@@ -159,7 +159,7 @@ export default function IncidentsPage() {
             </label>
             <select
               value={formType}
-              onChange={(e) => setFormType(e.target.value)}
+              onChange={(e: any) => setFormType(e.target.value)}
               style={{
                 width: '100%',
                 padding: '10px 12px',
@@ -181,7 +181,7 @@ export default function IncidentsPage() {
             </label>
             <select
               value={formSeverity}
-              onChange={(e) => setFormSeverity(e.target.value)}
+              onChange={(e: any) => setFormSeverity(e.target.value)}
               style={{
                 width: '100%',
                 padding: '10px 12px',
@@ -205,7 +205,7 @@ export default function IncidentsPage() {
           </label>
           <textarea
             value={formDescription}
-            onChange={(e) => setFormDescription(e.target.value)}
+            onChange={(e: any) => setFormDescription(e.target.value)}
             placeholder="Describe the incident in detail..."
             rows={3}
             style={{
