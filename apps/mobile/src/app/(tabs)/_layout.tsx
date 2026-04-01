@@ -50,13 +50,13 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="voices"
+        name="medications"
         options={{
-          title: 'Voices',
+          title: 'Meds',
           tabBarIcon: ({ focused }) => (
-            <Text style={[styles.icon, focused && styles.iconActive]}>{'🗣️'}</Text>
+            <Text style={[styles.icon, focused && styles.iconActive]}>{'💊'}</Text>
           ),
-          tabBarAccessibilityLabel: 'Family voices tab',
+          tabBarAccessibilityLabel: 'Medications tab',
         }}
       />
       <Tabs.Screen

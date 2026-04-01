@@ -10,6 +10,7 @@ import memoriesRoutes from './memories.routes.js';
 import analyticsRoutes from './analytics.routes.js';
 import voiceRoutes from './voice.routes.js';
 import wearablesRoutes from './wearables.routes.js';
+import medicationsRoutes from './medications.routes.js';
 
 const router = Router();
 
@@ -24,5 +25,6 @@ router.use('/memories', memoriesRoutes);
 router.use('/analytics', analyticsRoutes);
 router.use('/voices', voiceRoutes);
 router.use('/wearables', wearablesRoutes);
+router.use('/medications', medicationsRoutes);
 
 export default router;

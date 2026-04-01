@@ -23,6 +23,8 @@ export default function RootLayout() {
         <Stack.Screen name="login" />
         <Stack.Screen name="onboarding" options={{ animation: 'slide_from_right' }} />
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="photos" options={{ animation: 'slide_from_right' }} />
+        <Stack.Screen name="tests" options={{ animation: 'slide_from_right' }} />
         <Stack.Screen
           name="session"
           options={{

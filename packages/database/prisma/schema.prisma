@@ -80,6 +80,8 @@ model Patient {
   voiceProfiles       VoiceProfile[]
   cognitiveStateLogs  CognitiveStateLog[]
   conversationLogs    ConversationLog[]
+  medications         Medication[]
+  medicationLogs      MedicationLog[]
 
   @@map("patients")
 }
@@ -588,6 +590,49 @@ model ConversationLog {
 
   @@index([patientId, createdAt])
   @@map("conversation_logs")
+}
+
+// ─── MEDICATIONS ─────────────────────────────────────────────
+
+model Medication {
+  id              String    @id @default(uuid())
+  patientId       String    @map("patient_id")
+  name            String
+  dosage          String
+  route           String    @default("oral")
+  frequency       String
+  scheduledTimes  String[]  @map("scheduled_times")
+  instructions    String?
+  prescribedBy    String?   @map("prescribed_by")
+  startDate       DateTime  @map("start_date")
+  endDate         DateTime? @map("end_date")
+  isActive        Boolean   @default(true) @map("is_active")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  logs    MedicationLog[]
+
+  @@index([patientId, isActive])
+  @@map("medications")
+}
+
+model MedicationLog {
+  id             String    @id @default(uuid())
+  medicationId   String    @map("medication_id")
+  patientId      String    @map("patient_id")
+  administeredBy String?   @map("administered_by")
+  status         String
+  scheduledTime  String    @map("scheduled_time")
+  takenAt        DateTime? @map("taken_at")
+  notes          String?
+  createdAt      DateTime  @default(now()) @map("created_at")
+
+  medication Medication @relation(fields: [medicationId], references: [id], onDelete: Cascade)
+  patient    Patient    @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([patientId, createdAt])
+  @@map("medication_logs")
 }
 
 // ─── AUDIT LOG ──────────────────────────────────────────────

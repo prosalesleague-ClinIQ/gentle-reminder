@@ -79,9 +79,9 @@ export default function HomeScreen() {
 
           <BigButton
             title="My Memories"
-            onPress={() => router.push('/(tabs)/stories')}
+            onPress={() => router.push('/photos')}
             variant="accent"
-            accessibilityHint="Listen to and record your stories"
+            accessibilityHint="Browse your photo album and memories"
           />
 
           <BigButton
