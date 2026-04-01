@@ -100,6 +100,14 @@ export default function HomeScreen() {
             style={{ backgroundColor: '#7C4DFF' }}
             accessibilityHint="Play fun brain training games"
           />
+
+          <BigButton
+            title="Music & Calm"
+            onPress={() => router.push('/music')}
+            variant="primary"
+            style={{ backgroundColor: '#00897B' }}
+            accessibilityHint="Listen to calming music and memory songs"
+          />
         </View>
 
         {profile?.recentCognitiveScore && (

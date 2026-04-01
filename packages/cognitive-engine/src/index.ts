@@ -32,6 +32,19 @@ export {
   evaluateClockAnswer,
 } from './exercises/clock';
 
+export {
+  createCard,
+  processReview,
+  getReviewSchedule,
+  generateFamilyCards,
+} from './exercises/spaced-repetition';
+
+export type {
+  MemoryCard,
+  ReviewResult,
+  ReviewSchedule,
+} from './exercises/spaced-repetition';
+
 // Scoring
 export {
   calculateSessionScores,
