@@ -13,6 +13,7 @@ const navItems = [
   { href: '/tasks', label: 'Tasks', icon: '\u2713' },
   { href: '/messages', label: 'Messages', icon: '\u2709' },
   { href: '#', label: 'Settings', icon: '\u2699' },
+  { href: '/system', label: 'System', icon: '\u2316' },
 ];
 
 export default function Sidebar() {
