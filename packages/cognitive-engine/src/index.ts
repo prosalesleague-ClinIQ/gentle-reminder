@@ -56,6 +56,18 @@ export {
 
 export { analyzeDeclineTrend } from './scoring/cognitive-metrics';
 
+export {
+  calculateDifficulty,
+  getDifficultyParams,
+  getDifficultyLevel,
+  DIFFICULTY_LEVELS,
+} from './scoring/adaptive-difficulty';
+
+export type {
+  DifficultyLevel,
+  PerformanceWindow,
+} from './scoring/adaptive-difficulty';
+
 // Types
 export type { GeneratedPrompt, AnswerEvaluation, PatientContext } from './exercises/types';
 export type { ExerciseResultInput, SessionScores, CognitiveMetrics } from './scoring/types';

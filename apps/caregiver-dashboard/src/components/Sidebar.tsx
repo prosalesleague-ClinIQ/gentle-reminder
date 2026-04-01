@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 const navItems = [
+  { href: '/briefing', label: 'Briefing', icon: '\u2600' },
   { href: '/', label: 'Overview', icon: '\u25A3' },
   { href: '/patients', label: 'Patients', icon: '\u2639' },
   { href: '/family', label: 'Family', icon: '\u2302' },
