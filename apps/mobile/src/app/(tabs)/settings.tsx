@@ -77,6 +77,18 @@ export default function SettingsScreen() {
           />
         </View>
 
+        {/* Emergency Contacts */}
+        <View style={styles.navButtonContainer}>
+          <BigButton
+            title="Emergency Contacts"
+            onPress={() => router.push('/contacts')}
+            variant="primary"
+            style={{ backgroundColor: '#D32F2F' }}
+            accessibilityLabel="Emergency Contacts"
+            accessibilityHint="View and manage your emergency contacts"
+          />
+        </View>
+
         {/* Font Size Control */}
         <View style={styles.section}>
           <SafeText variant="bodyLarge" bold>

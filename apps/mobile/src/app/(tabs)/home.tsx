@@ -50,13 +50,21 @@ export default function HomeScreen() {
         <VoicePrompt isSpeaking={isSpeaking} label="Speaking..." />
 
         {/* Cognitive Health Score */}
-        <View style={styles.healthScoreCard}>
+        <TouchableOpacity
+          style={styles.healthScoreCard}
+          onPress={() => router.push('/scores')}
+          activeOpacity={0.7}
+          accessibilityRole="button"
+          accessibilityLabel="Cognitive Health Score: 78. Tap to see your progress"
+          accessibilityHint="Opens your detailed score history"
+        >
           <View style={[styles.scoreCircle, { borderColor: colors.feedback.celebrated }]}>
             <SafeText variant="display" bold color={colors.feedback.celebrated}>78</SafeText>
           </View>
           <SafeText variant="h3" bold center>Cognitive Health Score</SafeText>
           <SafeText variant="body" center color={colors.text.secondary}>Stable - last 7 days</SafeText>
-        </View>
+          <SafeText variant="body" center color={colors.primary[500]}>Tap to see your progress</SafeText>
+        </TouchableOpacity>
 
         <View style={styles.lastSessionCard}>
           <SafeText variant="body" bold color={colors.text.primary}>

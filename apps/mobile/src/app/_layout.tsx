@@ -37,6 +37,8 @@ export default function RootLayout() {
         <Stack.Screen name="calendar" options={{ animation: 'slide_from_right' }} />
         <Stack.Screen name="slideshow" options={{ animation: 'slide_from_right' }} />
         <Stack.Screen name="review" options={{ animation: 'slide_from_right' }} />
+        <Stack.Screen name="scores" options={{ animation: 'slide_from_right' }} />
+        <Stack.Screen name="contacts" options={{ animation: 'slide_from_right' }} />
         <Stack.Screen name="about" options={{ animation: 'slide_from_right' }} />
         <Stack.Screen
           name="session"

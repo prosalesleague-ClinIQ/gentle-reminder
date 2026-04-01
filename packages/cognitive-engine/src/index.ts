@@ -50,6 +50,12 @@ export {
   evaluateWordFindingAnswer,
 } from './exercises/word-finding';
 
+export {
+  generateClockDrawingPrompt,
+  generateShapePrompt,
+  evaluateDrawingAnswer,
+} from './exercises/drawing';
+
 export type {
   MemoryCard,
   ReviewResult,

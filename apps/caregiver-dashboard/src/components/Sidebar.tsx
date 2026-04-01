@@ -5,6 +5,7 @@ const navItems = [
   { href: '/', label: 'Overview', icon: '\u25A3' },
   { href: '/patients', label: 'Patients', icon: '\u2639' },
   { href: '/compare', label: 'Compare', icon: '\u2696' },
+  { href: '/groups', label: 'Groups', icon: '\u25A8' },
   { href: '/family', label: 'Family', icon: '\u2302' },
   { href: '/care-plans', label: 'Care Plans', icon: '\u{1F4CB}' },
   { href: '/alerts', label: 'Alerts', icon: '\u26A0' },
