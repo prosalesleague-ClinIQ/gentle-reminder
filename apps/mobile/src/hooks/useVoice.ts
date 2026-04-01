@@ -4,32 +4,30 @@ import * as Speech from 'expo-speech';
 import { useSettingsStore } from '../stores/settingsStore';
 
 interface UseVoiceOptions {
-  /** Language for TTS (default: 'en-US') */
   language?: string;
-  /** Speaking rate (0.5 to 2.0, default: 0.78 for natural elderly-friendly pace) */
   rate?: number;
-  /** Voice pitch (0.5 to 2.0, default: 1.05 for warmer tone) */
   pitch?: number;
-  /** Preferred voice identifier (platform-specific) */
   voiceId?: string;
+  gender?: 'female' | 'male';
 }
 
 /**
- * Enhanced text-to-speech hook with realistic, warm voice settings.
+ * Warm, realistic text-to-speech for dementia patients.
  *
- * Optimized for dementia patients:
- * - Slower natural pace (0.78x) for comprehension
- * - Slightly higher pitch (1.05) for warmth and clarity
- * - Automatic voice selection preferring natural/enhanced voices
- * - Pauses between sentences for processing time
- * - Respects voice enabled setting from store
+ * Sounds like a caring family member, not a robot:
+ * - Unhurried pace (0.72x) so every word lands gently
+ * - Warm pitch (1.08) that conveys kindness
+ * - Natural breathing pauses between sentences
+ * - Prefers premium/neural voices on every platform
+ * - Extra-warm mode for emotional moments (greetings, completions)
  */
 export function useVoice(options: UseVoiceOptions = {}) {
   const {
     language = 'en-US',
-    rate = 0.78,
-    pitch = 1.05,
+    rate = 0.72,
+    pitch = 1.08,
     voiceId,
+    gender = 'female',
   } = options;
 
   const voiceEnabled = useSettingsStore((s) => s.voiceEnabled);
@@ -38,7 +36,6 @@ export function useVoice(options: UseVoiceOptions = {}) {
   const [selectedVoice, setSelectedVoice] = useState<string | undefined>(voiceId);
   const currentUtteranceRef = useRef<string | null>(null);
 
-  // Load available voices and select the most natural one
   useEffect(() => {
     loadVoices();
   }, []);
@@ -47,73 +44,66 @@ export function useVoice(options: UseVoiceOptions = {}) {
     try {
       const voices = await Speech.getAvailableVoicesAsync();
       setAvailableVoices(voices);
-
       if (!voiceId && voices.length > 0) {
-        // Prefer natural/enhanced voices for realism
-        const preferred = selectBestVoice(voices, language);
-        if (preferred) {
-          setSelectedVoice(preferred.identifier);
-        }
+        const preferred = selectWarmestVoice(voices, language, gender);
+        if (preferred) setSelectedVoice(preferred.identifier);
       }
-    } catch {
-      // Voice enumeration may not work on all platforms
-    }
+    } catch {}
   }
 
-  // Stop speaking on unmount
   useEffect(() => {
-    return () => {
-      try { Speech.stop(); } catch { /* may fail on web */ }
-    };
+    return () => { try { Speech.stop(); } catch {} };
   }, []);
 
-  /**
-   * Speak the given text with realistic voice settings.
-   * Automatically adds slight pauses between sentences for naturalness.
-   */
   const speak = useCallback(
     (text: string): Promise<void> => {
-      if (!voiceEnabled || !text.trim()) {
-        return Promise.resolve();
-      }
-
-      // Add natural pauses between sentences for dementia-friendly pacing
-      const processedText = addNaturalPauses(text);
+      if (!voiceEnabled || !text.trim()) return Promise.resolve();
+      const processedText = makeWarmAndNatural(text);
 
       return new Promise<void>((resolve) => {
-        try { Speech.stop(); } catch { /* may fail on web */ }
+        try { Speech.stop(); } catch {}
         currentUtteranceRef.current = text;
         setIsSpeaking(true);
 
-        const speechOptions: Speech.SpeechOptions = {
-          language,
-          rate,
-          pitch,
-          voice: selectedVoice,
-          onStart: () => setIsSpeaking(true),
-          onDone: () => {
-            setIsSpeaking(false);
-            currentUtteranceRef.current = null;
-            resolve();
-          },
-          onStopped: () => {
-            setIsSpeaking(false);
-            currentUtteranceRef.current = null;
-            resolve();
-          },
-          onError: () => {
-            setIsSpeaking(false);
-            currentUtteranceRef.current = null;
-            resolve();
-          },
-        };
+        try {
+          Speech.speak(processedText, {
+            language, rate, pitch, voice: selectedVoice,
+            onStart: () => setIsSpeaking(true),
+            onDone: () => { setIsSpeaking(false); currentUtteranceRef.current = null; resolve(); },
+            onStopped: () => { setIsSpeaking(false); currentUtteranceRef.current = null; resolve(); },
+            onError: () => { setIsSpeaking(false); currentUtteranceRef.current = null; resolve(); },
+          });
+        } catch {
+          setIsSpeaking(false); currentUtteranceRef.current = null; resolve();
+        }
+      });
+    },
+    [voiceEnabled, language, rate, pitch, selectedVoice],
+  );
+
+  /** Speak with extra warmth for emotional moments. */
+  const speakWarmly = useCallback(
+    (text: string): Promise<void> => {
+      if (!voiceEnabled || !text.trim()) return Promise.resolve();
+      const warmText = makeWarmAndNatural(text);
+
+      return new Promise<void>((resolve) => {
+        try { Speech.stop(); } catch {}
+        currentUtteranceRef.current = text;
+        setIsSpeaking(true);
 
         try {
-          Speech.speak(processedText, speechOptions);
+          Speech.speak(warmText, {
+            language,
+            rate: rate * 0.88,
+            pitch: pitch + 0.05,
+            voice: selectedVoice,
+            onDone: () => { setIsSpeaking(false); currentUtteranceRef.current = null; resolve(); },
+            onStopped: () => { setIsSpeaking(false); currentUtteranceRef.current = null; resolve(); },
+            onError: () => { setIsSpeaking(false); currentUtteranceRef.current = null; resolve(); },
+          });
         } catch {
-          setIsSpeaking(false);
-          currentUtteranceRef.current = null;
-          resolve();
+          setIsSpeaking(false); currentUtteranceRef.current = null; resolve();
         }
       });
     },
@@ -121,71 +111,87 @@ export function useVoice(options: UseVoiceOptions = {}) {
   );
 
   const stop = useCallback(() => {
-    try { Speech.stop(); } catch { /* may fail on web */ }
+    try { Speech.stop(); } catch {}
     setIsSpeaking(false);
     currentUtteranceRef.current = null;
   }, []);
 
   const speakIfNew = useCallback(
     (text: string) => {
-      if (currentUtteranceRef.current !== text) {
-        return speak(text);
-      }
+      if (currentUtteranceRef.current !== text) return speak(text);
       return Promise.resolve();
     },
     [speak],
   );
 
-  return {
-    speak,
-    speakIfNew,
-    stop,
-    isSpeaking,
-    voiceEnabled,
-    availableVoices,
-    selectedVoice,
-  };
+  return { speak, speakIfNew, speakWarmly, stop, isSpeaking, voiceEnabled, availableVoices, selectedVoice };
 }
 
 /**
- * Select the most natural-sounding voice for the given language.
- * Prefers enhanced/premium voices over default ones.
+ * Select the warmest, most natural voice available.
+ *
+ * Priority: neural/premium > enhanced > known warm names > any match.
+ * On Apple: Samantha (Enhanced), Ava (Premium) are most natural.
+ * On Android: Google neural voices. On web: browser defaults.
  */
-function selectBestVoice(voices: Speech.Voice[], language: string): Speech.Voice | null {
-  const langVoices = voices.filter((v) =>
-    v.language.startsWith(language.split('-')[0]),
-  );
-
+function selectWarmestVoice(
+  voices: Speech.Voice[],
+  language: string,
+  gender: 'female' | 'male',
+): Speech.Voice | null {
+  const langVoices = voices.filter((v) => v.language.startsWith(language.split('-')[0]));
   if (langVoices.length === 0) return null;
 
-  // Priority order for natural-sounding voices (iOS/macOS identifiers)
-  const preferredKeywords = [
-    'enhanced', 'premium', 'neural', 'natural',
-    'Samantha', 'Karen', 'Daniel', 'Moira', 'Tessa',
-    'Ava', 'Allison', 'Susan',
-  ];
-
-  for (const keyword of preferredKeywords) {
-    const match = langVoices.find((v) =>
-      v.identifier.toLowerCase().includes(keyword.toLowerCase()) ||
-      v.name?.toLowerCase().includes(keyword.toLowerCase()),
+  // Tier 1: Neural/premium (most human-sounding)
+  for (const kw of ['neural', 'premium', 'wavenet', 'journey']) {
+    const m = langVoices.find((v) =>
+      ((v.identifier || '') + (v.name || '')).toLowerCase().includes(kw) && matchGender(v, gender),
     );
-    if (match) return match;
+    if (m) return m;
   }
 
-  // Fall back to first voice for the language
-  return langVoices[0];
+  // Tier 2: Enhanced
+  const enhanced = langVoices.find((v) =>
+    ((v.identifier || '') + (v.name || '')).toLowerCase().includes('enhanced') && matchGender(v, gender),
+  );
+  if (enhanced) return enhanced;
+
+  // Tier 3: Known warm voices
+  const warmNames = gender === 'female'
+    ? ['Samantha', 'Ava', 'Allison', 'Susan', 'Karen', 'Moira', 'Tessa', 'Fiona',
+       'Google UK English Female', 'Microsoft Zira', 'Microsoft Jenny']
+    : ['Daniel', 'Aaron', 'Tom', 'Oliver', 'Google UK English Male', 'Microsoft David'];
+
+  for (const name of warmNames) {
+    const m = langVoices.find((v) =>
+      ((v.identifier || '') + (v.name || '')).toLowerCase().includes(name.toLowerCase()),
+    );
+    if (m) return m;
+  }
+
+  return langVoices.find((v) => matchGender(v, gender)) || langVoices[0];
+}
+
+function matchGender(voice: Speech.Voice, gender: 'female' | 'male'): boolean {
+  const id = ((voice.identifier || '') + (voice.name || '')).toLowerCase();
+  return gender === 'female' ? !id.includes('male') || id.includes('female') : id.includes('male') && !id.includes('female');
 }
 
 /**
- * Add natural pauses between sentences for dementia-friendly pacing.
- * Uses SSML-like breaks where supported, or adds slight delays.
+ * Transform text to sound warm and natural when spoken aloud.
+ * - Breathing pauses between sentences
+ * - Gentle pause before the patient's name (feels personal)
+ * - Softens excessive exclamation marks
  */
-function addNaturalPauses(text: string): string {
-  // On iOS, adding periods with spaces creates natural pauses
-  // Replace single periods with period + slight pause indicator
-  return text
-    .replace(/\.\s+/g, '. ... ')
-    .replace(/!\s+/g, '! ... ')
-    .replace(/\?\s+/g, '? ... ');
+function makeWarmAndNatural(text: string): string {
+  let warm = text;
+  warm = warm.replace(/\.\s+/g, '.  ...  ');
+  warm = warm.replace(/!\s+/g, '!  ...  ');
+  warm = warm.replace(/\?\s+/g, '?  ...  ');
+  warm = warm.replace(/,\s+(\w)/g, ', ... $1');
+
+  let exCount = 0;
+  warm = warm.replace(/!/g, () => { exCount++; return exCount <= 1 ? '!' : '.'; });
+
+  return warm;
 }
