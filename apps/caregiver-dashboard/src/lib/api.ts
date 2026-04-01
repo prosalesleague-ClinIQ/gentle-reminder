@@ -25,8 +25,8 @@ export async function fetchApi<T>(endpoint: string, options?: RequestInit): Prom
     throw new Error(`API error: ${response.status} ${response.statusText}`);
   }
 
-  const data = await response.json();
-  return data.data as T;
+  const json: any = await response.json();
+  return json.data as T;
 }
 
 export async function fetchPatients() {
