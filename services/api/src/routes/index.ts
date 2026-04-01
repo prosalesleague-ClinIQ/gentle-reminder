@@ -11,6 +11,7 @@ import analyticsRoutes from './analytics.routes.js';
 import voiceRoutes from './voice.routes.js';
 import wearablesRoutes from './wearables.routes.js';
 import medicationsRoutes from './medications.routes.js';
+import messagesRoutes from './messages.routes.js';
 
 const router = Router();
 
@@ -26,5 +27,6 @@ router.use('/analytics', analyticsRoutes);
 router.use('/voices', voiceRoutes);
 router.use('/wearables', wearablesRoutes);
 router.use('/medications', medicationsRoutes);
+router.use('/messages', messagesRoutes);
 
 export default router;

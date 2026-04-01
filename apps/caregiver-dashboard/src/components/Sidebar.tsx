@@ -7,6 +7,7 @@ const navItems = [
   { href: '/analytics', label: 'Analytics', icon: '\u2261' },
   { href: '/engagement', label: 'Engagement', icon: '\u2665' },
   { href: '/risk', label: 'Risk', icon: '\u26A1' },
+  { href: '/messages', label: 'Messages', icon: '\u2709' },
   { href: '#', label: 'Settings', icon: '\u2699' },
 ];
 
