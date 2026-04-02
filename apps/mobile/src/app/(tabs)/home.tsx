@@ -95,6 +95,14 @@ export default function HomeScreen() {
           />
 
           <BigButton
+            title="My Routine"
+            onPress={() => router.push('/routine')}
+            variant="primary"
+            style={{ backgroundColor: '#E65100' }}
+            accessibilityHint="View and track your daily routine checklist"
+          />
+
+          <BigButton
             title="My Memories"
             onPress={() => router.push('/photos')}
             variant="accent"

@@ -17,6 +17,7 @@ const navItems = [
   { href: '/handoff', label: 'Handoff', icon: '\u2398' },
   { href: '/tasks', label: 'Tasks', icon: '\u2713' },
   { href: '/notes', label: 'Notes', icon: '\u270E' },
+  { href: '/transfers', label: 'Transfers', icon: '\u21C4' },
   { href: '/messages', label: 'Messages', icon: '\u2709' },
   { href: '/notifications', label: 'Notifications', icon: '\uD83D\uDD14' },
   { href: '#', label: 'Settings', icon: '\u2699' },

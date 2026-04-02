@@ -51,6 +51,12 @@ export {
 } from './exercises/word-finding';
 
 export {
+  generateNumberSequencePrompt,
+  generateSimpleMathPrompt,
+  evaluateNumberAnswer,
+} from './exercises/number-sequence';
+
+export {
   generateClockDrawingPrompt,
   generateShapePrompt,
   evaluateDrawingAnswer,
