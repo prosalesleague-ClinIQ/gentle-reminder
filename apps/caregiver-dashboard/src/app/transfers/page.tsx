@@ -277,7 +277,6 @@ export default function TransfersPage() {
           cursor: 'pointer',
           width: '100%',
         }}
-        onClick={() => alert('Transfer initiation form would open here')}
       >
         Initiate Transfer
       </button>
