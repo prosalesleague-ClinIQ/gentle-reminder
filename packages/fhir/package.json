@@ -1,0 +1,30 @@
+{
+  "name": "@gentle-reminder/fhir",
+  "version": "1.0.0",
+  "description": "FHIR R4 compliance module for the Gentle Reminder dementia care platform. Provides type definitions, resource mappers, bundle builders, and validators for interoperability with healthcare systems.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest --config jest.config.js",
+    "lint": "eslint src/ --ext .ts",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "fhir",
+    "r4",
+    "healthcare",
+    "interoperability",
+    "hl7",
+    "dementia",
+    "cognitive-assessment"
+  ],
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "@types/jest": "^29.5.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.0"
+  }
+}

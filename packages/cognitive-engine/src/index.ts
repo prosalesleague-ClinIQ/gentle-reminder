@@ -91,6 +91,50 @@ export type {
   PerformanceWindow,
 } from './scoring/adaptive-difficulty';
 
+// Attention exercises
+export {
+  generateLetterCancellationPrompt,
+  generateDigitSpanPrompt,
+  generateTrailMakingPrompt,
+  generateCountingPrompt,
+  generateWordDetectionPrompt,
+  generateSymbolSearchPrompt,
+  evaluateAttentionAnswer,
+} from './exercises/attention';
+
+// Executive function exercises
+export {
+  generateCategorizationPrompt,
+  generateProblemSolvingPrompt,
+  generateSequencingPrompt,
+  generatePlanningPrompt,
+  generateInhibitionPrompt,
+  generateFlexibilityPrompt,
+  evaluateExecutiveAnswer,
+} from './exercises/executive';
+
+// Verbal fluency exercises
+export {
+  generateLetterFluencyPrompt,
+  generateSemanticFluencyPrompt,
+  generateSentenceBuildingPrompt,
+  generateWordDefinitionPrompt,
+  generateRhymingPrompt,
+  generateStorytellingPrompt,
+  evaluateVerbalFluencyAnswer,
+} from './exercises/verbal-fluency';
+
+// Visual-spatial exercises
+export {
+  generateDirectionPrompt,
+  generateMazeDescriptionPrompt,
+  generateSpatialRelationPrompt,
+  generateClockPositionPrompt,
+  generateMapReadingPrompt,
+  generateShapeMatchingPrompt,
+  evaluateVisualSpatialAnswer,
+} from './exercises/visual-spatial';
+
 // Types
 export type { GeneratedPrompt, AnswerEvaluation, PatientContext } from './exercises/types';
 export type { ExerciseResultInput, SessionScores, CognitiveMetrics } from './scoring/types';
