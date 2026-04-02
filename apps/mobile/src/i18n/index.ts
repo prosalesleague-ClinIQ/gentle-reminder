@@ -2,11 +2,14 @@ import { SupportedLanguage, TranslationStrings } from './types';
 import { en } from './en';
 import { es } from './es';
 import { fr } from './fr';
+import { de } from './de';
+import { zh } from './zh';
+import { ja } from './ja';
+import { ko } from './ko';
+import { pt } from './pt';
 
 const translations: Record<SupportedLanguage, TranslationStrings> = {
-  en, es, fr,
-  // Placeholder - same as English until translated
-  de: en, zh: en, ja: en, ko: en, pt: en,
+  en, es, fr, de, zh, ja, ko, pt,
 };
 
 let currentLanguage: SupportedLanguage = 'en';
