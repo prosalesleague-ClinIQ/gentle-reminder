@@ -11,4 +11,6 @@ export const env = {
   isDevelopment: (process.env.NODE_ENV || 'development') === 'development',
   isProduction: process.env.NODE_ENV === 'production',
   isTest: process.env.NODE_ENV === 'test',
+  multiTenantEnabled: process.env.MULTI_TENANT_ENABLED === 'true',
+  baseDomain: process.env.BASE_DOMAIN || 'gentlereminder.health',
 } as const;

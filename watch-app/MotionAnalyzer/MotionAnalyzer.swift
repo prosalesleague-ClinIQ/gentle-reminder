@@ -21,6 +21,7 @@
 import Foundation
 import CoreMotion
 import WatchKit
+import UserNotifications
 
 // MARK: - Delegate Protocol
 
@@ -30,6 +31,18 @@ protocol MotionAnalyzerDelegate: AnyObject {
     func didClassifyActivity(_ activity: ActivityClassification)
     func didUpdateStepCadence(cadence: Double, totalSteps: Int)
     func motionAnalyzerDidEncounterError(_ error: MotionAnalyzerError)
+}
+
+// MARK: - Fall Alert State
+
+/// Manages the 60-second countdown after a fall is detected.
+/// If the user does not dismiss ("I'm okay") within 60 seconds,
+/// a confirmed fall alert is sent to the phone for caregiver notification.
+enum FallAlertState {
+    case none
+    case countdown(secondsRemaining: Int, event: FallDetectionEvent)
+    case confirmed(event: FallDetectionEvent)
+    case dismissed
 }
 
 // MARK: - Supporting Types
@@ -161,6 +174,11 @@ final class MotionAnalyzer {
     }
     private var fallState: FallDetectionState = .idle
     private var freefallStartSample: Int?
+
+    // Fall alert countdown
+    private(set) var fallAlertState: FallAlertState = .none
+    private var fallCountdownTimer: Timer?
+    private let fallCountdownDuration = 60 // seconds
 
     // MARK: - Initialization
 
@@ -367,10 +385,16 @@ final class MotionAnalyzer {
                 WKInterfaceDevice.current().play(.notification)
 
                 DispatchQueue.main.async { [weak self] in
-                    self?.delegate?.didDetectFall(event)
+                    guard let self = self else { return }
+                    self.delegate?.didDetectFall(event)
+
+                    // Start the 60-second countdown instead of sending immediately.
+                    // If the user does not dismiss within 60 seconds, a confirmed
+                    // fall alert is sent to the phone for caregiver notification.
+                    self.startFallAlertCountdown(for: event)
                 }
 
-                // Send to phone immediately
+                // Send initial (unconfirmed) alert to phone for awareness
                 WatchConnectivityManager.shared.sendFallAlert(
                     severity: severity.rawValue,
                     impactAcceleration: peakG
@@ -592,4 +616,111 @@ final class MotionAnalyzer {
     var isAnalyzing: Bool { isRunning }
     var bufferCount: Int { sampleBuffer.count }
     var detectedSteps: Int { totalStepCount }
+
+    // MARK: - Fall Alert Countdown
+
+    /// Starts a 60-second countdown after a fall is detected.
+    /// If the user does not call `dismissFallAlert()` within 60 seconds,
+    /// a confirmed fall alert is sent to the connected phone for caregiver notification.
+    func startFallAlertCountdown(for event: FallDetectionEvent) {
+        fallAlertState = .countdown(secondsRemaining: fallCountdownDuration, event: event)
+
+        // Initial strong haptic
+        WKInterfaceDevice.current().play(.notification)
+
+        fallCountdownTimer?.invalidate()
+        fallCountdownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+            guard let self = self else {
+                timer.invalidate()
+                return
+            }
+
+            switch self.fallAlertState {
+            case .countdown(let remaining, let event):
+                if remaining <= 1 {
+                    // Countdown expired -- confirm fall alert
+                    timer.invalidate()
+                    self.fallAlertState = .confirmed(event: event)
+                    self.sendConfirmedFallAlert(event: event)
+                } else {
+                    self.fallAlertState = .countdown(secondsRemaining: remaining - 1, event: event)
+                    // Haptic pulse every 10 seconds as reminder
+                    if (remaining - 1) % 10 == 0 {
+                        WKInterfaceDevice.current().play(.notification)
+                    }
+                }
+
+            default:
+                timer.invalidate()
+            }
+        }
+    }
+
+    /// Called when the user taps "I'm Okay" to dismiss the fall alert.
+    /// Cancels the countdown and does NOT send a confirmed alert.
+    func dismissFallAlert() {
+        fallCountdownTimer?.invalidate()
+        fallCountdownTimer = nil
+        fallAlertState = .dismissed
+
+        WKInterfaceDevice.current().play(.success)
+        print("[MotionAnalyzer] Fall alert dismissed by user")
+
+        // Reset to none after a brief delay
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            self?.fallAlertState = .none
+        }
+    }
+
+    /// Sends a confirmed (not dismissed) fall alert to the connected phone
+    /// so the caregiver can be notified.
+    private func sendConfirmedFallAlert(event: FallDetectionEvent) {
+        print("[MotionAnalyzer] Fall alert countdown expired -- sending confirmed alert")
+
+        WKInterfaceDevice.current().play(.notification)
+
+        WatchConnectivityManager.shared.sendFallAlert(
+            severity: "confirmed",
+            impactAcceleration: event.impactAcceleration
+        )
+
+        // Also send via application context for guaranteed delivery
+        WatchConnectivityManager.shared.updateApplicationContext([
+            "fallAlert": [
+                "id": event.id,
+                "severity": "confirmed",
+                "timestamp": event.timestamp.timeIntervalSince1970 * 1000,
+                "impactAcceleration": event.impactAcceleration,
+                "confirmed": true,
+            ]
+        ])
+
+        // Schedule a local notification as well
+        scheduleFallNotification(event: event)
+    }
+
+    /// Schedules a local notification for the confirmed fall alert
+    private func scheduleFallNotification(event: FallDetectionEvent) {
+        let content = UNMutableNotificationContent()
+        content.title = "Fall Alert Sent"
+        content.body = "Your caregiver has been notified about a detected fall."
+        content.categoryIdentifier = "fallAlert"
+        content.sound = .defaultCritical
+        content.userInfo = [
+            "eventId": event.id,
+            "severity": event.severity.rawValue,
+        ]
+
+        let request = UNNotificationRequest(
+            identifier: "fallAlert_\(event.id)",
+            content: content,
+            trigger: nil // Deliver immediately
+        )
+
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("[MotionAnalyzer] Failed to schedule fall notification: \(error)")
+            }
+        }
+    }
 }

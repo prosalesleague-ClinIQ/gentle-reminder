@@ -11,7 +11,7 @@ import time
 from contextlib import asynccontextmanager
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException, UploadFile, File
+from fastapi import FastAPI, HTTPException, UploadFile, File, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -19,6 +19,7 @@ from services.transcription import TranscriptionService
 from services.emotion_detection import EmotionDetector
 from services.cognitive_analysis import CognitiveAnalyzer
 from services.summarization import StorySummarizer
+from services.batch_processor import BatchProcessor
 from models.cognitive_state import CognitiveStateModel
 from models.decline_predictor import DeclinePredictor
 
@@ -41,6 +42,16 @@ cognitive_analyzer: Optional[CognitiveAnalyzer] = None
 story_summarizer: Optional[StorySummarizer] = None
 cognitive_state_model: Optional[CognitiveStateModel] = None
 decline_predictor: Optional[DeclinePredictor] = None
+batch_processor: Optional[BatchProcessor] = None
+
+
+def _batch_transcribe(audio_bytes: bytes, options: dict) -> dict:
+    """Wrapper used by the batch processor to call the transcription service."""
+    if transcription_service is None:
+        raise RuntimeError("Transcription service not initialized")
+    if options.get("timestamps"):
+        return transcription_service.transcribe_with_timestamps(audio_bytes)
+    return transcription_service.transcribe(audio_bytes)
 
 
 @asynccontextmanager
@@ -48,6 +59,7 @@ async def lifespan(app: FastAPI):
     """Initialize and tear down services."""
     global transcription_service, emotion_detector, cognitive_analyzer
     global story_summarizer, cognitive_state_model, decline_predictor
+    global batch_processor
 
     logger.info("Initializing AI services...")
     transcription_service = TranscriptionService()
@@ -56,6 +68,10 @@ async def lifespan(app: FastAPI):
     story_summarizer = StorySummarizer()
     cognitive_state_model = CognitiveStateModel()
     decline_predictor = DeclinePredictor()
+    batch_processor = BatchProcessor(
+        transcription_fn=_batch_transcribe,
+        concurrency=3,
+    )
     logger.info("All AI services initialized.")
 
     yield
@@ -66,7 +82,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Gentle Reminder AI Services",
     description="AI-powered speech, emotion, and cognitive analysis for dementia care",
-    version="0.2.0",
+    version="0.3.0",
     lifespan=lifespan,
 )
 
@@ -136,6 +152,10 @@ class CognitiveClassificationRequest(BaseModel):
     wandering_flag: Optional[bool] = None
 
 
+class BatchTranscribeRequest(BaseModel):
+    timestamps: bool = Field(default=False, description="Include word-level timestamps")
+
+
 # ---------------------------------------------------------------------------
 # Middleware - Request timing
 # ---------------------------------------------------------------------------
@@ -160,10 +180,14 @@ async def log_requests(request, call_next):
 @app.get("/health")
 async def health_check():
     """Health check endpoint for load balancers and orchestration."""
+    cache_stats = None
+    if transcription_service is not None and transcription_service.cache is not None:
+        cache_stats = transcription_service.cache.stats()
+
     return {
         "status": "healthy",
         "service": "gentle-reminder-ai",
-        "version": "0.2.0",
+        "version": "0.3.0",
         "services": {
             "transcription": transcription_service is not None,
             "emotion_detection": emotion_detector is not None,
@@ -171,17 +195,24 @@ async def health_check():
             "summarization": story_summarizer is not None,
             "cognitive_state": cognitive_state_model is not None,
             "decline_predictor": decline_predictor is not None,
+            "batch_processor": batch_processor is not None,
         },
+        "transcription_cache": cache_stats,
     }
 
 
 @app.post("/transcribe")
-async def transcribe_audio(audio: UploadFile = File(...)):
+async def transcribe_audio(
+    audio: UploadFile = File(...),
+    timestamps: bool = Query(False, description="Include word-level timestamps"),
+):
     """
     Transcribe audio to text with hesitation marker detection.
 
-    Accepts audio file uploads (WAV, MP3, M4A) and returns the
-    transcription along with detected speech biomarkers.
+    Accepts audio file uploads (WAV, MP3, M4A, AAC, OGG, WebM) and returns
+    the transcription along with detected speech biomarkers.
+
+    Use ?timestamps=true to include word-level timing information.
     """
     if transcription_service is None:
         raise HTTPException(status_code=503, detail="Transcription service not ready")
@@ -191,18 +222,74 @@ async def transcribe_audio(audio: UploadFile = File(...)):
         if len(audio_bytes) == 0:
             raise HTTPException(status_code=400, detail="Empty audio file")
 
-        result = transcription_service.transcribe(audio_bytes)
-        return {
+        if timestamps:
+            result = transcription_service.transcribe_with_timestamps(audio_bytes)
+        else:
+            result = transcription_service.transcribe(audio_bytes)
+
+        response = {
             "text": result["text"],
             "confidence": result["confidence"],
             "hesitation_markers": result["hesitation_markers"],
             "duration_seconds": result.get("duration_seconds"),
         }
+        if timestamps and "words" in result:
+            response["words"] = result["words"]
+
+        return response
     except HTTPException:
         raise
     except Exception as e:
         logger.error("Transcription failed: %s", str(e))
         raise HTTPException(status_code=500, detail="Transcription failed")
+
+
+@app.post("/transcribe/batch")
+async def submit_batch_transcription(
+    audio: UploadFile = File(...),
+    timestamps: bool = Query(False, description="Include word-level timestamps"),
+):
+    """
+    Submit an audio file for asynchronous batch transcription.
+
+    Returns a job_id that can be polled via GET /transcribe/batch/{job_id}.
+    """
+    if batch_processor is None:
+        raise HTTPException(status_code=503, detail="Batch processor not ready")
+
+    try:
+        audio_bytes = await audio.read()
+        if len(audio_bytes) == 0:
+            raise HTTPException(status_code=400, detail="Empty audio file")
+
+        job_id = await batch_processor.submit_job(
+            audio_bytes, {"timestamps": timestamps}
+        )
+        return {
+            "job_id": job_id,
+            "state": "pending",
+            "message": "Job submitted. Poll GET /transcribe/batch/{job_id} for status.",
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error("Batch submission failed: %s", str(e))
+        raise HTTPException(status_code=500, detail="Batch submission failed")
+
+
+@app.get("/transcribe/batch/{job_id}")
+async def get_batch_job_status(job_id: str):
+    """
+    Get the status and result of a batch transcription job.
+    """
+    if batch_processor is None:
+        raise HTTPException(status_code=503, detail="Batch processor not ready")
+
+    status = batch_processor.get_job_status(job_id)
+    if status["state"] == "not_found":
+        raise HTTPException(status_code=404, detail="Job not found")
+
+    return status
 
 
 @app.post("/analyze-speech")

@@ -49,6 +49,19 @@ export {
   type StepCadenceResult,
 } from './MotionSync';
 
+// Background Sync
+export {
+  registerBackgroundSync,
+  unregisterBackgroundSync,
+  triggerManualSync,
+  isBackgroundSyncRegistered,
+  getBackgroundSyncConfig,
+  getLastSyncTimestamp,
+  type BackgroundSyncConfig,
+  type SyncPayload,
+  type MedicationSyncItem,
+} from './BackgroundSync';
+
 // Data Processing
 export {
   WearableDataProcessor,

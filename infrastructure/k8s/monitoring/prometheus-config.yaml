@@ -1,0 +1,103 @@
+###############################################################################
+# Prometheus ConfigMap — Scrape configurations for Gentle Reminder services
+#
+# Targets:
+#   - api (Express metrics at /metrics on port 3001)
+#   - memory-graph (custom metrics endpoint)
+#   - neo4j (Prometheus exporter on port 2004)
+#   - postgres (pg_exporter on port 9187)
+###############################################################################
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/part-of: gentle-reminder
+    app.kubernetes.io/component: monitoring
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+      scrape_timeout: 10s
+
+    rule_files:
+      - "/etc/prometheus/rules/*.yml"
+
+    scrape_configs:
+      # ── API service ──────────────────────────────────────────
+      - job_name: "gentle-reminder-api"
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names: []  # All namespaces (each tenant has its own)
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            regex: gentle-reminder-api
+            action: keep
+          - source_labels: [__meta_kubernetes_namespace]
+            target_label: tenant_namespace
+          - source_labels: [__meta_kubernetes_pod_name]
+            target_label: pod
+        metrics_path: /metrics
+        scheme: http
+
+      # ── Memory-graph service ─────────────────────────────────
+      - job_name: "memory-graph"
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names: []
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            regex: memory-graph
+            action: keep
+          - source_labels: [__meta_kubernetes_namespace]
+            target_label: tenant_namespace
+          - source_labels: [__meta_kubernetes_pod_name]
+            target_label: pod
+        metrics_path: /metrics
+        scheme: http
+
+      # ── Neo4j ────────────────────────────────────────────────
+      - job_name: "neo4j"
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names: []
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            regex: neo4j
+            action: keep
+          - source_labels: [__meta_kubernetes_namespace]
+            target_label: tenant_namespace
+          - source_labels: [__meta_kubernetes_pod_name]
+            target_label: pod
+        metrics_path: /metrics
+        scheme: http
+        static_configs:
+          - targets: ["neo4j:2004"]
+
+      # ── PostgreSQL exporter ──────────────────────────────────
+      - job_name: "postgres"
+        kubernetes_sd_configs:
+          - role: pod
+            namespaces:
+              names: []
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_label_app]
+            regex: postgres-exporter
+            action: keep
+          - source_labels: [__meta_kubernetes_namespace]
+            target_label: tenant_namespace
+        metrics_path: /metrics
+        scheme: http
+
+      # ── Node exporter (infrastructure) ───────────────────────
+      - job_name: "node-exporter"
+        kubernetes_sd_configs:
+          - role: node
+        relabel_configs:
+          - action: labelmap
+            regex: __meta_kubernetes_node_label_(.+)

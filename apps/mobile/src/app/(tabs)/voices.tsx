@@ -9,14 +9,18 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SafeText } from '../../components/SafeText';
 import { VoicePrompt } from '../../components/VoicePrompt';
-import { BigButton } from '../../components/BigButton';
-import { useVoice } from '../../hooks/useVoice';
+import { useAICompanion } from '../../hooks/useAICompanion';
+import { voiceCloneService } from '../../services/VoiceCloneService';
 import { colors, spacing, layout, fontSize, fontWeight } from '../../constants/theme';
 
 /**
  * Family Voices screen.
- * Grid of family member voice avatars with "Talk" buttons.
- * Tapping plays a demo greeting via TTS in that person's style.
+ *
+ * Tapping a family member plays their greeting using their unique voice:
+ * - If voice cloning is active, uses their real cloned voice
+ * - Otherwise, uses a distinctive demo TTS with unique pitch/rate per person
+ *
+ * The AI companion introduces the screen and each person.
  */
 
 interface VoiceAvatar {
@@ -64,26 +68,32 @@ const DEMO_VOICES: VoiceAvatar[] = [
 ];
 
 export default function VoicesScreen() {
-  const { speak, isSpeaking, stop } = useVoice();
+  const ai = useAICompanion('family');
   const [activeVoice, setActiveVoice] = useState<string | null>(null);
-
-  useEffect(() => {
-    speak('These are your family voices. Tap someone to hear them.');
-  }, []);
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   const handleTalk = useCallback(
     async (voice: VoiceAvatar) => {
       if (isSpeaking) {
-        stop();
+        voiceCloneService.stop();
+        ai.stop();
         setActiveVoice(null);
+        setIsSpeaking(false);
         return;
       }
 
       setActiveVoice(voice.id);
-      await speak(voice.greeting);
+      setIsSpeaking(true);
+
+      // AI companion introduces, then the person's voice speaks
+      await ai.speak(`Here's ${voice.name}, your ${voice.relationship}.`);
+      await new Promise((r) => setTimeout(r, 400));
+      await voiceCloneService.speakAs(voice.name, voice.greeting);
+
       setActiveVoice(null);
+      setIsSpeaking(false);
     },
-    [speak, stop, isSpeaking],
+    [ai, isSpeaking],
   );
 
   return (
@@ -102,41 +112,56 @@ export default function VoicesScreen() {
         </SafeText>
 
         <View style={styles.grid}>
-          {DEMO_VOICES.map((voice) => (
-            <View key={voice.id} style={styles.avatarCard}>
-              {/* Photo circle with initials */}
-              <View
-                style={[styles.avatarCircle, { backgroundColor: voice.color }]}
-                accessibilityLabel={`${voice.name}, ${voice.relationship}`}
-              >
-                <Text style={styles.avatarInitials}>{voice.initials}</Text>
+          {DEMO_VOICES.map((voice) => {
+            const profile = voiceCloneService.getProfile(voice.name);
+            const hasClone = profile?.isCloned || false;
+
+            return (
+              <View key={voice.id} style={styles.avatarCard}>
+                {/* Photo circle with initials */}
+                <View
+                  style={[styles.avatarCircle, { backgroundColor: voice.color }]}
+                  accessibilityLabel={`${voice.name}, ${voice.relationship}`}
+                >
+                  <Text style={styles.avatarInitials}>{voice.initials}</Text>
+                </View>
+
+                {/* Cloned voice badge */}
+                {hasClone && (
+                  <View style={styles.cloneBadge}>
+                    <SafeText variant="caption" bold color="#FFFFFF">Real Voice</SafeText>
+                  </View>
+                )}
+
+                {/* Name and relationship */}
+                <SafeText variant="subheading" bold center>
+                  {voice.name}
+                </SafeText>
+                <SafeText variant="body" center style={styles.relationship}>
+                  {voice.relationship}
+                </SafeText>
+
+                {/* Talk button */}
+                <TouchableOpacity
+                  style={[
+                    styles.talkButton,
+                    activeVoice === voice.id && styles.talkButtonActive,
+                  ]}
+                  onPress={() => handleTalk(voice)}
+                  accessibilityLabel={
+                    activeVoice === voice.id
+                      ? `Stop ${voice.name}'s message`
+                      : `Hear a message from ${voice.name}, your ${voice.relationship}`
+                  }
+                  accessibilityRole="button"
+                >
+                  <Text style={styles.talkButtonText}>
+                    {activeVoice === voice.id ? 'Stop' : 'Talk'}
+                  </Text>
+                </TouchableOpacity>
               </View>
-
-              {/* Name and relationship */}
-              <SafeText variant="subheading" bold center>
-                {voice.name}
-              </SafeText>
-              <SafeText variant="body" center style={styles.relationship}>
-                {voice.relationship}
-              </SafeText>
-
-              {/* Talk button */}
-              <TouchableOpacity
-                style={[
-                  styles.talkButton,
-                  activeVoice === voice.id && styles.talkButtonActive,
-                ]}
-                onPress={() => handleTalk(voice)}
-                accessibilityLabel={`Talk to ${voice.name}`}
-                accessibilityHint={`Plays a voice message from ${voice.name}`}
-                accessibilityRole="button"
-              >
-                <Text style={styles.talkButtonText}>
-                  {activeVoice === voice.id ? 'Stop' : 'Talk'}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          ))}
+            );
+          })}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -190,6 +215,15 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: fontWeight.bold as any,
     color: colors.white,
+  },
+  cloneBadge: {
+    backgroundColor: '#7C3AED',
+    borderRadius: 10,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    position: 'absolute',
+    top: 8,
+    right: 8,
   },
   relationship: {
     color: colors.text.muted,

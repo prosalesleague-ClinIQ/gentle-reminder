@@ -1,0 +1,129 @@
+###############################################################################
+# CronJob — Nightly PostgreSQL backup via pg_dump
+#
+# Runs at 02:00 UTC every day. Dumps the database to a gzipped file and
+# uploads it to the configured S3 bucket. Retains the last 30 days of backups.
+###############################################################################
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: postgres-backup
+  namespace: gentle-reminder
+  labels:
+    app.kubernetes.io/part-of: gentle-reminder
+    app.kubernetes.io/component: backup
+spec:
+  schedule: "0 2 * * *"          # Every day at 02:00 UTC
+  concurrencyPolicy: Forbid       # Never run two backups simultaneously
+  successfulJobsHistoryLimit: 7
+  failedJobsHistoryLimit: 3
+  startingDeadlineSeconds: 600
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 3600  # Max 1 hour per backup
+      template:
+        metadata:
+          labels:
+            app: postgres-backup
+        spec:
+          restartPolicy: OnFailure
+          serviceAccountName: backup-sa
+          containers:
+            - name: pg-backup
+              image: postgres:16-alpine
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  set -euo pipefail
+
+                  TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+                  BACKUP_FILE="/backups/gentle-reminder-${TIMESTAMP}.sql.gz"
+
+                  echo "[$(date)] Starting PostgreSQL backup..."
+
+                  pg_dump \
+                    --host="${PGHOST}" \
+                    --port="${PGPORT}" \
+                    --username="${PGUSER}" \
+                    --dbname="${PGDATABASE}" \
+                    --format=custom \
+                    --compress=9 \
+                    --verbose \
+                    --file="${BACKUP_FILE}"
+
+                  FILESIZE=$(du -h "${BACKUP_FILE}" | cut -f1)
+                  echo "[$(date)] Backup complete: ${BACKUP_FILE} (${FILESIZE})"
+
+                  # Upload to S3
+                  if [ -n "${S3_BUCKET:-}" ]; then
+                    echo "[$(date)] Uploading to s3://${S3_BUCKET}/backups/..."
+                    aws s3 cp "${BACKUP_FILE}" \
+                      "s3://${S3_BUCKET}/backups/$(basename ${BACKUP_FILE})" \
+                      --storage-class STANDARD_IA
+
+                    # Prune backups older than 30 days
+                    aws s3 ls "s3://${S3_BUCKET}/backups/" | \
+                      awk '{print $4}' | \
+                      while read -r file; do
+                        file_date=$(echo "$file" | grep -oP '\d{8}')
+                        cutoff_date=$(date -d '30 days ago' +%Y%m%d)
+                        if [ "$file_date" -lt "$cutoff_date" ] 2>/dev/null; then
+                          echo "Pruning old backup: $file"
+                          aws s3 rm "s3://${S3_BUCKET}/backups/$file"
+                        fi
+                      done
+
+                    echo "[$(date)] Upload and pruning complete."
+                  fi
+              env:
+                - name: PGHOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-credentials
+                      key: host
+                - name: PGPORT
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-credentials
+                      key: port
+                - name: PGUSER
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-credentials
+                      key: username
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-credentials
+                      key: password
+                - name: PGDATABASE
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-credentials
+                      key: database
+                - name: S3_BUCKET
+                  valueFrom:
+                    configMapKeyRef:
+                      name: backup-config
+                      key: s3-bucket
+                - name: AWS_DEFAULT_REGION
+                  valueFrom:
+                    configMapKeyRef:
+                      name: backup-config
+                      key: aws-region
+              volumeMounts:
+                - name: backup-volume
+                  mountPath: /backups
+              resources:
+                requests:
+                  memory: "256Mi"
+                  cpu: "250m"
+                limits:
+                  memory: "1Gi"
+                  cpu: "1000m"
+          volumes:
+            - name: backup-volume
+              emptyDir:
+                sizeLimit: 10Gi

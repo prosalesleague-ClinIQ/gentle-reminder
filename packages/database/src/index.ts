@@ -19,3 +19,14 @@ export async function disconnectDatabase(): Promise<void> {
 
 export { PrismaClient };
 export type { Prisma } from '@prisma/client';
+
+// Tenant helpers
+export {
+  createTenant,
+  getTenantById,
+  getTenantBySlug,
+  getTenantByDomain,
+  updateTenant,
+  listTenants,
+  deactivateTenant,
+} from './tenant.js';

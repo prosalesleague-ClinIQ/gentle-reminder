@@ -86,6 +86,16 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
+        name="voice-assist"
+        options={{
+          title: 'Voice',
+          tabBarIcon: ({ focused }) => (
+            <Text style={[styles.icon, focused && styles.iconActive]}>{'🔊'}</Text>
+          ),
+          tabBarAccessibilityLabel: 'Voice navigation assistance',
+        }}
+      />
+      <Tabs.Screen
         name="settings"
         options={{
           title: 'Settings',

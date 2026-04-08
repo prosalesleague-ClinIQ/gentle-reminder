@@ -2,7 +2,12 @@ import {
   ExportConfig,
   DeidentifiedRecord,
   CognitiveScoreEntry,
+  EDCExportConfig,
+  SignedRecord,
+  SignatureMeaning,
 } from './types';
+import { exportToODM } from './EDCIntegration';
+import { signRecord } from './CFR11Compliance';
 
 const CSV_HEADERS = [
   'subject_id',
@@ -175,6 +180,54 @@ export class DataExporter {
       return data.filter((r) => config.patientIds.includes(r.subjectId));
     }
     return data;
+  }
+
+  /**
+   * Export de-identified records in CDISC ODM-XML format.
+   */
+  static exportToODM(
+    data: DeidentifiedRecord[],
+    config: ExportConfig,
+    edcConfig: EDCExportConfig
+  ): string {
+    const filtered = DataExporter.filterByConfig(data, config);
+    return exportToODM(filtered, edcConfig);
+  }
+
+  /**
+   * Wrapper that exports data and applies a 21 CFR Part 11 electronic signature.
+   * Returns the exported content along with a signed record for audit purposes.
+   */
+  static exportWithSignature(
+    data: DeidentifiedRecord[],
+    config: ExportConfig,
+    userId: string,
+    meaning: SignatureMeaning = 'authored'
+  ): SignedRecord<{ format: string; content: string; recordCount: number; exportDate: string }> {
+    let content: string;
+
+    switch (config.format) {
+      case 'csv':
+        content = DataExporter.exportToCSV(data, config);
+        break;
+      case 'json':
+        content = DataExporter.exportToJSON(data, config);
+        break;
+      case 'fhir':
+        content = JSON.stringify(DataExporter.exportToFHIR(data, config), null, 2);
+        break;
+      default:
+        throw new Error(`Unsupported export format: ${config.format}`);
+    }
+
+    const exportRecord = {
+      format: config.format,
+      content,
+      recordCount: data.length,
+      exportDate: new Date().toISOString(),
+    };
+
+    return signRecord(exportRecord, userId, meaning);
   }
 
   private static isInDateRange(

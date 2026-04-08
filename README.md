@@ -200,16 +200,18 @@ npm test --workspace=services/api
 | API Routes | 25+ |
 | Database Models | 20+ |
 
-## Roadmap
+## Completed Roadmap
 
-- **Apple Watch Integration** -- Passive health data collection (heart rate, sleep, movement)
-- **Real Whisper Integration** -- On-device speech-to-text for Story Vault and voice commands
-- **FHIR Compliance** -- HL7 FHIR R4 resource mapping for EHR interoperability
-- **FDA SaMD Pathway** -- Software as a Medical Device regulatory preparation
-- **Memory Graph (Neo4j)** -- Digital cognitive twin mapping patient memories and associations
-- **Clinical Trial Integration** -- Standardized data export for research protocols
-- **Hospital Deployment** -- Multi-tenant architecture for institutional use
-- **Multilingual Support** -- Spanish, Mandarin, and additional language packs
+All roadmap items have been implemented across Phases 23-27:
+
+- **Apple Watch Integration** -- SwiftUI Watch app with HealthKit, medication reminders, breathing exercise, fall detection with 60s countdown, complications
+- **Real Whisper Integration** -- Dual-mode transcription (local Whisper model + OpenAI API), audio preprocessing, batch processing, caching
+- **FHIR Compliance** -- Full HL7 FHIR R4 REST API with Patient/$everything, Observation search, CapabilityStatement, extensions, terminology service
+- **FDA SaMD Pathway** -- IEC 62304, ISO 14971 FMEA, QMS, STRIDE cybersecurity, clinical validation protocol, algorithm transparency, labeling, post-market surveillance API
+- **Memory Graph (Neo4j)** -- Production-hardened with JWT auth, rate limiting, pagination, structured logging, full-text search indexes, backup/restore
+- **Clinical Trial Integration** -- Statistical analysis (t-test, Wilcoxon, Cohen's d), adverse event reporting, protocol deviation tracking, CFR Part 11 compliance, CDISC ODM-XML export, REDCap integration
+- **Hospital Deployment** -- Multi-tenant architecture with Prisma tenant isolation, subdomain/header/JWT tenant resolution, K8s network policies, Prometheus monitoring, automated backups, Terraform per-tenant resources
+- **Multilingual Support** -- 10 languages (en, es, fr, de, zh, ja, ko, pt, ar, hi) with RTL support, pluralization, locale-aware date/number formatting, dashboard i18n
 
 ## License
 

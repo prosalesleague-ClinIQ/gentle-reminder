@@ -135,6 +135,15 @@ export {
   evaluateVisualSpatialAnswer,
 } from './exercises/visual-spatial';
 
+// Algorithm Transparency
+export {
+  explainScore,
+  explainDifficulty,
+  getAlgorithmVersion,
+} from './transparency';
+
+export type { ScoreExplanation, DomainExplanation, DifficultyExplanation } from './transparency';
+
 // Types
 export type { GeneratedPrompt, AnswerEvaluation, PatientContext } from './exercises/types';
 export type { ExerciseResultInput, SessionScores, CognitiveMetrics } from './scoring/types';

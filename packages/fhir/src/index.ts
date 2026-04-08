@@ -97,3 +97,19 @@ export { DiagnosticReportMapper, type CognitiveTrend } from './DiagnosticReportM
 
 // Validator
 export { Validator } from './Validator';
+
+// Extension handler
+export {
+  EXTENSION_URLS,
+  createCognitiveStageExtension,
+  createBiomarkerConfidenceExtension,
+  createRiskPredictionExtension,
+  applyExtensions,
+} from './ExtensionHandler';
+
+// Terminology service
+export {
+  isValidSystem,
+  validateCode,
+  lookupDisplay,
+} from './TerminologyService';

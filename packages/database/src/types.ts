@@ -2,6 +2,7 @@
 export type {
   User,
   Patient,
+  Tenant,
   Caregiver,
   CaregiverAssignment,
   FamilyMember,

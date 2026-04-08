@@ -5,6 +5,7 @@ import { corsOptions } from './config/cors.js';
 import { requestLogger } from './middleware/requestLogger.js';
 import { apiLimiter } from './middleware/rateLimiter.js';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
+import { tenantResolver } from './middleware/tenantResolver.js';
 import routes from './routes/index.js';
 
 const app = express();
@@ -24,6 +25,9 @@ app.use(requestLogger);
 
 // Rate limiting
 app.use('/api', apiLimiter);
+
+// Multi-tenant resolution (no-op when MULTI_TENANT_ENABLED !== 'true')
+app.use(tenantResolver);
 
 // Health check (before auth)
 app.get('/health', (_req, res) => {

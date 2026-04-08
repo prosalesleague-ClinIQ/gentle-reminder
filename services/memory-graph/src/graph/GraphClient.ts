@@ -1,7 +1,8 @@
 import neo4j, { Driver, Session, Result } from 'neo4j-driver';
+import { logEvent } from '../middleware/logger.js';
 
 /**
- * Neo4j driver wrapper with connection pooling and graceful error handling.
+ * Neo4j driver wrapper with connection pooling, retry logic, and graceful error handling.
  * Operates in "offline" mode when Neo4j is not available, returning empty results
  * so the rest of the application can function without a graph database.
  */
@@ -12,6 +13,8 @@ interface GraphClientConfig {
   password: string;
   database?: string;
   maxConnectionPoolSize?: number;
+  queryTimeoutMs?: number;
+  maxRetries?: number;
 }
 
 const DEFAULT_CONFIG: GraphClientConfig = {
@@ -20,7 +23,31 @@ const DEFAULT_CONFIG: GraphClientConfig = {
   password: process.env.NEO4J_PASSWORD || 'password',
   database: process.env.NEO4J_DATABASE || 'neo4j',
   maxConnectionPoolSize: 50,
+  queryTimeoutMs: 5000,
+  maxRetries: 3,
 };
+
+/**
+ * Determines if an error is transient and worth retrying.
+ */
+function isTransientError(error: Error): boolean {
+  const message = error.message.toLowerCase();
+  return (
+    message.includes('connection refused') ||
+    message.includes('session expired') ||
+    message.includes('connection reset') ||
+    message.includes('deadlock') ||
+    message.includes('temporarily unavailable')
+  );
+}
+
+/**
+ * Wait with exponential backoff: base * 2^attempt (200ms, 400ms, 800ms).
+ */
+function backoffDelay(attempt: number): Promise<void> {
+  const ms = 200 * Math.pow(2, attempt);
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 class GraphClient {
   private driver: Driver | null = null;
@@ -49,11 +76,12 @@ class GraphClient {
       // Verify connectivity
       await this.driver.verifyConnectivity();
       this.connected = true;
-      console.log('[MemoryGraph] Connected to Neo4j at', this.config.uri);
+      logEvent('info', `Connected to Neo4j at ${this.config.uri}`);
       return true;
     } catch (error) {
-      console.warn('[MemoryGraph] Could not connect to Neo4j — running in offline mode');
-      console.warn('[MemoryGraph]', (error as Error).message);
+      logEvent('warn', 'Could not connect to Neo4j — running in offline mode', {
+        error: (error as Error).message,
+      });
       this.connected = false;
       return false;
     }
@@ -67,58 +95,88 @@ class GraphClient {
       await this.driver.close();
       this.driver = null;
       this.connected = false;
-      console.log('[MemoryGraph] Disconnected from Neo4j');
+      logEvent('info', 'Disconnected from Neo4j');
     }
   }
 
   /**
-   * Run a Cypher query against Neo4j.
+   * Run a Cypher query against Neo4j with retry on transient failures.
    * Returns an empty result set when operating in offline mode.
    */
   async runQuery(cypher: string, params: Record<string, unknown> = {}): Promise<Result | null> {
     if (!this.connected || !this.driver) {
-      console.warn('[MemoryGraph] Query skipped (offline mode):', cypher.slice(0, 80));
       return null;
     }
 
-    const session: Session = this.driver.session({
-      database: this.config.database,
-    });
+    const maxRetries = this.config.maxRetries || 3;
 
-    try {
-      const result = await session.run(cypher, params);
-      return result;
-    } catch (error) {
-      console.error('[MemoryGraph] Query error:', (error as Error).message);
-      throw error;
-    } finally {
-      await session.close();
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+      const session: Session = this.driver.session({
+        database: this.config.database,
+      });
+
+      try {
+        const result = await session.run(cypher, params);
+        return result;
+      } catch (error) {
+        if (attempt < maxRetries - 1 && isTransientError(error as Error)) {
+          logEvent('warn', `Query retry ${attempt + 1}/${maxRetries}`, {
+            error: (error as Error).message,
+            query: cypher.slice(0, 80),
+          });
+          await backoffDelay(attempt);
+          continue;
+        }
+        logEvent('error', `Query failed: ${(error as Error).message}`, {
+          query: cypher.slice(0, 80),
+        });
+        throw error;
+      } finally {
+        await session.close();
+      }
     }
+
+    return null;
   }
 
   /**
-   * Run a Cypher query in a write transaction.
+   * Run a Cypher query in a write transaction with retry on transient failures.
    */
   async writeQuery(cypher: string, params: Record<string, unknown> = {}): Promise<Result | null> {
     if (!this.connected || !this.driver) {
-      console.warn('[MemoryGraph] Write skipped (offline mode):', cypher.slice(0, 80));
       return null;
     }
 
-    const session: Session = this.driver.session({
-      database: this.config.database,
-      defaultAccessMode: neo4j.session.WRITE,
-    });
+    const maxRetries = this.config.maxRetries || 3;
 
-    try {
-      const result = await session.executeWrite((tx) => tx.run(cypher, params));
-      return result;
-    } catch (error) {
-      console.error('[MemoryGraph] Write error:', (error as Error).message);
-      throw error;
-    } finally {
-      await session.close();
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+      const session: Session = this.driver.session({
+        database: this.config.database,
+        defaultAccessMode: neo4j.session.WRITE,
+      });
+
+      try {
+        const result = await session.executeWrite((tx) => tx.run(cypher, params));
+        return result;
+      } catch (error) {
+        if (attempt < maxRetries - 1 && isTransientError(error as Error)) {
+          logEvent('warn', `Write retry ${attempt + 1}/${maxRetries}`, {
+            error: (error as Error).message,
+            query: cypher.slice(0, 80),
+          });
+          await backoffDelay(attempt);
+          continue;
+        }
+        logEvent('error', `Write failed: ${(error as Error).message}`, {
+          query: cypher.slice(0, 80),
+        });
+        throw error;
+      } finally {
+        await session.close();
+      }
     }
+
+    return null;
   }
 
   isConnected(): boolean {
@@ -128,4 +186,5 @@ class GraphClient {
 
 // Singleton instance
 export const graphClient = new GraphClient();
-export { GraphClient, GraphClientConfig };
+export { GraphClient };
+export type { GraphClientConfig };

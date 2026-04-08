@@ -6,7 +6,8 @@ import { env } from '../config/env.js';
 declare global {
   namespace Express {
     interface Request {
-      user?: AuthenticatedUser;
+      user?: AuthenticatedUser & { tenantId?: string };
+      tenantId?: string;
     }
   }
 }
@@ -33,7 +34,12 @@ export function authenticate(req: Request, res: Response, next: NextFunction): v
       userId: payload.userId,
       email: payload.email,
       role: payload.role,
+      tenantId: (payload as any).tenantId,
     };
+    // Propagate tenantId from JWT to request for tenant resolver fallback
+    if ((payload as any).tenantId) {
+      req.tenantId = (payload as any).tenantId;
+    }
     next();
   } catch (error) {
     res.status(401).json({
@@ -57,7 +63,11 @@ export function optionalAuth(req: Request, _res: Response, next: NextFunction): 
         userId: payload.userId,
         email: payload.email,
         role: payload.role,
+        tenantId: (payload as any).tenantId,
       };
+      if ((payload as any).tenantId) {
+        req.tenantId = (payload as any).tenantId;
+      }
     } catch {
       // Token invalid, continue without user
     }

@@ -1,0 +1,80 @@
+###############################################################################
+# NetworkPolicy — Inter-namespace tenant isolation
+#
+# Ensures that pods within a tenant namespace can only communicate with:
+#   1. Other pods in the same namespace (same tenant)
+#   2. The shared-services namespace (api-gateway, monitoring, DNS)
+#   3. kube-system for DNS resolution
+#
+# Each tenant is deployed into its own namespace labelled:
+#   tenant: <tenant-slug>
+###############################################################################
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: tenant-isolation
+  namespace: "{{ .Values.tenant.namespace }}"
+  labels:
+    app.kubernetes.io/part-of: gentle-reminder
+    app.kubernetes.io/component: network-policy
+spec:
+  podSelector: {}   # Applies to ALL pods in the namespace
+  policyTypes:
+    - Ingress
+    - Egress
+
+  ingress:
+    # Allow traffic from pods in the same namespace
+    - from:
+        - podSelector: {}
+
+    # Allow traffic from the shared ingress / API gateway namespace
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: shared-services
+
+    # Allow Prometheus scraping from the monitoring namespace
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: monitoring
+      ports:
+        - protocol: TCP
+          port: 3001    # api metrics port
+        - protocol: TCP
+          port: 9090    # prometheus
+        - protocol: TCP
+          port: 7474    # neo4j HTTP
+
+  egress:
+    # Allow DNS resolution
+    - to:
+        - namespaceSelector: {}
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+
+    # Allow traffic to pods in the same namespace
+    - to:
+        - podSelector: {}
+
+    # Allow traffic to shared services (database, cache, etc.)
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              name: shared-services
+
+    # Allow external HTTPS (for external APIs, S3, etc.)
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+              - 10.0.0.0/8
+              - 172.16.0.0/12
+              - 192.168.0.0/16
+      ports:
+        - protocol: TCP
+          port: 443

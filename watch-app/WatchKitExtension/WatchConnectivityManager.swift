@@ -126,6 +126,10 @@ final class WatchConnectivityManager: NSObject {
         session = WCSession.default
         session?.delegate = self
         session?.activate()
+
+        // Restore any persisted queued messages from previous session
+        restoreQueue()
+
         print("[WatchConnectivity] Session activation requested")
     }
 
@@ -141,6 +145,66 @@ final class WatchConnectivityManager: NSObject {
     func stopKeepAlive() {
         pingTimer?.invalidate()
         pingTimer = nil
+    }
+
+    // MARK: - Medication Confirmation
+
+    /// Sends a medication taken confirmation to the paired iPhone
+    func sendMedicationConfirmation(medicationId: String, timestamp: Date) {
+        let payload: [String: Any] = [
+            "medicationId": medicationId,
+            "takenAt": timestamp.timeIntervalSince1970 * 1000,
+            "source": "watch",
+        ]
+        sendMessage(type: .medicationReminder, payload: payload)
+        print("[WatchConnectivity] Medication confirmation sent: \(medicationId)")
+    }
+
+    /// Requests the latest medication list from the paired iPhone
+    func requestLatestMedications() {
+        sendMessage(
+            type: .configUpdate,
+            payload: ["request": "latestMedications", "ts": Date().timeIntervalSince1970 * 1000],
+            replyHandler: { reply in
+                // The reply will be handled via the delegate
+                print("[WatchConnectivity] Medication request acknowledged")
+            }
+        )
+    }
+
+    // MARK: - Queue Persistence
+
+    private let queuePersistenceKey = "com.gentlereminder.watch.messageQueue"
+
+    /// Persists the current message queue to UserDefaults for reliability
+    /// across app restarts and background transitions
+    func persistQueue() {
+        guard !messageQueue.isEmpty else {
+            UserDefaults.standard.removeObject(forKey: queuePersistenceKey)
+            return
+        }
+
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(messageQueue) {
+            UserDefaults.standard.set(data, forKey: queuePersistenceKey)
+            print("[WatchConnectivity] Queue persisted (\(messageQueue.count) messages)")
+        }
+    }
+
+    /// Restores queued messages from UserDefaults after app restart
+    func restoreQueue() {
+        guard let data = UserDefaults.standard.data(forKey: queuePersistenceKey) else { return }
+
+        let decoder = JSONDecoder()
+        if let restored = try? decoder.decode([WatchMessage].self, from: data) {
+            let now = Date().timeIntervalSince1970 * 1000
+            // Only restore non-expired messages
+            let valid = restored.filter { now - $0.timestamp < messageTTL * 1000 }
+            messageQueue.append(contentsOf: valid)
+            // Clear persisted data since it is now in memory
+            UserDefaults.standard.removeObject(forKey: queuePersistenceKey)
+            print("[WatchConnectivity] Queue restored (\(valid.count) of \(restored.count) messages)")
+        }
     }
 
     // MARK: - Sending Messages
@@ -252,6 +316,8 @@ final class WatchConnectivityManager: NSObject {
             pruneQueue()
         }
         messageQueue.append(message)
+        // Persist queue for reliability across app restarts
+        persistQueue()
         print("[WatchConnectivity] Message queued (total: \(messageQueue.count))")
     }
 

@@ -49,3 +49,19 @@ export const AUTO_ADVANCE_DELAY_MS = 2000;
 
 /** Touch debounce interval in ms to prevent double-taps */
 export const TOUCH_DEBOUNCE_MS = 500;
+
+/** Whether voice navigation mode is enabled by default */
+export const DEFAULT_VOICE_NAV_MODE = false;
+
+/** Default voice navigation speech speed */
+export const DEFAULT_VOICE_NAV_SPEED: 'slow' | 'normal' | 'fast' = 'slow';
+
+/** Whether elements are announced on focus by default */
+export const DEFAULT_ANNOUNCE_ON_FOCUS = true;
+
+/** Speech rate values for voice navigation speeds */
+export const VOICE_NAV_RATES = {
+  slow: 0.55,
+  normal: 0.72,
+  fast: 0.9,
+} as const;

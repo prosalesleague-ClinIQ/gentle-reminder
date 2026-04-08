@@ -4,6 +4,9 @@ import {
   DEFAULT_FONT_SCALE,
   DEFAULT_VOICE_ENABLED,
   DEFAULT_HIGH_CONTRAST,
+  DEFAULT_VOICE_NAV_MODE,
+  DEFAULT_VOICE_NAV_SPEED,
+  DEFAULT_ANNOUNCE_ON_FOCUS,
   MIN_FONT_SCALE,
   MAX_FONT_SCALE,
   FONT_SCALE_STEP,
@@ -20,6 +23,15 @@ interface SettingsState {
 
   /** Whether high contrast mode is on */
   highContrastMode: boolean;
+
+  /** Whether full voice navigation mode is enabled */
+  voiceNavMode: boolean;
+
+  /** Voice navigation speech speed */
+  voiceNavSpeed: 'slow' | 'normal' | 'fast';
+
+  /** Whether elements are announced on focus */
+  announceOnFocus: boolean;
 
   /** Whether settings have been loaded from storage */
   isInitialized: boolean;
@@ -42,6 +54,15 @@ interface SettingsState {
   /** Toggle high contrast mode */
   toggleHighContrast: () => void;
 
+  /** Toggle voice navigation mode */
+  toggleVoiceNav: () => void;
+
+  /** Set voice navigation speech speed */
+  setVoiceNavSpeed: (speed: 'slow' | 'normal' | 'fast') => void;
+
+  /** Toggle announce on focus */
+  toggleAnnounceOnFocus: () => void;
+
   /** Reset all settings to defaults */
   resetSettings: () => void;
 }
@@ -52,6 +73,9 @@ const persistSettings = async (state: Partial<SettingsState>) => {
       fontScale: state.fontScale,
       voiceEnabled: state.voiceEnabled,
       highContrastMode: state.highContrastMode,
+      voiceNavMode: state.voiceNavMode,
+      voiceNavSpeed: state.voiceNavSpeed,
+      announceOnFocus: state.announceOnFocus,
     });
     await SecureStore.setItemAsync(SETTINGS_KEY, data);
   } catch {
@@ -63,6 +87,9 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   fontScale: DEFAULT_FONT_SCALE,
   voiceEnabled: DEFAULT_VOICE_ENABLED,
   highContrastMode: DEFAULT_HIGH_CONTRAST,
+  voiceNavMode: DEFAULT_VOICE_NAV_MODE,
+  voiceNavSpeed: DEFAULT_VOICE_NAV_SPEED,
+  announceOnFocus: DEFAULT_ANNOUNCE_ON_FOCUS,
   isInitialized: false,
 
   initialize: async () => {
@@ -74,6 +101,9 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
           fontScale: parsed.fontScale ?? DEFAULT_FONT_SCALE,
           voiceEnabled: parsed.voiceEnabled ?? DEFAULT_VOICE_ENABLED,
           highContrastMode: parsed.highContrastMode ?? DEFAULT_HIGH_CONTRAST,
+          voiceNavMode: parsed.voiceNavMode ?? DEFAULT_VOICE_NAV_MODE,
+          voiceNavSpeed: parsed.voiceNavSpeed ?? DEFAULT_VOICE_NAV_SPEED,
+          announceOnFocus: parsed.announceOnFocus ?? DEFAULT_ANNOUNCE_ON_FOCUS,
           isInitialized: true,
         });
       } else {
@@ -116,16 +146,44 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     persistSettings({ ...get(), highContrastMode: newValue });
   },
 
+  toggleVoiceNav: () => {
+    const newValue = !get().voiceNavMode;
+    // Voice nav requires voice to be enabled
+    const updates: Partial<SettingsState> = { voiceNavMode: newValue };
+    if (newValue && !get().voiceEnabled) {
+      updates.voiceEnabled = true;
+    }
+    set(updates);
+    persistSettings({ ...get(), ...updates });
+  },
+
+  setVoiceNavSpeed: (speed) => {
+    set({ voiceNavSpeed: speed });
+    persistSettings({ ...get(), voiceNavSpeed: speed });
+  },
+
+  toggleAnnounceOnFocus: () => {
+    const newValue = !get().announceOnFocus;
+    set({ announceOnFocus: newValue });
+    persistSettings({ ...get(), announceOnFocus: newValue });
+  },
+
   resetSettings: () => {
     set({
       fontScale: DEFAULT_FONT_SCALE,
       voiceEnabled: DEFAULT_VOICE_ENABLED,
       highContrastMode: DEFAULT_HIGH_CONTRAST,
+      voiceNavMode: DEFAULT_VOICE_NAV_MODE,
+      voiceNavSpeed: DEFAULT_VOICE_NAV_SPEED,
+      announceOnFocus: DEFAULT_ANNOUNCE_ON_FOCUS,
     });
     persistSettings({
       fontScale: DEFAULT_FONT_SCALE,
       voiceEnabled: DEFAULT_VOICE_ENABLED,
       highContrastMode: DEFAULT_HIGH_CONTRAST,
+      voiceNavMode: DEFAULT_VOICE_NAV_MODE,
+      voiceNavSpeed: DEFAULT_VOICE_NAV_SPEED,
+      announceOnFocus: DEFAULT_ANNOUNCE_ON_FOCUS,
     });
   },
 }));

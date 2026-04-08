@@ -120,3 +120,171 @@ export interface SessionRecord {
   responseTimeMs?: number;
   durationMs?: number;
 }
+
+// ── Adverse Events ──
+
+export type AESeverity = 'mild' | 'moderate' | 'severe' | 'life_threatening';
+export type AESeriousness = 'serious' | 'non_serious';
+export type AEOutcome =
+  | 'recovered'
+  | 'recovering'
+  | 'not_recovered'
+  | 'fatal'
+  | 'unknown';
+
+export type CausalityAssessment =
+  | 'definite'
+  | 'probable'
+  | 'possible'
+  | 'unlikely'
+  | 'unrelated';
+
+export interface AdverseEvent {
+  id: string;
+  patientId: string;
+  description: string;
+  severity: AESeverity;
+  seriousness: AESeriousness;
+  meddraCoding?: string;
+  onsetDate: Date;
+  reportDate: Date;
+  outcome: AEOutcome;
+  causalityAssessment: CausalityAssessment;
+}
+
+export interface AEReport {
+  dateRange: { start: Date; end: Date };
+  totalEvents: number;
+  bySeverity: Record<AESeverity, number>;
+  bySeriousness: Record<AESeriousness, number>;
+  saeCount: number;
+  events: AdverseEvent[];
+}
+
+// ── Protocol Deviations ──
+
+export type DeviationType =
+  | 'missed_visit'
+  | 'out_of_window'
+  | 'eligibility_violation'
+  | 'other';
+
+export type DeviationSeverity = 'minor' | 'major' | 'critical';
+
+export interface ProtocolDeviation {
+  id: string;
+  patientId: string;
+  type: DeviationType;
+  description: string;
+  date: Date;
+  severity: DeviationSeverity;
+  corrective_action?: string;
+}
+
+export interface DeviationSummary {
+  totalDeviations: number;
+  byType: Record<DeviationType, number>;
+  bySeverity: Record<DeviationSeverity, number>;
+  affectedPatients: string[];
+  deviations: ProtocolDeviation[];
+}
+
+// ── Electronic Signatures (21 CFR Part 11) ──
+
+export type SignatureMeaning = 'authored' | 'reviewed' | 'approved';
+
+export interface ElectronicSignature {
+  userId: string;
+  meaning: SignatureMeaning;
+  timestamp: string;
+  hash: string;
+}
+
+export interface SignedRecord<T = unknown> {
+  data: T;
+  signature: ElectronicSignature;
+}
+
+export interface AuditTrailEntry {
+  id: string;
+  timestamp: string;
+  userId: string;
+  action: string;
+  resourceType: string;
+  resourceId: string;
+  previousValue?: string;
+  newValue?: string;
+  reason?: string;
+  checksum: string;
+}
+
+export interface AuditAction {
+  userId: string;
+  action: string;
+  resourceType: string;
+  resourceId: string;
+  previousValue?: string;
+  newValue?: string;
+  reason?: string;
+}
+
+// ── Data Validation ──
+
+export type ValidationSeverity = 'error' | 'warning';
+
+export interface ValidationIssue {
+  field: string;
+  message: string;
+  severity: ValidationSeverity;
+  value?: unknown;
+}
+
+export interface DataValidationResult {
+  valid: boolean;
+  errors: ValidationIssue[];
+  warnings: ValidationIssue[];
+}
+
+export interface CrossFieldRule {
+  fields: string[];
+  validate: (record: Record<string, unknown>) => ValidationIssue | null;
+}
+
+// ── EDC Integration ──
+
+export interface EDCExportConfig {
+  studyOID: string;
+  studyName: string;
+  protocolName: string;
+  siteOID?: string;
+  siteName?: string;
+  creationDateTime?: string;
+}
+
+export interface EDCAdapter {
+  exportRecords(records: DeidentifiedRecord[]): string | Promise<string>;
+  importRecords(data: string): DeidentifiedRecord[] | Promise<DeidentifiedRecord[]>;
+}
+
+// ── Statistical Results ──
+
+export interface TTestResult {
+  t: number;
+  p: number;
+  df: number;
+  significant: boolean;
+}
+
+export interface WilcoxonResult {
+  W: number;
+  p: number;
+  significant: boolean;
+}
+
+export interface ConfidenceIntervalResult {
+  lower: number;
+  upper: number;
+  mean: number;
+}
+
+export type StatisticalResult = TTestResult | WilcoxonResult | ConfidenceIntervalResult;
