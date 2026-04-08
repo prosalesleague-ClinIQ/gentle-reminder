@@ -17,6 +17,8 @@ import biomarkersRoutes from './biomarkers.routes.js';
 import fhirRoutes from './fhir.routes.js';
 import tenantsRoutes from './tenants.routes.js';
 import surveillanceRoutes from './surveillance.routes.js';
+import notificationsRoutes from './notifications.routes.js';
+import healthRoutes from './health.routes.js';
 
 const router = Router();
 
@@ -38,5 +40,7 @@ router.use('/biomarkers', biomarkersRoutes);
 router.use('/fhir', fhirRoutes);
 router.use('/tenants', tenantsRoutes);
 router.use('/surveillance', surveillanceRoutes);
+router.use('/notifications', notificationsRoutes);
+router.use('/health', healthRoutes);
 
 export default router;

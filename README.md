@@ -32,9 +32,12 @@ gentle-reminder/
 |   |-- api/                     Express REST API + WebSocket server
 |   |-- ai/                      Python FastAPI (Whisper, NLP, sentiment)
 |
+|-- e2e/                         Playwright E2E test suite
+|
 |-- infrastructure/
-|   |-- docker/                  Local development (PostgreSQL, Redis)
+|   |-- docker/                  Local dev (PostgreSQL, Redis, Prometheus, Grafana)
 |   |-- terraform/               AWS deployment configuration
+|   |-- k8s/                     Kubernetes manifests + monitoring
 ```
 
 ## Features
@@ -191,18 +194,21 @@ npm test --workspace=services/api
 
 | Metric | Value |
 |--------|-------|
-| Total Files | 770+ |
-| Lines of Code | 30,000+ |
+| Total Files | 930+ |
+| Lines of Code | 52,000+ |
 | Test Suites | 185+ tests |
-| Commits | 15 |
-| Packages | 6 |
-| Apps | 3 |
-| API Routes | 25+ |
-| Database Models | 20+ |
+| E2E Tests | Playwright (4 browsers + iPad) |
+| Commits | 18 |
+| Packages | 8 |
+| Apps | 5 (mobile, caregiver, clinician, admin, family) |
+| API Routes | 30+ |
+| Database Models | 30+ |
+| Languages | 10 (en, es, fr, de, zh, ja, ko, pt, ar, hi) |
+| CI/CD | GitHub Actions (5 workflows) |
 
 ## Completed Roadmap
 
-All roadmap items have been implemented across Phases 23-27:
+All roadmap items have been implemented across Phases 23-28:
 
 - **Apple Watch Integration** -- SwiftUI Watch app with HealthKit, medication reminders, breathing exercise, fall detection with 60s countdown, complications
 - **Real Whisper Integration** -- Dual-mode transcription (local Whisper model + OpenAI API), audio preprocessing, batch processing, caching
@@ -212,6 +218,7 @@ All roadmap items have been implemented across Phases 23-27:
 - **Clinical Trial Integration** -- Statistical analysis (t-test, Wilcoxon, Cohen's d), adverse event reporting, protocol deviation tracking, CFR Part 11 compliance, CDISC ODM-XML export, REDCap integration
 - **Hospital Deployment** -- Multi-tenant architecture with Prisma tenant isolation, subdomain/header/JWT tenant resolution, K8s network policies, Prometheus monitoring, automated backups, Terraform per-tenant resources
 - **Multilingual Support** -- 10 languages (en, es, fr, de, zh, ja, ko, pt, ar, hi) with RTL support, pluralization, locale-aware date/number formatting, dashboard i18n
+- **Production Hardening** -- Push notification service (Expo + server), input sanitization middleware, health/readiness/metrics endpoints, Prometheus + Grafana monitoring stack, Playwright E2E test suite, admin tenants + system health pages, 5 GitHub Actions workflows
 
 ## License
 

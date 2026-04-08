@@ -6,6 +6,7 @@ import { requestLogger } from './middleware/requestLogger.js';
 import { apiLimiter } from './middleware/rateLimiter.js';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
 import { tenantResolver } from './middleware/tenantResolver.js';
+import { inputSanitizer } from './middleware/sanitize.js';
 import routes from './routes/index.js';
 
 const app = express();
@@ -25,6 +26,9 @@ app.use(requestLogger);
 
 // Rate limiting
 app.use('/api', apiLimiter);
+
+// Input sanitization (XSS, injection defense-in-depth)
+app.use(inputSanitizer);
 
 // Multi-tenant resolution (no-op when MULTI_TENANT_ENABLED !== 'true')
 app.use(tenantResolver);
