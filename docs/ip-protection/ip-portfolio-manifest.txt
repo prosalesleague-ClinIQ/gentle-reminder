@@ -1,0 +1,33 @@
+# Gentle Reminder IP Portfolio Manifest
+# Generated: 2026-04-20 22:50:08 UTC
+# This file lists SHA-256 hashes of every document in the IP portfolio.
+# It is itself timestamped via OpenTimestamps for integrity verification.
+
+50e0b8252170731747c0e4d7f4c57fd1e83f5d31d3a3eca90ee81e85f37472c0  docs/ip/INVENTOR-DISCLOSURE.md
+718b1a24ddd2831975f3290fc5fa0157618ab9526e252ead2a7280da3e5e74e5  docs/ip/tier-1/01-gentle-feedback-scoring.md
+3eb6c576f8a47896de632c8fa46c95b1e7c47dfd175d26ee3c43ad376ccb5bb7  docs/ip/tier-1/03-dementia-spaced-repetition.md
+feea6424260521bcdb87a6767136ad8a15fdbba332860a6ba6c00843eac575b5  docs/ip/tier-1/05-dementia-speech-emotion.md
+eacb07ce183b8595c5f57241a0975d3ba7b9586d48db0e65bd7cdbdbe95fdb31  docs/ip/tier-1/02-adaptive-difficulty-engine.md
+20584e19773d3188f393eda18b2e04870ac2138e8fd01e4acb30fc6426e5495a  docs/ip/tier-1/04-multimodal-cognitive-state.md
+21802d465bdd4217e0ec9bca6d769151e9ff849de2a84eeb68d09e6a9b07353a  docs/ip/FILING-CHECKLIST.md
+8a6977c47c44a9dbca8e3971e5c022eef15d3f2efff98b1fac218e5c9146fdc2  docs/ip/README.md
+82c4f59c0ec8995c8860e2f6499e09a025102b250ce57d1c97aa7ad55837668b  docs/ip/PRIOR-ART-SEARCH.md
+62182ae449f7ce3b0388892e529c348e69468b7099181671aa59ab089c5e7e3b  docs/ip/TEMPLATE-provisional-patent.md
+61976a5467b49357bb1b9da955340c7c3283fc49e481bbdbc6617b506061172e  docs/ip/tier-3/20-wearable-health-processing.md
+883b997673267774b3bd1ea8be5f6b40432132b4484b8acf485e9d35028328e3  docs/ip/tier-3/23-circadian-biomarkers.md
+f91149d2a276e3320a0f85f9088dfe1170a012062e9cb051b34601ed6f96aca9  docs/ip/tier-3/16-enforced-dementia-ux.md
+82847879e2b01bf6b62acc93e2921e45c61752926d46970696cdb48966dc6b60  docs/ip/tier-3/14-voice-companion-system.md
+a1e322276385f7f7de0541c5fbdeb12c8c869caf231338a335f138c2797ac00a  docs/ip/tier-3/15-music-therapy-engine.md
+f7ac83fad05d5a2dc7338089df216de270f3b4d856ba81f58ad65be5fef4bf71  docs/ip/tier-3/17-multi-tenant-clinical-isolation.md
+1df36b5ce5bb1ba4b8635327374dbd665a967935b9e78bac9789e3b6dcea57a7  docs/ip/tier-3/21-fhir-dementia-extensions.md
+e77bd1f8e5e2785ffdadd0f08ea678d90f2f526eeb88dda0d48c42205dc594f4  docs/ip/tier-3/19-adaptive-response-policies.md
+8e9ab9eefe6d9f4cf16af242ab6c3ac9c48c074548ca92535466fc5a022621a1  docs/ip/tier-3/13-post-market-surveillance.md
+e0efc9ce2f2a099e3f2432b84ce7432643b03146a4ae0c4cf17606cade0f9d41  docs/ip/tier-3/18-cfr11-hash-chain-audit.md
+bb7d10b278f5dbbbcc5c4b0c06eb0276093bfbbb700ace3199a315dc6e050c87  docs/ip/tier-3/22-pure-ts-statistical-engine.md
+4aec9b0c67f3e507f30259f649c363dea4127267b39cf366c7533ef22ac0f824  docs/ip/tier-2/09-speech-hesitation-biomarker.md
+40b4e65d855b878968e3c96ead290e3dd4a02a9d8e753e4dd177e097035d3e74  docs/ip/tier-2/06-sundowning-detection.md
+56e39b41660d31fa0ec94027efb3423bebbaca568595448b15716254db653452  docs/ip/tier-2/11-decline-predictor-ml.md
+28128858fc26f6c2a26c15d465d8260e4f48f6b26d3f7ca225914b07f151b473  docs/ip/tier-2/10-response-time-biomarker.md
+fa26dfd12d4efc006e599d585c9654bb5c3a151489dc1bb5e81b6ff0196dfd70  docs/ip/tier-2/07-composite-biomarker-engine.md
+32ebc6b78d2962284515d62d8293a21b3a094f35a4d0a8bae4a7deeae61be2b1  docs/ip/tier-2/12-algorithm-transparency.md
+1105b3bf393a1946a72049af9a61d1d7c0b67f4f7be4da11cfb92a6628684a8c  docs/ip/tier-2/08-multi-window-decline-detection.md
