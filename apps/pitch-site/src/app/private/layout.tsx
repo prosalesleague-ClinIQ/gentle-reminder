@@ -57,10 +57,14 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
             <Link href="/private" style={{ fontSize: 13, color: '#c9d1d9' }}>Dashboard</Link>
             <Link href="/private/execute" style={{ fontSize: 13, color: '#f85149', fontWeight: 600 }}>🔥 Execute</Link>
             <Link href="/private/materials" style={{ fontSize: 13, color: '#3fb950', fontWeight: 600 }}>📚 Materials</Link>
-            <Link href="/private/outreach" style={{ fontSize: 13, color: '#c9d1d9' }}>Outreach Queue</Link>
+            <Link href="/private/team" style={{ fontSize: 13, color: '#a371f7', fontWeight: 600 }}>👥 Team</Link>
+            <Link href="/private/deck" style={{ fontSize: 13, color: '#c9d1d9' }}>Pitch Deck</Link>
+            <Link href="/private/exec-summary" style={{ fontSize: 13, color: '#c9d1d9' }}>Exec Summary</Link>
+            <Link href="/private/investor-faq" style={{ fontSize: 13, color: '#c9d1d9' }}>FAQ</Link>
+            <Link href="/private/outreach" style={{ fontSize: 13, color: '#c9d1d9' }}>Outreach</Link>
             <Link href="/private/pipeline" style={{ fontSize: 13, color: '#c9d1d9' }}>Pipeline</Link>
-            <Link href="/private/templates" style={{ fontSize: 13, color: '#c9d1d9' }}>Email Templates</Link>
-            <Link href="/private/nda" style={{ fontSize: 13, color: '#c9d1d9' }}>NDA Templates</Link>
+            <Link href="/private/templates" style={{ fontSize: 13, color: '#c9d1d9' }}>Emails</Link>
+            <Link href="/private/nda" style={{ fontSize: 13, color: '#c9d1d9' }}>NDA</Link>
             <Link href="/private/checklists" style={{ fontSize: 13, color: '#c9d1d9' }}>Checklists</Link>
           </div>
           <Link href="/" style={{ fontSize: 12, color: '#8b949e' }}>← Exit to public site</Link>

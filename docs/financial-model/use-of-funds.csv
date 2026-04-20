@@ -1,0 +1,41 @@
+Category,Subcategory,Amount,% of Round,Notes
+FDA 510(k) Pathway,FDA consultant (Greenlight Guru / Emergo / RCA),$400000,8%,Full submission prep
+FDA 510(k) Pathway,Clinical validation study execution,$750000,15%,300 patients across 3-5 sites
+FDA 510(k) Pathway,Regulatory submission fees,$20000,0%,USPTO FDA filing fees
+FDA 510(k) Pathway,Quality management system implementation,$100000,2%,ISO 13485 QMS software + audit
+FDA 510(k) Pathway,Subtotal,$1270000,25%,
+,,,,
+Pilot Deployments,3 facility pilot setup + hardware,$150000,3%,iPads local setup training materials
+Pilot Deployments,Pilot customer success (dedicated staff),$200000,4%,1 FTE for 12 months
+Pilot Deployments,Pilot analytics + reporting infrastructure,$50000,1%,
+Pilot Deployments,Pilot operations travel + logistics,$50000,1%,
+Pilot Deployments,Clinical PI stipends + subawards,$150000,3%,2 academic medical center partnerships
+Pilot Deployments,Subtotal,$600000,12%,
+,,,,
+Engineering,Engineering team (6 FTE × 12 months),$1080000,22%,Product + platform
+Engineering,Product management (1 FTE),$180000,4%,
+Engineering,Infrastructure scaling (cloud + security),$120000,2%,
+Engineering,Third-party software (tools APIs),$40000,1%,
+Engineering,Subtotal,$1420000,28%,
+,,,,
+IP Portfolio,Non-provisional patent conversions (8-10 IPs),$450000,9%,$50-80K per conversion
+IP Portfolio,Prosecution support + office actions,$100000,2%,
+IP Portfolio,Trademark expansion (international),$50000,1%,
+IP Portfolio,Subtotal,$600000,12%,
+,,,,
+Sales & Partnerships,Sales team (1 AE + 1 CSM),$350000,7%,Post-510k pre-hire
+Sales & Partnerships,Strategic partnership BD travel,$50000,1%,Conferences + pharma outreach
+Sales & Partnerships,Marketing + content (founder-led),$50000,1%,
+Sales & Partnerships,Subtotal,$450000,9%,
+,,,,
+Operations & Reserve,Legal + accounting,$100000,2%,Ongoing corporate secretary & tax
+Operations & Reserve,Insurance (D&O E&O cyber),$80000,2%,
+Operations & Reserve,Office + facilities,$60000,1%,Primarily remote-first
+Operations & Reserve,General reserve / contingency,$170000,3%,
+Operations & Reserve,Subtotal,$410000,8%,
+,,,,
+Closing costs (seed),Legal — closing counsel + SAFE conversion prep,$60000,1%,
+Closing costs (seed),Advisory closing fee (if placement agent engaged),$100000,2%,Optional if self-raised
+Closing costs (seed),Closing Subtotal,$60000-$160000,1-3%,Exact varies by model
+,,,,
+,TOTAL,$5000000,100%,Including closing and reserves

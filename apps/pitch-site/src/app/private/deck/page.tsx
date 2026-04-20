@@ -1,0 +1,780 @@
+import React from 'react';
+import { DECK_DATA } from '../../../content/pitch-deck';
+import { IP_PORTFOLIO, PORTFOLIO_STATS } from '../../../content/ip-portfolio';
+
+export const metadata = {
+  title: 'Pitch Deck — Gentle Reminder',
+};
+
+// Slide container — each is a full 16:9 aspect ratio, page-break-after
+function Slide({
+  number,
+  children,
+  kicker,
+  bgGradient,
+}: {
+  number: number;
+  children: React.ReactNode;
+  kicker?: string;
+  bgGradient?: string;
+}) {
+  return (
+    <section
+      className="slide"
+      style={{
+        width: '100%',
+        maxWidth: 1280,
+        aspectRatio: '16 / 9',
+        margin: '20px auto',
+        padding: '48px 64px',
+        background: bgGradient || '#0d1117',
+        border: '1px solid #21262d',
+        borderRadius: 12,
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'relative',
+        pageBreakAfter: 'always',
+        breakAfter: 'page',
+      }}
+    >
+      {/* Slide number */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 20,
+          right: 28,
+          fontSize: 11,
+          color: '#6e7681',
+          letterSpacing: '0.1em',
+        }}
+      >
+        {String(number).padStart(2, '0')} / 16 · GENTLE REMINDER
+      </div>
+      {kicker && (
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            color: '#f85149',
+            letterSpacing: '0.15em',
+            marginBottom: 12,
+          }}
+        >
+          {kicker}
+        </div>
+      )}
+      {children}
+    </section>
+  );
+}
+
+function SlideTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 style={{ fontSize: 48, fontWeight: 800, color: '#f0f6fc', marginBottom: 24, letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+      {children}
+    </h2>
+  );
+}
+
+export default function DeckPage() {
+  return (
+    <>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        @media print {
+          body { background: white !important; }
+          nav, .container > div:first-child, footer { display: none !important; }
+          .slide {
+            margin: 0 !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            border: none !important;
+            page-break-after: always;
+            max-width: 100% !important;
+            background: #0d1117 !important;
+            color-adjust: exact;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+          .no-print { display: none !important; }
+        }
+        @page { size: landscape; margin: 0; }
+      `,
+        }}
+      />
+
+      <div
+        className="no-print"
+        style={{
+          background: '#161b22',
+          padding: '16px 24px',
+          marginBottom: 24,
+          border: '1px solid #21262d',
+          borderRadius: 8,
+          maxWidth: 1280,
+          margin: '24px auto',
+        }}
+      >
+        <div style={{ fontSize: 14, color: '#c9d1d9', marginBottom: 4 }}>
+          <strong>🖨️ To export PDF:</strong> Press <kbd style={{ background: '#0d1117', padding: '2px 6px', borderRadius: 3 }}>Cmd/Ctrl + P</kbd> → Destination: Save as PDF → Layout: Landscape → More settings: Background graphics ON.
+        </div>
+        <div style={{ fontSize: 12, color: '#8b949e' }}>
+          Customize placeholders like [Founder Name] before sharing. All 16 slides render below for preview and print.
+        </div>
+      </div>
+
+      {/* SLIDE 1: TITLE */}
+      <Slide
+        number={1}
+        bgGradient="radial-gradient(ellipse at top, rgba(88, 166, 255, 0.2), transparent 60%), radial-gradient(ellipse at bottom right, rgba(63, 185, 80, 0.15), transparent 60%), #0a0e1a"
+      >
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div
+            style={{
+              fontSize: 14,
+              fontWeight: 700,
+              letterSpacing: '0.2em',
+              color: '#58a6ff',
+              marginBottom: 24,
+            }}
+          >
+            SEED PITCH · CONFIDENTIAL
+          </div>
+          <h1
+            style={{
+              fontSize: 84,
+              fontWeight: 900,
+              letterSpacing: '-0.03em',
+              lineHeight: 1,
+              color: '#f0f6fc',
+              marginBottom: 20,
+            }}
+          >
+            Gentle Reminder
+          </h1>
+          <p style={{ fontSize: 28, fontWeight: 500, color: '#c9d1d9', marginBottom: 12 }}>
+            {DECK_DATA.tagline}
+          </p>
+          <p
+            style={{
+              fontSize: 18,
+              color: '#8b949e',
+              background: 'linear-gradient(90deg, #58a6ff, #3fb950)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              fontWeight: 700,
+            }}
+          >
+            {DECK_DATA.subtagline}
+          </p>
+          <div style={{ marginTop: 'auto', paddingTop: 40, fontSize: 14, color: '#8b949e' }}>
+            {DECK_DATA.founder} · {DECK_DATA.founderTitle}
+            <br />
+            {DECK_DATA.email} · {DECK_DATA.pitchSite}
+          </div>
+        </div>
+      </Slide>
+
+      {/* SLIDE 2: PROBLEM */}
+      <Slide number={2} kicker="THE PROBLEM">
+        <SlideTitle>Dementia care is broken.</SlideTitle>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, flex: 1, alignItems: 'center' }}>
+          <div>
+            <div style={{ fontSize: 64, fontWeight: 800, color: '#f85149', marginBottom: 12 }}>55M+</div>
+            <p style={{ fontSize: 18, color: '#c9d1d9', lineHeight: 1.5 }}>
+              People with dementia globally. 10 million new cases annually. $1.3T in costs.
+            </p>
+          </div>
+          <div>
+            <p style={{ fontSize: 17, color: '#c9d1d9', lineHeight: 1.7, marginBottom: 16 }}>
+              Standard cognitive tests — MMSE, MoCA, ADAS-Cog — produce <strong style={{ color: '#f85149' }}>pass/fail feedback that triggers anxiety, agitation, and session abandonment</strong> in dementia patients.
+            </p>
+            <p style={{ fontSize: 17, color: '#c9d1d9', lineHeight: 1.7, marginBottom: 16 }}>
+              Caregivers lack real-time digital biomarkers. Clinicians lack longitudinal decline tools.
+              Pharma trials (Leqembi, Kisunla) lack scalable digital endpoints.
+            </p>
+            <p style={{ fontSize: 17, color: '#c9d1d9', lineHeight: 1.7 }}>
+              No dementia-safe alternative exists. Competitors replicate the pass/fail paradigm digitally.
+            </p>
+          </div>
+        </div>
+      </Slide>
+
+      {/* SLIDE 3: SOLUTION */}
+      <Slide number={3} kicker="THE SOLUTION">
+        <SlideTitle>
+          A platform built from the <span style={{ color: '#3fb950' }}>algorithm up</span> for dementia.
+        </SlideTitle>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24, flex: 1 }}>
+          {[
+            { title: 'Three-State Feedback', desc: 'CELEBRATED / GUIDED / SUPPORTED — never negative. Architecturally guarantees no failure reaches the patient.', color: '#58a6ff' },
+            { title: 'Dementia Biomarkers', desc: 'Speech hesitation, response time, sleep irregularity, routine disruption. Composite score for decline tracking.', color: '#3fb950' },
+            { title: 'FDA SaMD Ready', desc: 'Full documentation (IEC 62304, ISO 14971, QMS, CFR Part 11). 510(k) predicate identified. Pathway to Medicare reimbursement.', color: '#a371f7' },
+          ].map((item) => (
+            <div
+              key={item.title}
+              style={{
+                padding: 28,
+                background: 'rgba(22, 27, 34, 0.7)',
+                border: `1px solid ${item.color}40`,
+                borderRadius: 12,
+              }}
+            >
+              <div style={{ fontSize: 14, fontWeight: 700, color: item.color, marginBottom: 8, letterSpacing: '0.05em' }}>
+                {item.title.toUpperCase()}
+              </div>
+              <p style={{ fontSize: 15, color: '#c9d1d9', lineHeight: 1.6 }}>{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </Slide>
+
+      {/* SLIDE 4: PRODUCT */}
+      <Slide number={4} kicker="THE PRODUCT">
+        <SlideTitle>Production-ready platform.</SlideTitle>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18, marginBottom: 30 }}>
+          {DECK_DATA.platformMetrics.map((m) => (
+            <div
+              key={m.label}
+              style={{
+                padding: 20,
+                background: '#161b22',
+                border: '1px solid #21262d',
+                borderRadius: 8,
+                textAlign: 'center',
+              }}
+            >
+              <div style={{ fontSize: 36, fontWeight: 800, color: '#58a6ff', marginBottom: 4 }}>{m.metric}</div>
+              <div style={{ fontSize: 12, color: '#8b949e' }}>{m.label}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ fontSize: 15, color: '#c9d1d9', lineHeight: 1.7 }}>
+          5 deployed apps (iPad patient app, caregiver dashboard, clinician dashboard, admin portal, family dashboard) + Apple Watch. 10 languages with RTL.
+          WatchOS HealthKit integration. FHIR R4 EHR integration. Multi-tenant architecture.
+        </div>
+      </Slide>
+
+      {/* SLIDE 5: MARKET */}
+      <Slide number={5} kicker="MARKET">
+        <SlideTitle>$186B global market. $450M 5-year SOM.</SlideTitle>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24, flex: 1 }}>
+          {[
+            { size: DECK_DATA.market.TAM, label: 'TAM — Global dementia care', desc: DECK_DATA.market.TAMDesc, color: '#58a6ff' },
+            { size: DECK_DATA.market.SAM, label: 'SAM — Digital therapeutics', desc: DECK_DATA.market.SAMDesc, color: '#3fb950' },
+            { size: DECK_DATA.market.SOM, label: 'SOM — 5-year addressable', desc: DECK_DATA.market.SOMDesc, color: '#d29922' },
+          ].map((m) => (
+            <div
+              key={m.label}
+              style={{
+                padding: 32,
+                background: 'rgba(22, 27, 34, 0.7)',
+                border: `1px solid ${m.color}40`,
+                borderRadius: 12,
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <div style={{ fontSize: 56, fontWeight: 800, color: m.color, marginBottom: 12 }}>{m.size}</div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: '#f0f6fc', marginBottom: 8 }}>{m.label}</div>
+              <div style={{ fontSize: 13, color: '#8b949e', lineHeight: 1.5 }}>{m.desc}</div>
+            </div>
+          ))}
+        </div>
+      </Slide>
+
+      {/* SLIDE 6: IP MOAT */}
+      <Slide number={6} kicker="IP MOAT">
+        <SlideTitle>23 patent-pending innovations.</SlideTitle>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, flex: 1 }}>
+          <div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10, marginBottom: 20 }}>
+              {[
+                { tier: 'Tier 1', count: PORTFOLIO_STATS.tier1Count, color: '#f85149', label: 'Foundational' },
+                { tier: 'Tier 2', count: PORTFOLIO_STATS.tier2Count, color: '#d29922', label: 'Strong claims' },
+                { tier: 'Tier 3', count: PORTFOLIO_STATS.tier3Count, color: '#58a6ff', label: 'System-level' },
+              ].map((t) => (
+                <div
+                  key={t.tier}
+                  style={{
+                    padding: 16,
+                    background: `${t.color}15`,
+                    border: `1px solid ${t.color}40`,
+                    borderRadius: 8,
+                    textAlign: 'center',
+                  }}
+                >
+                  <div style={{ fontSize: 32, fontWeight: 800, color: t.color }}>{t.count}</div>
+                  <div style={{ fontSize: 11, color: '#c9d1d9', fontWeight: 600 }}>{t.tier}</div>
+                  <div style={{ fontSize: 10, color: '#8b949e' }}>{t.label}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ fontSize: 14, color: '#c9d1d9', lineHeight: 1.6 }}>
+              <strong>Valuation range:</strong> $22M-$57M (sum-of-parts, pre-seed)
+              <br />
+              <strong>All USPTO provisionals</strong>, 12-month priority window
+              <br />
+              <strong>Trade-secret parameters</strong> retained separately
+            </div>
+          </div>
+          <div>
+            <div style={{ fontSize: 12, color: '#8b949e', marginBottom: 12, fontWeight: 700 }}>TIER 1 HIGHLIGHTS:</div>
+            <ul style={{ marginLeft: 16, fontSize: 13, color: '#c9d1d9', lineHeight: 1.7 }}>
+              {DECK_DATA.ipHighlights.slice(0, 5).map((h, i) => (
+                <li key={i}>{h}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </Slide>
+
+      {/* SLIDE 7: FDA */}
+      <Slide number={7} kicker="REGULATORY PATHWAY">
+        <SlideTitle>FDA SaMD Class II via 510(k).</SlideTitle>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, flex: 1 }}>
+          <div>
+            <div style={{ marginBottom: 16, fontSize: 14, fontWeight: 700, color: '#8b949e' }}>
+              DOCUMENTATION STATUS
+            </div>
+            {DECK_DATA.fdaStatus.map((s, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  padding: '8px 12px',
+                  background: i % 2 === 0 ? '#161b22' : 'transparent',
+                  borderRadius: 4,
+                  fontSize: 13,
+                }}
+              >
+                <span style={{ color: '#c9d1d9' }}>{s.standard}</span>
+                <span style={{ color: '#3fb950', fontWeight: 600 }}>✓ {s.status}</span>
+              </div>
+            ))}
+          </div>
+          <div>
+            <div style={{ marginBottom: 16, fontSize: 14, fontWeight: 700, color: '#8b949e' }}>PREDICATE PATH</div>
+            <div style={{ padding: 20, background: '#161b22', borderRadius: 8, marginBottom: 12 }}>
+              <div style={{ fontSize: 13, color: '#58a6ff', fontWeight: 700 }}>K201738 — Linus Health</div>
+              <div style={{ fontSize: 12, color: '#c9d1d9', marginTop: 4 }}>
+                Digital Clock and Recall; cleared 2020. Substantial equivalence basis.
+              </div>
+            </div>
+            <div style={{ padding: 20, background: '#161b22', borderRadius: 8, marginBottom: 12 }}>
+              <div style={{ fontSize: 13, color: '#58a6ff', fontWeight: 700 }}>K182554 — Cogstate</div>
+              <div style={{ fontSize: 12, color: '#c9d1d9', marginTop: 4 }}>
+                Brief computerized cognitive assessment. Secondary predicate.
+              </div>
+            </div>
+            <div style={{ fontSize: 14, color: '#f0f6fc', marginTop: 16, lineHeight: 1.6 }}>
+              <strong>Target:</strong> 510(k) submission within 12 months of seed close.
+              <br />
+              <strong>Clearance:</strong> 12-18 months from submission (P50 ~15 months).
+            </div>
+          </div>
+        </div>
+      </Slide>
+
+      {/* SLIDE 8: BUSINESS MODEL */}
+      <Slide number={8} kicker="BUSINESS MODEL">
+        <SlideTitle>Multi-channel revenue. Defensible unit economics.</SlideTitle>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20, flex: 1 }}>
+          <div style={{ padding: 24, background: '#161b22', borderRadius: 10, border: '1px solid rgba(88, 166, 255, 0.3)' }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#58a6ff', marginBottom: 8 }}>B2B FACILITY SAAS</div>
+            <div style={{ fontSize: 36, fontWeight: 800, color: '#f0f6fc', marginBottom: 8 }}>$6,000 / bed / year</div>
+            <p style={{ fontSize: 13, color: '#c9d1d9', lineHeight: 1.5 }}>
+              30,000+ US memory care facilities. Patient app + caregiver dashboard + clinical reporting. Annual
+              contracts with 5% escalation.
+            </p>
+          </div>
+          <div style={{ padding: 24, background: '#161b22', borderRadius: 10, border: '1px solid rgba(63, 185, 80, 0.3)' }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#3fb950', marginBottom: 8 }}>B2B2C DTx (POST-510k)</div>
+            <div style={{ fontSize: 36, fontWeight: 800, color: '#f0f6fc', marginBottom: 8 }}>$180 / patient / month</div>
+            <p style={{ fontSize: 13, color: '#c9d1d9', lineHeight: 1.5 }}>
+              Provider-prescribed DTx. CPT-code reimbursable. Medicare + Medicare Advantage coverage target.
+            </p>
+          </div>
+          <div style={{ padding: 24, background: '#161b22', borderRadius: 10, border: '1px solid rgba(210, 153, 34, 0.3)' }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#d29922', marginBottom: 8 }}>PHARMA LICENSING</div>
+            <div style={{ fontSize: 36, fontWeight: 800, color: '#f0f6fc', marginBottom: 8 }}>$2M-$10M / deal</div>
+            <p style={{ fontSize: 13, color: '#c9d1d9', lineHeight: 1.5 }}>
+              Digital endpoint for anti-amyloid therapy trials (Biogen, Eisai, Lilly). Upfront + milestones +
+              royalties on outcomes.
+            </p>
+          </div>
+          <div style={{ padding: 24, background: '#161b22', borderRadius: 10, border: '1px solid rgba(167, 113, 247, 0.3)' }}>
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#a371f7', marginBottom: 8 }}>PAYER VALUE-BASED CONTRACTS</div>
+            <div style={{ fontSize: 36, fontWeight: 800, color: '#f0f6fc', marginBottom: 8 }}>Per-member outcomes</div>
+            <p style={{ fontSize: 13, color: '#c9d1d9', lineHeight: 1.5 }}>
+              Medicare Advantage risk stratification. Cost-reduction sharing on early intervention.
+            </p>
+          </div>
+        </div>
+      </Slide>
+
+      {/* SLIDE 9: REVENUE PROJECTIONS */}
+      <Slide number={9} kicker="PROJECTIONS">
+        <SlideTitle>Path to $85M ARR in Year 5.</SlideTitle>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 16 }}>
+            <thead>
+              <tr style={{ borderBottom: '2px solid #21262d' }}>
+                {['', 'Y1', 'Y2', 'Y3', 'Y4', 'Y5'].map((h) => (
+                  <th key={h} style={{ padding: '14px 12px', textAlign: h === '' ? 'left' : 'right', color: '#8b949e', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr style={{ borderBottom: '1px solid #21262d' }}>
+                <td style={{ padding: '12px', fontWeight: 600, color: '#c9d1d9' }}>Facilities</td>
+                {DECK_DATA.projections.map((p) => (
+                  <td key={p.year} style={{ padding: '12px', textAlign: 'right', color: '#c9d1d9' }}>
+                    {p.facilities}
+                  </td>
+                ))}
+              </tr>
+              <tr style={{ borderBottom: '1px solid #21262d' }}>
+                <td style={{ padding: '12px', fontWeight: 600, color: '#c9d1d9' }}>Patients</td>
+                {DECK_DATA.projections.map((p) => (
+                  <td key={p.year} style={{ padding: '12px', textAlign: 'right', color: '#c9d1d9' }}>
+                    {p.patients}
+                  </td>
+                ))}
+              </tr>
+              <tr style={{ borderBottom: '2px solid #21262d' }}>
+                <td style={{ padding: '14px 12px', fontWeight: 700, color: '#f0f6fc', fontSize: 18 }}>ARR</td>
+                {DECK_DATA.projections.map((p) => (
+                  <td
+                    key={p.year}
+                    style={{
+                      padding: '14px 12px',
+                      textAlign: 'right',
+                      fontWeight: 800,
+                      fontSize: 22,
+                      color: '#3fb950',
+                    }}
+                  >
+                    {p.arr}
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+          <div style={{ marginTop: 24, fontSize: 13, color: '#8b949e', textAlign: 'center' }}>
+            Y3+ includes DTx prescription revenue (post-510k clearance). Excludes $10M-$50M strategic pharma deals.
+          </div>
+        </div>
+      </Slide>
+
+      {/* SLIDE 10: UNIT ECONOMICS */}
+      <Slide number={10} kicker="UNIT ECONOMICS">
+        <SlideTitle>LTV/CAC of 60×. Top-quartile.</SlideTitle>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18, flex: 1 }}>
+          {DECK_DATA.unitEconomics.map((u) => (
+            <div
+              key={u.metric}
+              style={{
+                padding: 24,
+                background: '#161b22',
+                border: '1px solid #21262d',
+                borderRadius: 10,
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <div style={{ fontSize: 12, color: '#8b949e', marginBottom: 6 }}>{u.metric}</div>
+              <div style={{ fontSize: 42, fontWeight: 800, color: '#58a6ff', marginBottom: 6 }}>{u.value}</div>
+              <div style={{ fontSize: 12, color: '#c9d1d9', marginTop: 'auto' }}>{u.note}</div>
+            </div>
+          ))}
+        </div>
+      </Slide>
+
+      {/* SLIDE 11: COMPETITIVE LANDSCAPE */}
+      <Slide number={11} kicker="COMPETITIVE LANDSCAPE">
+        <SlideTitle>Nobody else has built this for dementia.</SlideTitle>
+        <div style={{ flex: 1 }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+            <thead>
+              <tr style={{ borderBottom: '2px solid #21262d' }}>
+                {['Company', 'Focus', 'Why They Lose'].map((h) => (
+                  <th
+                    key={h}
+                    style={{
+                      padding: '12px',
+                      textAlign: 'left',
+                      color: '#8b949e',
+                      fontSize: 11,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                    }}
+                  >
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {DECK_DATA.competitors.map((c, i) => (
+                <tr key={c.name} style={{ borderBottom: '1px solid #21262d', background: i % 2 === 0 ? '#161b22' : 'transparent' }}>
+                  <td style={{ padding: '14px', fontWeight: 600, color: '#f0f6fc' }}>{c.name}</td>
+                  <td style={{ padding: '14px', color: '#c9d1d9' }}>{c.focus}</td>
+                  <td style={{ padding: '14px', color: '#f85149' }}>{c.weakness}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div
+            style={{
+              marginTop: 32,
+              padding: 20,
+              background: 'rgba(63, 185, 80, 0.08)',
+              border: '1px solid rgba(63, 185, 80, 0.3)',
+              borderRadius: 8,
+            }}
+          >
+            <div style={{ fontSize: 12, fontWeight: 700, color: '#3fb950', marginBottom: 8, letterSpacing: '0.1em' }}>
+              OUR MOAT
+            </div>
+            <p style={{ fontSize: 14, color: '#f0f6fc', lineHeight: 1.7 }}>
+              23-patent IP portfolio architecturally blocks competitors. Only system with zero-negative-feedback
+              scoring. Production platform is 18-24 months ahead of what a competitor could build from scratch.
+              FDA SaMD documentation is unusually mature for the stage.
+            </p>
+          </div>
+        </div>
+      </Slide>
+
+      {/* SLIDE 12: TRACTION */}
+      <Slide number={12} kicker="TRACTION">
+        <SlideTitle>Pre-seed signals.</SlideTitle>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 24, flex: 1 }}>
+          {[
+            { icon: '⚖️', count: '23', label: 'USPTO provisional patents', sub: 'Full IP portfolio filed or in flight' },
+            { icon: '💾', count: '53K+', label: 'Lines of production code', sub: '5 deployed applications' },
+            { icon: '🌍', count: '10', label: 'Languages supported', sub: 'RTL-aware, ready for international' },
+            { icon: '📋', count: '12', label: 'FDA SaMD documents', sub: 'IEC 62304, ISO 14971, QMS, Part 11, STRIDE' },
+            { icon: '🏥', count: '3-5', label: 'Target memory centers', sub: 'UCSF, MGH, Emory partnership prep' },
+            { icon: '💰', count: '4', label: 'Non-dilutive grants drafted', sub: 'NIA SBIR, R21, BrightFocus, Alz Assoc' },
+          ].map((t) => (
+            <div
+              key={t.label}
+              style={{
+                padding: 24,
+                background: '#161b22',
+                border: '1px solid #21262d',
+                borderRadius: 10,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 20,
+              }}
+            >
+              <div style={{ fontSize: 40 }}>{t.icon}</div>
+              <div>
+                <div style={{ fontSize: 28, fontWeight: 800, color: '#58a6ff', marginBottom: 2 }}>{t.count}</div>
+                <div style={{ fontSize: 14, fontWeight: 600, color: '#f0f6fc' }}>{t.label}</div>
+                <div style={{ fontSize: 12, color: '#8b949e', marginTop: 2 }}>{t.sub}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Slide>
+
+      {/* SLIDE 13: TEAM */}
+      <Slide number={13} kicker="TEAM">
+        <SlideTitle>Experienced founding team + advisory in progress.</SlideTitle>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 24 }}>
+          {[
+            { name: 'Christo Mac', role: 'Founder & CEO/COO', initials: 'CM', grad: 'linear-gradient(135deg, #58a6ff, #3fb950)' },
+            { name: 'Leo Kinsman', role: 'CTO', initials: 'LK', grad: 'linear-gradient(135deg, #3fb950, #a371f7)' },
+            { name: 'Chris Hamel', role: 'CFO', initials: 'CH', grad: 'linear-gradient(135deg, #d29922, #f85149)' },
+            { name: 'Jayla Patzer', role: 'Nat. Dir., Clinic & Provider Partnerships', initials: 'JP', grad: 'linear-gradient(135deg, #a371f7, #58a6ff)' },
+          ].map((m) => (
+            <div
+              key={m.name}
+              style={{
+                padding: 20,
+                background: '#161b22',
+                border: '1px solid #21262d',
+                borderRadius: 10,
+                textAlign: 'center',
+              }}
+            >
+              <div
+                style={{
+                  width: 72,
+                  height: 72,
+                  borderRadius: 36,
+                  background: m.grad,
+                  margin: '0 auto 12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 24,
+                  fontWeight: 800,
+                  color: '#fff',
+                }}
+              >
+                {m.initials}
+              </div>
+              <div style={{ fontSize: 16, fontWeight: 700, color: '#f0f6fc', marginBottom: 4 }}>{m.name}</div>
+              <div style={{ fontSize: 11, color: '#58a6ff' }}>{m.role}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, flex: 1 }}>
+          <div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#8b949e', marginBottom: 10, letterSpacing: '0.1em' }}>
+              RECRUITING CLINICAL ADVISORY BOARD
+            </div>
+            <ul style={{ marginLeft: 16, fontSize: 13, color: '#c9d1d9', lineHeight: 1.8 }}>
+              <li>Dr. Bruce Miller / Reisa Sperling / Ronald Petersen (target)</li>
+              <li>Dr. Constantine Lyketsos (caregiver burden expertise)</li>
+              <li>Dr. Sandra Weintraub (neuropsychological assessment)</li>
+              <li>FDA SaMD consultant (former CDRH reviewer)</li>
+            </ul>
+          </div>
+          <div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#8b949e', marginBottom: 10, letterSpacing: '0.1em' }}>
+              TECH + AI ADVISORY (ASPIRATIONAL)
+            </div>
+            <ul style={{ marginLeft: 16, fontSize: 13, color: '#c9d1d9', lineHeight: 1.8 }}>
+              <li>Dr. Eric Topol (Scripps, digital medicine)</li>
+              <li>Glen Tullman (Livongo founder, digital health operator)</li>
+              <li>Dr. Atul Butte (UCSF, biomedical AI)</li>
+              <li>Andy Slavitt (former CMS, payer strategy)</li>
+            </ul>
+            <div
+              style={{
+                marginTop: 20,
+                padding: 16,
+                background: 'rgba(210, 153, 34, 0.08)',
+                border: '1px solid rgba(210, 153, 34, 0.3)',
+                borderRadius: 6,
+                fontSize: 12,
+                color: '#d29922',
+              }}
+            >
+              Seed round will fund clinical advisor recruitment + first technical hires
+              (engineering 2, clinical PM 1).
+            </div>
+          </div>
+        </div>
+      </Slide>
+
+      {/* SLIDE 14: ASK */}
+      <Slide number={14} kicker="THE ASK" bgGradient="linear-gradient(135deg, rgba(88, 166, 255, 0.08), rgba(63, 185, 80, 0.06)), #0d1117">
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}>
+          <div style={{ fontSize: 20, color: '#8b949e', marginBottom: 16 }}>We're raising</div>
+          <div style={{ fontSize: 120, fontWeight: 900, letterSpacing: '-0.04em', color: '#f0f6fc', lineHeight: 1 }}>
+            {DECK_DATA.ask}
+          </div>
+          <div style={{ fontSize: 24, color: '#3fb950', fontWeight: 600, marginTop: 12 }}>{DECK_DATA.askTerms}</div>
+          <div style={{ marginTop: 40, fontSize: 18, color: '#c9d1d9', lineHeight: 1.7, maxWidth: 700 }}>
+            12-month runway to Series A readiness. Funds FDA 510(k), 3 facility pilots, engineering team
+            build-out, and non-provisional patent conversions.
+          </div>
+        </div>
+      </Slide>
+
+      {/* SLIDE 15: USE OF FUNDS */}
+      <Slide number={15} kicker="USE OF FUNDS">
+        <SlideTitle>Every dollar allocated.</SlideTitle>
+        <div style={{ flex: 1 }}>
+          {DECK_DATA.useOfFunds.map((f, i) => (
+            <div
+              key={f.category}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '3fr 1fr 60px',
+                gap: 16,
+                padding: '12px 16px',
+                background: i % 2 === 0 ? '#161b22' : 'transparent',
+                borderRadius: 6,
+                alignItems: 'center',
+                marginBottom: 4,
+              }}
+            >
+              <div style={{ fontSize: 15, color: '#c9d1d9' }}>{f.category}</div>
+              <div style={{ fontSize: 18, fontWeight: 700, color: '#3fb950', textAlign: 'right' }}>{f.amount}</div>
+              <div style={{ fontSize: 13, color: '#8b949e', textAlign: 'right' }}>{f.pct}</div>
+            </div>
+          ))}
+        </div>
+      </Slide>
+
+      {/* SLIDE 16: MILESTONES & CONTACT */}
+      <Slide number={16} kicker="MILESTONES · CONTACT">
+        <SlideTitle>Let's build this together.</SlideTitle>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 32, flex: 1 }}>
+          <div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#8b949e', marginBottom: 14, letterSpacing: '0.1em' }}>
+              MILESTONES (POST-CLOSE)
+            </div>
+            {DECK_DATA.milestones.map((m) => (
+              <div
+                key={m.month}
+                style={{
+                  display: 'flex',
+                  gap: 16,
+                  padding: '10px 0',
+                  borderBottom: '1px solid #21262d',
+                }}
+              >
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#58a6ff', minWidth: 50 }}>{m.month}</div>
+                <div style={{ fontSize: 14, color: '#c9d1d9' }}>{m.item}</div>
+              </div>
+            ))}
+          </div>
+          <div>
+            <div
+              style={{
+                padding: 28,
+                background: 'linear-gradient(135deg, rgba(88, 166, 255, 0.12), rgba(63, 185, 80, 0.08))',
+                border: '1px solid rgba(88, 166, 255, 0.3)',
+                borderRadius: 12,
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <div style={{ fontSize: 14, fontWeight: 700, color: '#8b949e', marginBottom: 14, letterSpacing: '0.1em' }}>
+                CONTACT
+              </div>
+              <div style={{ fontSize: 20, fontWeight: 700, color: '#f0f6fc', marginBottom: 12 }}>
+                {DECK_DATA.founder}
+              </div>
+              <div style={{ fontSize: 14, color: '#58a6ff', marginBottom: 8 }}>{DECK_DATA.email}</div>
+              <div style={{ fontSize: 14, color: '#c9d1d9', marginBottom: 20 }}>{DECK_DATA.phone}</div>
+              <div style={{ fontSize: 13, color: '#8b949e', marginTop: 'auto' }}>
+                Website: {DECK_DATA.pitchSite}
+                <br />
+                IP Portfolio: /ip · Clinical Docs: /clinical
+              </div>
+              <div
+                style={{
+                  marginTop: 20,
+                  padding: 12,
+                  background: 'rgba(63, 185, 80, 0.1)',
+                  border: '1px solid rgba(63, 185, 80, 0.3)',
+                  borderRadius: 6,
+                  fontSize: 13,
+                  color: '#3fb950',
+                  fontWeight: 600,
+                }}
+              >
+                Full data room available under NDA
+              </div>
+            </div>
+          </div>
+        </div>
+      </Slide>
+    </>
+  );
+}
