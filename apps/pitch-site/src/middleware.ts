@@ -1,50 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 /**
- * HTTP Basic Auth middleware protecting all /private/* routes.
+ * Middleware for /private/* routes.
  *
- * Credentials are set via environment variables:
- *   PRIVATE_USERNAME — defaults to "founder"
- *   PRIVATE_PASSWORD — REQUIRED in production
+ * No authentication — access is by URL knowledge only (security through obscurity).
+ * Adds X-Robots-Tag header to prevent search engine indexing.
  *
- * In development, the password defaults to "gentle-dev-access-2026"
- * but this MUST be overridden in production.
+ * To re-add HTTP Basic Auth protection, see git history at commit 4e5a403.
  */
 
 export const config = {
   matcher: ['/private/:path*'],
 };
 
-export function middleware(req: NextRequest) {
-  const USERNAME = process.env.PRIVATE_USERNAME || 'founder';
-  const PASSWORD =
-    process.env.PRIVATE_PASSWORD ||
-    (process.env.NODE_ENV !== 'production' ? 'gentle-dev-access-2026' : undefined);
-
-  if (!PASSWORD) {
-    // No password configured in production — deny all access
-    return new NextResponse('Private area not configured', { status: 503 });
-  }
-
-  const authHeader = req.headers.get('authorization');
-
-  if (authHeader) {
-    const authValue = authHeader.split(' ')[1];
-    if (authValue) {
-      const decoded = atob(authValue);
-      const [user, pw] = decoded.split(':');
-      if (user === USERNAME && pw === PASSWORD) {
-        // Allow through
-        return NextResponse.next();
-      }
-    }
-  }
-
-  // Prompt for credentials
-  return new NextResponse('Authentication required', {
-    status: 401,
-    headers: {
-      'WWW-Authenticate': 'Basic realm="Gentle Reminder — Private"',
-    },
-  });
+export function middleware(_req: NextRequest) {
+  const response = NextResponse.next();
+  response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive, nosnippet');
+  return response;
 }

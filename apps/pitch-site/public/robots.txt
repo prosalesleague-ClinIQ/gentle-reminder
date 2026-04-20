@@ -1,0 +1,10 @@
+# Gentle Reminder — Pitch Site robots.txt
+
+User-agent: *
+Allow: /
+Disallow: /private/
+
+# Primary indexing prevention is via X-Robots-Tag header + <meta name="robots">
+# This file is a secondary signal.
+
+Sitemap: https://gentle-reminder-pitch.vercel.app/sitemap.xml

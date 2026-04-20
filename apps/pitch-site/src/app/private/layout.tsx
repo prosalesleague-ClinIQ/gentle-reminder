@@ -1,10 +1,31 @@
 import React from 'react';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Internal — Gentle Reminder',
+  description: 'Internal page.',
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    noarchive: true,
+    nosnippet: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+      'max-snippet': -1,
+      'max-image-preview': 'none',
+      'max-video-preview': -1,
+    },
+  },
+};
 
 export default function PrivateLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      {/* Confidential banner */}
+      {/* Internal banner */}
       <div
         style={{
           background: 'linear-gradient(90deg, #f85149, #d29922)',
@@ -17,7 +38,7 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
           textTransform: 'uppercase',
         }}
       >
-        🔒 CONFIDENTIAL — Internal Outreach Command Center. Do not share. Do not screenshot.
+        🔒 INTERNAL — Hidden from search, URL is public. Share only with trusted parties.
       </div>
 
       {/* Private nav */}
@@ -31,7 +52,7 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
             <Link href="/private" style={{ fontSize: 14, fontWeight: 700, color: '#f85149' }}>
-              🔒 PRIVATE
+              🔒 INTERNAL
             </Link>
             <Link href="/private" style={{ fontSize: 13, color: '#c9d1d9' }}>Dashboard</Link>
             <Link href="/private/outreach" style={{ fontSize: 13, color: '#c9d1d9' }}>Outreach Queue</Link>
