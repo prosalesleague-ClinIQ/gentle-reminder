@@ -151,7 +151,7 @@ export const EXECUTE_PHASES: Phase[] = [
         id: 'p0-founder-bios',
         label: 'Optimize LinkedIn + company email',
         description:
-          'Update LinkedIn. Set up founder@gentlereminder.health (or similar) for professional outreach.',
+          'Update LinkedIn. Using mack@matrixadvancedsolutions.com for outreach now; set up founder@gentlereminder.health post-seed once domain is Workspace-configured.',
         owner: 'you',
         duration: '1-2 hours',
         cost: '$12/year (domain) + $6/mo (Google Workspace)',

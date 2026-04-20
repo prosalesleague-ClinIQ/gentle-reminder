@@ -176,6 +176,6 @@ I am happy to schedule a brief call to discuss the project in more detail. Pitch
 Thank you for considering.
 
 Best regards,
-[Founder Name]
-[Title]
-[Email] | [Phone]
+Christo Mac
+Founder & CEO/COO
+mack@matrixadvancedsolutions.com | [Phone]

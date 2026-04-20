@@ -176,7 +176,7 @@ Add this header to all source files going forward:
  * Unauthorized use, reproduction, or distribution is strictly prohibited.
  *
  * US Copyright Registration No.: [fill in once issued]
- * Contact: [founder@gentlereminder.health]
+ * Contact: mack@matrixadvancedsolutions.com
  */
 ```
 

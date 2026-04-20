@@ -86,4 +86,4 @@ These files are suitable for sharing in a data room as "illustrative model v1". 
 
 ## Contact
 
-Questions on the model: [founder@gentlereminder.health]
+Questions on the model: mack@matrixadvancedsolutions.com
