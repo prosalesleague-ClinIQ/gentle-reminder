@@ -480,6 +480,95 @@ Best,
   },
 
   // ============================================================
+  // GRANT SPECIALIST — CONTINGENCY / SUCCESS FEE
+  // ============================================================
+  {
+    id: 'grant-specialist-contingency',
+    label: 'Grant Specialist — Contingency / Pay-Upon-Award',
+    audience: 'TurboSBIR, Blue Haven Grant, InteliSpark',
+    subject: 'SBIR grant support inquiry — success-fee engagement for dementia SaMD platform',
+    body: `Hi {{recipient_first_name}},
+
+I'm {{founder_name}}, founder of Gentle Reminder — a clinical-grade dementia care platform with 23 patentable innovations and FDA SaMD pathway readiness.
+
+I'm writing because your contingency / pay-upon-award engagement model is the right fit for our current stage: pre-seed, preparing SBIR applications, but not wanting to pay large upfront consulting fees before knowing we're awarded.
+
+What we have ready to submit against:
+
+1. Full 23-IP patent portfolio (provisional filings in motion)
+2. FDA SaMD documentation: IEC 62304, ISO 14971 FMEA, QMS, STRIDE, 21 CFR Part 11
+3. Production platform: 53K lines of code, 5 deployed apps, 10 languages, FHIR R4
+4. Clinical validation protocol drafted
+5. Academic PI collaborators being recruited (UCSF, MGH, Emory targets)
+
+Grants we're targeting:
+- NIA SBIR Phase I ($275K, next deadline: Sep 5 / Jan 5 / Apr 5)
+- NIA SBIR Fast-Track ($1.8M combined Phase I+II)
+- NIH R21 exploratory grants
+- BrightFocus Alzheimer's Research ($300K)
+
+Questions for you:
+
+1. What is your exact success-fee percentage / structure? (Full written schedule please.)
+2. Are there any upfront fees — platform, software, deposit, or otherwise — separate from the contingency fee?
+3. What is your win rate on NIA SBIR Phase I applications over the last 3 years?
+4. Can you share 2-3 sanitized past successful applications under NDA?
+5. Timeline from engagement to submission?
+
+Pitch site: {{pitch_site_url}}
+
+Can we schedule a 30-minute call this week?
+
+Best,
+{{founder_name}}
+{{founder_title}}
+{{founder_email}} | {{founder_phone}}`,
+    attachments: ['Mutual NDA (ready to send)', 'Executive summary (public-safe)'],
+    followupSequence: [
+      'Day 3: If no response, follow up with specific deadline urgency',
+      'Day 7: Request referral if not a fit',
+    ],
+    notes: 'CRITICAL: Get full fee schedule in writing before signing. Success-fee arrangements can have hidden upfront fees, per-submission fees, or sliding scales. Verify also: GPA ethical compliance (Grant Professionals Association discourages % contingency — verify firm handles this properly). Ask for 2-3 client references.',
+  },
+  {
+    id: 'grant-specialist-retainer',
+    label: 'Grant Specialist — Retainer + Success Bonus',
+    audience: 'Eva Garland Consulting, Dawnbreaker, established SBIR firms',
+    subject: 'SBIR grant support — retainer engagement inquiry',
+    body: `Hi {{recipient_first_name}},
+
+I'm {{founder_name}}, founder of Gentle Reminder — a clinical-grade dementia care platform.
+
+We have a strong foundation already in place:
+- 23-patent IP portfolio (provisional filings in progress)
+- FDA SaMD documentation complete (IEC 62304, ISO 14971, QMS)
+- Production platform with deployed applications
+- Clinical validation protocol drafted
+
+We're preparing NIA SBIR and NIH R21/R01 applications and seeking a highly-credible partner to improve odds of award.
+
+We are raising $5M seed in parallel, so we can cover a reasonable retainer alongside success-based incentives.
+
+Questions:
+1. Your typical engagement structure (retainer + success bonus)?
+2. Your team composition — PhD-level scientific writers, biostatisticians?
+3. Win rate on NIA SBIR Phase I over past 3 years?
+4. Typical engagement duration — pre-submission through final?
+5. Experience with dementia / neurodegenerative disease applications specifically?
+
+Pitch site: {{pitch_site_url}}
+
+Could we schedule 30 minutes?
+
+Best,
+{{founder_name}}
+{{founder_email}}`,
+    attachments: ['Executive summary', 'Specific aims draft (after NDA)'],
+    followupSequence: ['Day 7: Request intro call', 'Day 14: Narrow to 1-2 firms, begin formal evaluation'],
+    notes: 'Higher cost but higher win rate. Appropriate once seed is closed or near close. Premium firms like Eva Garland have strong track records but charge upfront.',
+  },
+
+  // ============================================================
   // GRANT PROGRAM — ACADEMIC PI PARTNERSHIP
   // ============================================================
   {

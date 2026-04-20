@@ -21,10 +21,37 @@ export default function PrivateDashboard() {
         <h1 style={{ fontSize: 36, fontWeight: 800, color: '#f0f6fc', marginBottom: 8, letterSpacing: '-0.02em' }}>
           Outreach Command Center
         </h1>
-        <p style={{ fontSize: 15, color: '#8b949e', marginBottom: 32 }}>
+        <p style={{ fontSize: 15, color: '#8b949e', marginBottom: 24 }}>
           {OUTREACH_CONTACTS.length} prioritized contacts across {Object.keys(byCategory).length} categories.
           Ordered by speed-to-value and cost.
         </p>
+
+        {/* Execute Plan CTA */}
+        <Link
+          href="/private/execute"
+          style={{
+            display: 'block',
+            padding: 24,
+            marginBottom: 32,
+            background: 'linear-gradient(135deg, #f85149, #d29922)',
+            borderRadius: 12,
+            textDecoration: 'none',
+            color: '#ffffff',
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', marginBottom: 6, opacity: 0.9 }}>
+                🔥 START HERE
+              </div>
+              <div style={{ fontSize: 22, fontWeight: 800, marginBottom: 4 }}>Execute Plan</div>
+              <div style={{ fontSize: 13, opacity: 0.9 }}>
+                Step-by-step action list from zero → patents filed → grants submitted → seed closed
+              </div>
+            </div>
+            <div style={{ fontSize: 32 }}>→</div>
+          </div>
+        </Link>
 
         {/* This Week's Actions */}
         <div
