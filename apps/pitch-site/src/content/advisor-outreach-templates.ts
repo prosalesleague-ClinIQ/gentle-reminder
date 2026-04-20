@@ -51,7 +51,7 @@ Would any 30-minute window in the next 2 weeks work? I can share a brief technic
 With admiration and respect,
 Christo Mac
 Founder & CEO, Gentle Reminder
-christo@gentlereminder.health | [phone]
+mack@matrixadvancedsolutions.com | [phone]
 https://www.linkedin.com/in/christomac`,
     characterCount: 1700,
     followup: 'Day 7: "Wanted to follow up on my note from last week — happy to work around your schedule." Day 14: Add new talking point (e.g., "just filed Tier 1 provisionals").',
@@ -87,7 +87,7 @@ Would any 20-minute window work in the next 3 weeks?
 Thanks,
 Christo Mac
 Founder & CEO, Gentle Reminder
-christo@gentlereminder.health`,
+mack@matrixadvancedsolutions.com`,
     characterCount: 1400,
     followup: 'Day 5 follow-up with a specific technical hook tied to their recent work.',
     notes: 'Tech advisors respond to specific technical detail and honest framing. Lead with what makes THIS specifically interesting to them.',
@@ -131,7 +131,7 @@ Happy to work around your schedule. Would any 30-min window in the next 3 weeks 
 With thanks,
 Christo Mac
 Founder & CEO, Gentle Reminder
-christo@gentlereminder.health`,
+mack@matrixadvancedsolutions.com`,
     characterCount: 1000,
     followup: 'Day 7: Soft follow-up with new milestone. Day 14: Try alternate channel (email or warm intro).',
     notes: 'InMail conversion rates 3-4× higher than free LinkedIn messages. Worth the LinkedIn Premium subscription during active outreach (~$80/mo).',
@@ -147,7 +147,7 @@ christo@gentlereminder.health`,
     audience: 'Eric Topol, Andy Slavitt, Halle Tecco, other active Twitter voices',
     body: `Hi @{{handle}} — Christo Mac, founder of Gentle Reminder (dementia platform, 23 patents, FDA SaMD pathway). Your take on {{recent_tweet_topic}} is exactly the lens we need. Would love 20 mins to share what we're building & hear your critique — and explore an advisor role if aligned. Pitch site: gentle-reminder-pitch.vercel.app
 
-DM or email christo@gentlereminder.health if open to a call.`,
+DM or email mack@matrixadvancedsolutions.com if open to a call.`,
     characterCount: 395,
     followup: 'Twitter DMs have no consistent follow-up pattern; one shot, then move to email if no response.',
     notes: 'Reference a SPECIFIC recent tweet or thread from them. Generic Twitter DMs are ignored.',
@@ -208,7 +208,7 @@ Could we schedule a 30-minute intro call this week or next?
 Thank you,
 Christo Mac
 Founder & CEO, Gentle Reminder
-christo@gentlereminder.health | [phone]`,
+mack@matrixadvancedsolutions.com | [phone]`,
     characterCount: 1800,
     followup: 'Day 5: "Wanted to check if you had a chance to review — happy to send more detail."',
     notes: 'Send to 3-5 firms in parallel. Compare proposals on: (a) monthly retainer range, (b) healthcare/SaMD specialization, (c) team bench depth, (d) client references in similar stage/sector.',

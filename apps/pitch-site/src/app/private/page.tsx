@@ -26,6 +26,33 @@ export default function PrivateDashboard() {
           Ordered by speed-to-value and cost.
         </p>
 
+        {/* Launch Pad CTA */}
+        <Link
+          href="/private/send"
+          style={{
+            display: 'block',
+            padding: 24,
+            marginBottom: 16,
+            background: 'linear-gradient(135deg, #58a6ff, #3fb950)',
+            borderRadius: 12,
+            textDecoration: 'none',
+            color: '#ffffff',
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', marginBottom: 6, opacity: 0.9 }}>
+                🚀 SEND OUTREACH TODAY
+              </div>
+              <div style={{ fontSize: 22, fontWeight: 800, marginBottom: 4 }}>Launch Pad</div>
+              <div style={{ fontSize: 13, opacity: 0.9 }}>
+                15 pre-drafted emails + contact-form messages ready. Click → review → send from mack@matrixadvancedsolutions.com
+              </div>
+            </div>
+            <div style={{ fontSize: 32 }}>→</div>
+          </div>
+        </Link>
+
         {/* Execute Plan CTA */}
         <Link
           href="/private/execute"
