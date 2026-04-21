@@ -396,22 +396,25 @@ const docs = [
   ['21 CFR Part 11 Electronic Records', 'Complete'],
   ['STRIDE Cybersecurity Assessment', 'Complete'],
   ['Algorithm Transparency Module', 'Complete'],
-  ['Clinical Validation Protocol', 'Drafted'],
+  ['Clinical Validation Protocol (CVP-001)', 'Complete'],
+  ['Informed Consent Template (ICF-001)', 'Complete'],
+  ['Data Management Plan (DMP-001)', 'Complete'],
+  ['Safety Monitoring Plan (SMP-001)', 'Complete'],
   ['510(k) Predicate Analysis', 'K201738 Linus Health'],
 ];
 
 docs.forEach((doc, i) => {
-  const y = 2.9 + i * 0.45;
+  const y = 2.85 + i * 0.33;
   s.addShape(pres.shapes.RECTANGLE, {
-    x: 0.6, y, w: 6.2, h: 0.4,
+    x: 0.6, y, w: 6.2, h: 0.3,
     fill: { color: i % 2 === 0 ? C.bgCard : C.bg },
     line: { color: C.border, width: 0.5 },
   });
   s.addText(doc[0], {
-    x: 0.8, y, w: 4.2, h: 0.4, fontSize: 11, color: C.text, valign: 'middle', fontFace: 'Calibri',
+    x: 0.8, y, w: 4.2, h: 0.3, fontSize: 10, color: C.text, valign: 'middle', fontFace: 'Calibri',
   });
   s.addText(`✓ ${doc[1]}`, {
-    x: 5.1, y, w: 1.7, h: 0.4, fontSize: 11, color: C.green, valign: 'middle', bold: true, fontFace: 'Calibri',
+    x: 5.1, y, w: 1.7, h: 0.3, fontSize: 10, color: C.green, valign: 'middle', bold: true, fontFace: 'Calibri',
   });
 });
 
@@ -663,7 +666,7 @@ const tractions = [
   { icon: '⚖️', count: '23', label: 'USPTO provisional patents', sub: 'Full IP portfolio filed or in flight' },
   { icon: '💾', count: '53K+', label: 'Lines of production code', sub: '5 deployed applications' },
   { icon: '🌍', count: '10', label: 'Languages supported', sub: 'RTL-aware, ready for international' },
-  { icon: '📋', count: '12', label: 'FDA SaMD documents', sub: 'IEC 62304, ISO 14971, QMS, Part 11, STRIDE' },
+  { icon: '📋', count: '16', label: 'FDA SaMD + IRB documents', sub: 'IEC 62304, ISO 14971, QMS, Part 11, STRIDE, IRB package' },
   { icon: '🏥', count: '3-5', label: 'Target memory centers', sub: 'UCSF, MGH, Emory partnership prep' },
   { icon: '💰', count: '4', label: 'Non-dilutive grants drafted', sub: 'NIA SBIR, R21, BrightFocus, Alz Assoc' },
 ];

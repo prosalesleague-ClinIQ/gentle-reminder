@@ -3,10 +3,22 @@
 import React, { useState } from 'react';
 import { PRE_CONTACT_CHECKLISTS } from '../../../content/pre-contact-checklists';
 
+// Pre-populate items that are verifiably complete based on the repo state
+// (NDA clauses, deployed PDFs, IRB package, etc.) — user can still uncheck.
+const DEFAULT_CHECKED: Record<string, boolean> = PRE_CONTACT_CHECKLISTS.reduce(
+  (acc, list) => {
+    list.items.forEach((item) => {
+      if (item.defaultDone) acc[item.id] = true;
+    });
+    return acc;
+  },
+  {} as Record<string, boolean>,
+);
+
 export default function ChecklistsPage() {
   const [selected, setSelected] = useState<string>(PRE_CONTACT_CHECKLISTS[0].id);
   const list = PRE_CONTACT_CHECKLISTS.find((c) => c.id === selected)!;
-  const [checked, setChecked] = useState<Record<string, boolean>>({});
+  const [checked, setChecked] = useState<Record<string, boolean>>(DEFAULT_CHECKED);
 
   function toggle(id: string) {
     setChecked((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -157,6 +169,24 @@ export default function ChecklistsPage() {
                       </div>
                       {item.rationale && (
                         <div style={{ fontSize: 12, color: '#8b949e', lineHeight: 1.5 }}>{item.rationale}</div>
+                      )}
+                      {item.evidence && (
+                        <div
+                          style={{
+                            fontSize: 11,
+                            color: '#3fb950',
+                            marginTop: 6,
+                            padding: '4px 8px',
+                            background: 'rgba(63, 185, 80, 0.08)',
+                            border: '1px solid rgba(63, 185, 80, 0.25)',
+                            borderRadius: 4,
+                            fontFamily:
+                              'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+                            lineHeight: 1.5,
+                          }}
+                        >
+                          ✓ Evidence: {item.evidence}
+                        </div>
                       )}
                     </div>
                   </label>

@@ -109,7 +109,11 @@ export const DECK_DATA = {
     { standard: 'ISO 13485 — QMS Framework', status: 'Complete' },
     { standard: '21 CFR Part 11 — Electronic Records', status: 'Complete' },
     { standard: 'STRIDE Cybersecurity Assessment', status: 'Complete' },
-    { standard: 'Clinical Validation Protocol', status: 'Drafted' },
+    { standard: 'Algorithm Transparency Module', status: 'Complete' },
+    { standard: 'Clinical Validation Protocol (CVP-001)', status: 'Complete' },
+    { standard: 'Informed Consent Template (ICF-001)', status: 'Complete' },
+    { standard: 'Data Management Plan (DMP-001)', status: 'Complete' },
+    { standard: 'Safety Monitoring Plan (SMP-001)', status: 'Complete' },
     { standard: '510(k) Predicate Analysis', status: 'Complete (K201738 Linus Health)' },
   ],
 

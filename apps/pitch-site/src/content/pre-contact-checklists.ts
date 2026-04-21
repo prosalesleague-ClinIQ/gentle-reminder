@@ -12,6 +12,16 @@ export interface ChecklistItem {
   text: string;
   critical: boolean; // if true, MUST be done before proceeding
   rationale?: string;
+  /**
+   * When true, the item pre-populates as checked. Only set for items that are
+   * verifiably complete based on the current state of this repository (a
+   * PDF in public/, a live URL, an NDA template clause, etc.). User can still
+   * uncheck. Items awaiting user action (entity formation, EIN, cap table
+   * upload, LinkedIn updates, attorney vetting) stay unchecked by default.
+   */
+  defaultDone?: boolean;
+  /** Evidence pointer (file path, URL fragment, clause) — shown as a tooltip / caption. */
+  evidence?: string;
 }
 
 export interface Checklist {
@@ -59,16 +69,22 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         id: 'public-docs',
         text: 'Pitch site is live and reflects current state',
         critical: true,
+        defaultDone: true,
+        evidence: 'https://gentle-reminder-pitch.vercel.app (deployed)',
       },
       {
         id: 'exec-summary',
         text: 'One-page executive summary drafted (PDF, public-safe)',
         critical: true,
+        defaultDone: true,
+        evidence: '/Gentle-Reminder-Exec-Summary.pdf (public/, 276 KB)',
       },
       {
         id: 'pitch-deck',
-        text: '16-slide pitch deck drafted (PDF, public-safe)',
+        text: '16-slide pitch deck drafted (PDF + PPTX, public-safe)',
         critical: true,
+        defaultDone: true,
+        evidence: '/Gentle-Reminder-Pitch-Deck.pdf (1.1 MB) + .pptx (420 KB)',
       },
       {
         id: 'founder-bios',
@@ -114,6 +130,7 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         id: 'nda-scope',
         text: 'NDA scope explicitly includes patent claims, provisional applications, and trade secrets',
         critical: true,
+        rationale: 'Our template already satisfies this (nda-templates.ts §1), but verify per-counterparty if THEY supply the NDA.',
       },
       {
         id: 'recipient-legitimate',
@@ -151,12 +168,13 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         id: 'return-clause',
         text: 'NDA includes return/destruction clause',
         critical: true,
+        rationale: 'Our template satisfies this (Mutual §6 / Unilateral §7); verify if counterparty supplies the NDA.',
       },
       {
         id: 'public-disclosure-risk',
         text: 'No public disclosure of unfiled inventions (conference talks, published papers, blog posts)',
         critical: true,
-        rationale: 'Public disclosure before filing starts 12-month US clock and destroys foreign rights.',
+        rationale: 'Public disclosure before filing starts 12-month US clock and destroys foreign rights. Verify for every invention before disclosure.',
       },
     ],
   },
@@ -317,21 +335,29 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         id: 'deck-current',
         text: 'Pitch deck reflects current traction and milestones',
         critical: true,
+        defaultDone: true,
+        evidence: 'Slide 12 shows 23 USPTO provisionals, 53K+ LOC, 16 FDA SaMD + IRB docs, 4 non-dilutive grants drafted',
       },
       {
         id: 'ask-specific',
         text: 'Specific ask clear ($ amount, post-money, intended runway)',
         critical: true,
+        defaultDone: true,
+        evidence: 'Slide 14: $5M seed · $25M post-money · 12-month runway',
       },
       {
         id: 'use-of-funds',
         text: 'Use of funds breakdown prepared',
         critical: true,
+        defaultDone: true,
+        evidence: 'Slide 15 — 7-line allocation summing to 100%',
       },
       {
         id: 'competitive-landscape',
         text: 'Competitive analysis up-to-date (Akili, Cogstate, Linus Health, etc.)',
         critical: true,
+        defaultDone: true,
+        evidence: 'Slide 11 — Linus Health, Cogstate, Neurotrack, Akili with weakness analysis',
       },
       {
         id: 'financial-model',
@@ -352,6 +378,8 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         id: 'next-steps-prepared',
         text: 'Next steps proposed (follow-up call, deep dive, term sheet timeline)',
         critical: true,
+        defaultDone: true,
+        evidence: 'response-templates.ts — every investor reply includes a concrete next-step offer',
       },
     ],
   },
@@ -437,6 +465,7 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         id: 'irb-approval',
         text: 'IRB approval process confirmed with collaborating institution',
         critical: true,
+        rationale: 'IRB submission package is drafted (docs/clinical-validation/ — CVP-001, ICF-001, DMP-001, SMP-001) but no IRB has APPROVED it yet; academic PI recruitment still pending.',
       },
       {
         id: 'data-use-agreement',
@@ -515,6 +544,7 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         id: 'counterparts-allowed',
         text: 'Electronic signatures allowed (for speed)',
         critical: false,
+        rationale: 'Our templates allow this (Mutual §11(d)); verify in any counterparty agreement.',
       },
     ],
   },
