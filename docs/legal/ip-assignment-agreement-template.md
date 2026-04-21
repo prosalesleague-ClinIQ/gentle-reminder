@@ -29,7 +29,7 @@ This agreement assigns all pre-existing and ongoing IP to the corp.
 
 ## Required co-execution
 
-- Founder (Christo Mac) signs as assignor
+- Founder (Christo Mack) signs as assignor
 - Company (Gentle Reminder, Inc.) signs as assignee via its first authorized officer
 - Witnessed or notarized per counsel guidance (Delaware does not require notarization for IP assignments, but some investors prefer it)
 

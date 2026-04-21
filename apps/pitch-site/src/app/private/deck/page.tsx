@@ -611,7 +611,7 @@ export default function DeckPage() {
         <SlideTitle>Experienced founding team + advisory in progress.</SlideTitle>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 24 }}>
           {[
-            { name: 'Christo Mac', role: 'Founder & CEO/COO', initials: 'CM', grad: 'linear-gradient(135deg, #58a6ff, #3fb950)' },
+            { name: 'Christo Mack', role: 'Founder & CEO/COO', initials: 'CM', grad: 'linear-gradient(135deg, #58a6ff, #3fb950)' },
             { name: 'Leo Kinsman', role: 'CTO', initials: 'LK', grad: 'linear-gradient(135deg, #3fb950, #a371f7)' },
             { name: 'Chris Hamel', role: 'CFO', initials: 'CH', grad: 'linear-gradient(135deg, #d29922, #f85149)' },
             { name: 'Jayla Patzer', role: 'Nat. Dir., Clinic & Provider Partnerships', initials: 'JP', grad: 'linear-gradient(135deg, #a371f7, #58a6ff)' },

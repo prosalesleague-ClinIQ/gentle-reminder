@@ -1,7 +1,7 @@
 # Pre-Entity Outreach Safety Guide
 
 **Status:** ACTIVE — Delaware C-Corp formation target: within 1 week. This guide governs outreach until the entity exists.
-**Author:** Christo Mac, Founder
+**Author:** Christo Mack, Founder
 **Last updated:** 2026-04-20
 
 ---

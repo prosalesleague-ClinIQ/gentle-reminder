@@ -4,7 +4,7 @@
  * When advisors/investors/partners reply to outreach, use these to accelerate
  * response time. Keep replies under 24 hours during active fundraise.
  *
- * All signed as Christo Mac · mack@matrixadvancedsolutions.com
+ * All signed as Christo Mack · mack@matrixadvancedsolutions.com
  */
 
 export type ResponseScenario =
@@ -39,7 +39,7 @@ export interface ResponseTemplate {
 const SIGNATURE = `
 
 Best,
-Christo Mac
+Christo Mack
 Founder & CEO/COO, Gentle Reminder
 mack@matrixadvancedsolutions.com
 https://gentle-reminder-pitch.vercel.app`;
@@ -351,7 +351,7 @@ Thank you so much — appreciate the intro.
 
 {{target_name}} / Dr. {{target_name}}: Great to meet you via {{connector_name}}.
 
-I'm Christo Mac, founder of Gentle Reminder — clinical-grade dementia care platform with 23 patents and FDA SaMD pathway. {{connector_name}} suggested we'd have an aligned conversation.
+I'm Christo Mack, founder of Gentle Reminder — clinical-grade dementia care platform with 23 patents and FDA SaMD pathway. {{connector_name}} suggested we'd have an aligned conversation.
 
 To save you time — here's the 60-second TL;DR:
 - We've built the first architecturally dementia-safe cognitive assessment platform (23 patents, full FDA docs complete)

@@ -2,7 +2,7 @@
  * Advisor / Fractional CFO Outreach Templates
  * Email + LinkedIn DM + Text message variants
  *
- * Signed: Christo Mac, Founder & CEO
+ * Signed: Christo Mack, Founder & CEO
  * Customize {{placeholders}} before sending.
  */
 
@@ -30,7 +30,7 @@ export const ADVISOR_OUTREACH_TEMPLATES: OutreachTemplate[] = [
     subject: 'Advisor inquiry — dementia platform with 23-patent IP + FDA pathway',
     body: `Dear Dr. {{lastName}},
 
-I'm Christo Mac, founder and CEO of Gentle Reminder, a clinical-grade dementia care platform. I'm reaching out because your work on {{their_specific_research}} directly informs what we're trying to build — and your guidance would be transformative.
+I'm Christo Mack, founder and CEO of Gentle Reminder, a clinical-grade dementia care platform. I'm reaching out because your work on {{their_specific_research}} directly informs what we're trying to build — and your guidance would be transformative.
 
 **What we've built:**
 - 23 USPTO provisional patents including a three-state positive-only cognitive assessment system that architecturally prevents anxiety-inducing pass/fail feedback (addressing a documented clinical problem with MMSE/MoCA)
@@ -49,7 +49,7 @@ A public overview of the platform and IP portfolio is at https://gentle-reminder
 Would any 30-minute window in the next 2 weeks work? I can share a brief technical deck in advance.
 
 With admiration and respect,
-Christo Mac
+Christo Mack
 Founder & CEO, Gentle Reminder
 mack@matrixadvancedsolutions.com | [phone]
 https://www.linkedin.com/in/christomac`,
@@ -69,7 +69,7 @@ https://www.linkedin.com/in/christomac`,
     subject: 'Dementia platform with patented AI — advisor inquiry',
     body: `Hi {{firstName}},
 
-I'm Christo Mac, founder of Gentle Reminder — a clinical-grade dementia care platform designed from the algorithm up for neurodegenerative populations.
+I'm Christo Mack, founder of Gentle Reminder — a clinical-grade dementia care platform designed from the algorithm up for neurodegenerative populations.
 
 **Why this will interest you:** We've built something that, to our knowledge, doesn't exist — a cognitive assessment system that architecturally guarantees no negative feedback reaches the patient (a documented clinical problem in MMSE/MoCA). It's backed by 23 USPTO provisional patents and a production-ready platform (53K+ LOC, 5 apps, FHIR R4, 10 languages).
 
@@ -85,7 +85,7 @@ Full IP portfolio: https://gentle-reminder-pitch.vercel.app/ip
 Would any 20-minute window work in the next 3 weeks?
 
 Thanks,
-Christo Mac
+Christo Mack
 Founder & CEO, Gentle Reminder
 mack@matrixadvancedsolutions.com`,
     characterCount: 1400,
@@ -101,7 +101,7 @@ mack@matrixadvancedsolutions.com`,
     label: 'LinkedIn DM — Cold Connection Request',
     channel: 'linkedin-dm',
     audience: 'Any advisory target',
-    body: `Hi {{firstName}} — Christo Mac, founder of Gentle Reminder (clinical-grade dementia platform, 23 patents, FDA SaMD pathway). Your work on {{specific_topic}} directly informs what we're building. Would love 20 mins to share approach & get your feedback — advisor role available if aligned. Overview: gentle-reminder-pitch.vercel.app. Happy to work around your calendar. Thanks!`,
+    body: `Hi {{firstName}} — Christo Mack, founder of Gentle Reminder (clinical-grade dementia platform, 23 patents, FDA SaMD pathway). Your work on {{specific_topic}} directly informs what we're building. Would love 20 mins to share approach & get your feedback — advisor role available if aligned. Overview: gentle-reminder-pitch.vercel.app. Happy to work around your calendar. Thanks!`,
     characterCount: 395,
     followup: 'LinkedIn connection requests are capped at 300 chars; InMail allows longer. Keep this under 400 for universal use.',
     notes: 'LinkedIn DMs under 400 chars outperform longer messages. Lead with credential/mutual connection if possible. Include link to pitch site.',
@@ -118,7 +118,7 @@ mack@matrixadvancedsolutions.com`,
     subject: 'Advisor inquiry — dementia platform you\'ll find interesting',
     body: `Hi {{firstName}},
 
-Christo Mac here, founder of Gentle Reminder — a clinical-grade dementia care platform with 23 USPTO provisional patents, full FDA SaMD documentation, and a production platform (53K+ LOC, 5 deployed apps).
+Christo Mack here, founder of Gentle Reminder — a clinical-grade dementia care platform with 23 USPTO provisional patents, full FDA SaMD documentation, and a production platform (53K+ LOC, 5 deployed apps).
 
 Reaching out because your work on {{specific_topic}} makes you uniquely qualified to evaluate what we're building. Our core innovation: a three-state positive-only cognitive assessment system (CELEBRATED/GUIDED/SUPPORTED) that architecturally prevents the anxiety-inducing pass/fail feedback of MMSE/MoCA — a documented clinical problem that harms dementia patients.
 
@@ -129,7 +129,7 @@ Overview: https://gentle-reminder-pitch.vercel.app/ip
 Happy to work around your schedule. Would any 30-min window in the next 3 weeks fit?
 
 With thanks,
-Christo Mac
+Christo Mack
 Founder & CEO, Gentle Reminder
 mack@matrixadvancedsolutions.com`,
     characterCount: 1000,
@@ -145,7 +145,7 @@ mack@matrixadvancedsolutions.com`,
     label: 'Twitter / X DM — Public Figures',
     channel: 'twitter-dm',
     audience: 'Eric Topol, Andy Slavitt, Halle Tecco, other active Twitter voices',
-    body: `Hi @{{handle}} — Christo Mac, founder of Gentle Reminder (dementia platform, 23 patents, FDA SaMD pathway). Your take on {{recent_tweet_topic}} is exactly the lens we need. Would love 20 mins to share what we're building & hear your critique — and explore an advisor role if aligned. Pitch site: gentle-reminder-pitch.vercel.app
+    body: `Hi @{{handle}} — Christo Mack, founder of Gentle Reminder (dementia platform, 23 patents, FDA SaMD pathway). Your take on {{recent_tweet_topic}} is exactly the lens we need. Would love 20 mins to share what we're building & hear your critique — and explore an advisor role if aligned. Pitch site: gentle-reminder-pitch.vercel.app
 
 DM or email mack@matrixadvancedsolutions.com if open to a call.`,
     characterCount: 395,
@@ -161,7 +161,7 @@ DM or email mack@matrixadvancedsolutions.com if open to a call.`,
     label: 'Text / SMS — Warm Contact (Phone Number Available)',
     channel: 'text-sms',
     audience: 'Anyone where you\'ve been given their phone by a mutual connection',
-    body: `Hi {{firstName}} — Christo Mac. [Mutual connection name] suggested I reach out. I'm founder of Gentle Reminder, a dementia care platform with 23 patents + FDA pathway. Would love to share 10 minutes over coffee/call to get your feedback & explore advisor fit. Quick overview: gentle-reminder-pitch.vercel.app. What's your availability this week?`,
+    body: `Hi {{firstName}} — Christo Mack. [Mutual connection name] suggested I reach out. I'm founder of Gentle Reminder, a dementia care platform with 23 patents + FDA pathway. Would love to share 10 minutes over coffee/call to get your feedback & explore advisor fit. Quick overview: gentle-reminder-pitch.vercel.app. What's your availability this week?`,
     characterCount: 350,
     followup: 'If no response in 48h, try a different channel (email).',
     notes: 'Never text a senior advisor without having been given the phone explicitly by them or a close mutual. Cold texts to purchased numbers = dead outreach + reputation damage.',
@@ -178,7 +178,7 @@ DM or email mack@matrixadvancedsolutions.com if open to a call.`,
     subject: 'Fractional CFO inquiry — pre-seed dementia SaMD platform, $5M raise planned',
     body: `Hi {{firstName}},
 
-I'm Christo Mac, founder and CEO of Gentle Reminder — a clinical-grade dementia care platform in the FDA SaMD pathway. We're preparing a $5M seed round over the next 4-6 months and evaluating fractional CFO firms to support the process.
+I'm Christo Mack, founder and CEO of Gentle Reminder — a clinical-grade dementia care platform in the FDA SaMD pathway. We're preparing a $5M seed round over the next 4-6 months and evaluating fractional CFO firms to support the process.
 
 **Current state:**
 - Delaware C-Corp in formation (Stripe Atlas / Clerky)
@@ -206,7 +206,7 @@ Pitch site: https://gentle-reminder-pitch.vercel.app
 Could we schedule a 30-minute intro call this week or next?
 
 Thank you,
-Christo Mac
+Christo Mack
 Founder & CEO, Gentle Reminder
 mack@matrixadvancedsolutions.com | [phone]`,
     characterCount: 1800,
@@ -234,7 +234,7 @@ I know you're busy, and a 20-minute call may not be feasible — happy to do 10 
 Pitch site: https://gentle-reminder-pitch.vercel.app/ip
 
 Best,
-Christo Mac`,
+Christo Mack`,
     characterCount: 580,
     followup: 'Day 14: One more attempt with different angle, then pause for 60 days.',
     notes: 'Short, low-effort follow-ups outperform re-sending the full pitch. Reference new progress.',

@@ -54,7 +54,7 @@ Happy to set up a 30-minute call once you've had a chance to review — calendar
 Note on entity status: We're finalizing our Delaware C-Corp formation this week. Any NDA or engagement letter will execute under the incorporated entity once filed — anticipated within 7 days.
 
 Best,
-Christo Mac
+Christo Mack
 Founder, Gentle Reminder (Delaware C-Corp formation in final stages)
 mack@matrixadvancedsolutions.com
 ```
@@ -82,7 +82,7 @@ Either way, I'd value your critique, even 10 minutes on the phone.
 Note on entity status: We're finalizing our Delaware C-Corp formation this week. Any NDA or engagement letter will execute once filed — anticipated within 7 days.
 
 Best,
-Christo Mac
+Christo Mack
 Founder, Gentle Reminder (Delaware C-Corp formation in final stages)
 mack@matrixadvancedsolutions.com
 ```
@@ -106,7 +106,7 @@ For context: the redline is a mutual NDA with 3-year term and 5-year survival on
 Note on entity status: We're finalizing our Delaware C-Corp formation this week. NDA execution will happen under the incorporated entity — targeting execution within 7 days.
 
 Best,
-Christo Mac
+Christo Mack
 Founder, Gentle Reminder (Delaware C-Corp formation in final stages)
 mack@matrixadvancedsolutions.com
 ```
@@ -139,7 +139,7 @@ The link is specific to your email — if others on your team need access, pleas
 Happy to schedule a 30-minute diligence call once you've had a chance to orient. Top 3 diligence topics from VCs at this stage have been: IP moat depth, regulatory pathway timeline, and unit economics — I can go deep on any of them.
 
 Best,
-Christo Mac
+Christo Mack
 Founder & CEO/COO, Gentle Reminder
 mack@matrixadvancedsolutions.com
 ```
@@ -169,7 +169,7 @@ We're currently in {{custom.current_stage}} — {{custom.stage_detail}}.
 If any of this changes the picture for your fund (or your portfolio might be a fit), I'd love to reconnect. No pressure either way — just wanted to keep you in the loop as a friend of the company.
 
 Best,
-Christo Mac
+Christo Mack
 Founder & CEO/COO, Gentle Reminder
 mack@matrixadvancedsolutions.com
 https://gentle-reminder-pitch.vercel.app
@@ -193,7 +193,7 @@ I was available for our call today — no stress at all if it slipped. Happy to 
 Or reply with a few times and I'll send an invite.
 
 Best,
-Christo Mac
+Christo Mack
 Founder & CEO/COO, Gentle Reminder
 mack@matrixadvancedsolutions.com
 ```
@@ -220,7 +220,7 @@ Two quick asks if you're open:
 No pressure on either. I'll keep you posted on our milestones — would welcome the chance to revisit post-510(k) submission or Series A.
 
 Best,
-Christo Mac
+Christo Mack
 Founder & CEO/COO, Gentle Reminder
 mack@matrixadvancedsolutions.com
 ```

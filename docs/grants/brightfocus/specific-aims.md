@@ -20,5 +20,5 @@ Over 55 million people live with dementia globally, with 10 million new cases ea
 
 ---
 
-*Prepared by Christo Mac, Founder & CEO/COO, Gentle Reminder*
+*Prepared by Christo Mack, Founder & CEO/COO, Gentle Reminder*
 *mack@matrixadvancedsolutions.com*

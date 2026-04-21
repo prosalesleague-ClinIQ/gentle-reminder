@@ -36,7 +36,7 @@
 ### 3. Set as default sending address
 
 - In GHL Settings → Email Services, mark `gentlereminderapp@gmail.com` as the **default sending email**
-- If GHL asks for a "from name," set it to: `Christo Mac · Gentle Reminder`
+- If GHL asks for a "from name," set it to: `Christo Mack · Gentle Reminder`
 
 ### 4. Send a test email
 
@@ -82,7 +82,7 @@ Use this if Path A's OAuth button doesn't exist in your GHL or fails.
   - **Encryption:** `TLS` (or STARTTLS)
   - **Username:** `gentlereminderapp@gmail.com`
   - **Password:** the 16-character App Password from step 2 (no spaces when pasting into GHL)
-  - **From Name:** `Christo Mac · Gentle Reminder`
+  - **From Name:** `Christo Mack · Gentle Reminder`
   - **From Email:** `gentlereminderapp@gmail.com`
 - Save
 
@@ -178,7 +178,7 @@ After updating: regenerate PPTX + PDF (`node scripts/deck/generate-pitch-deck.js
 - [ ] OAuth or SMTP + App Password configured in GHL
 - [ ] Test send to self: inbound + outbound both logged in GHL
 - [ ] Default sending address set to `gentlereminderapp@gmail.com`
-- [ ] From Name set to `Christo Mac · Gentle Reminder`
+- [ ] From Name set to `Christo Mack · Gentle Reminder`
 - [ ] Rate limits documented (500/day on Gmail free tier)
 - [ ] App Password (if SMTP path) stored in password manager
 - [ ] (Later) repo-wide signature update committed + redeployed

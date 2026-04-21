@@ -85,5 +85,5 @@ These demonstrate that "technology platforms for dementia" have a clear path to 
 
 ## Contact
 
-Christo Mac, Founder & CEO/COO, Gentle Reminder
+Christo Mack, Founder & CEO/COO, Gentle Reminder
 mack@matrixadvancedsolutions.com

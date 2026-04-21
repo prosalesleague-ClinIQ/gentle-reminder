@@ -1,7 +1,7 @@
 # Trademark Filing Checklist — "Gentle Reminder"
 
 **Status:** Not yet filed. Target: file the week the entity forms (Week 1) OR file in founder's name now and assign to the entity upon formation (see §5 below).
-**Owner:** Christo Mac, Founder
+**Owner:** Christo Mack, Founder
 **Last updated:** 2026-04-20
 
 ---
@@ -60,7 +60,7 @@ Two paths:
 - **Con:** 1-week delay. Competitive risk during that week is low but non-zero.
 
 ### Path B (alternative): File now in founder's name + assign to entity post-formation
-- File in Christo Mac's personal name immediately (today).
+- File in Christo Mack's personal name immediately (today).
 - Upon entity formation, execute a **trademark assignment** from founder to the C-Corp.
 - Record assignment with USPTO (form TEAS Assignment Cover Sheet, $40 fee).
 - **Pro:** Protects priority date immediately. Competitive block from day 0.
@@ -74,7 +74,7 @@ Two paths:
 2. Verify applicant identity (attorney login not required for pro se filing, but check current USPTO rules — foreign applicants require counsel; US applicants can self-file)
 3. Complete TEAS Plus form:
    - Mark: GENTLE REMINDER (standard characters)
-   - Applicant: [entity name] or "Christo Mac" depending on path
+   - Applicant: [entity name] or "Christo Mack" depending on path
    - Classes: 9 + 44
    - Pre-approved Goods/Services ID (search "software" and "medical services" in USPTO's Trademark ID Manual)
    - Filing basis: 1(b) Intent to Use for both classes

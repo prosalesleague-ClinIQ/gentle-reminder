@@ -1,7 +1,7 @@
 # Data Room — Setup Guide
 
 **Purpose:** Three-tier access structure for investor, advisor, and strategic-partner diligence. Designed to open progressively as relationships deepen, not all at once.
-**Owner:** Christo Mac, Founder
+**Owner:** Christo Mack, Founder
 **Last updated:** 2026-04-20
 
 ---

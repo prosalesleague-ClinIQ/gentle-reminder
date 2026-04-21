@@ -5,7 +5,7 @@
  * `email` = can mailto: directly
  * `contactFormUrl` = must use their web form instead
  *
- * Variables are PRE-SUBSTITUTED with Christo Mac / Matrix Advanced Solutions
+ * Variables are PRE-SUBSTITUTED with Christo Mack / Matrix Advanced Solutions
  * defaults so the mailto: links are ready to launch immediately.
  */
 
@@ -39,7 +39,7 @@ const SIGNATURE = `
 Note on entity status: We're finalizing our Delaware C-Corp formation this week. Any NDA or engagement letter will execute under the incorporated entity once filed — anticipated within 7 days. In the interim I'm happy to schedule exploratory calls, share public materials, and exchange written fee quotes.
 
 Best,
-Christo Mac
+Christo Mack
 Founder, Gentle Reminder (Delaware C-Corp formation in final stages)
 mack@matrixadvancedsolutions.com
 https://www.linkedin.com/in/christomac
@@ -71,7 +71,7 @@ export const SEND_PRIORITY_QUEUE: SendItem[] = [
     subject: '23-patent portfolio — equity or contingency engagement inquiry',
     body: `Hi Carson Patents team,
 
-I'm Christo Mac, founder of Gentle Reminder — a clinical-grade dementia care platform with 23 identified patentable innovations ready for provisional filing.
+I'm Christo Mack, founder of Gentle Reminder — a clinical-grade dementia care platform with 23 identified patentable innovations ready for provisional filing.
 
 Your firm's equity / contingency model is exactly what we need. Three reasons this fits:
 
@@ -101,7 +101,7 @@ ${SIGNATURE}`,
     subject: '23-patent portfolio — equity / deferred fee inquiry',
     body: `Hi Wojcik Law Firm,
 
-I'm Christo Mac, founder of Gentle Reminder — a clinical-grade dementia care platform with 23 identified patentable innovations ready for provisional filing.
+I'm Christo Mack, founder of Gentle Reminder — a clinical-grade dementia care platform with 23 identified patentable innovations ready for provisional filing.
 
 Your "Equity & Deferred Fees" practice is an ideal fit. We have 23 USPTO provisional drafts in USPTO-compliant format with claims, prior art, and enabling disclosure complete. Your firm's work would be review + file.
 
@@ -127,7 +127,7 @@ ${SIGNATURE}`,
     subject: 'Fixed-fee inquiry: 23 provisional patents (pre-drafted)',
     body: `Hi Miller IP Law team,
 
-I'm Christo Mac, founder of Gentle Reminder. We have 23 pre-drafted provisional patents covering a clinical-grade dementia care platform, looking for a firm to review and file them under a fixed-fee arrangement.
+I'm Christo Mack, founder of Gentle Reminder. We have 23 pre-drafted provisional patents covering a clinical-grade dementia care platform, looking for a firm to review and file them under a fixed-fee arrangement.
 
 Portfolio snapshot (public-safe overview; full docket under NDA post-entity formation):
 - 5 Tier 1 (highest novelty): gentle feedback scoring, adaptive difficulty, dementia-adapted SM-2, multimodal cognitive state classifier, dementia speech emotion detection
@@ -162,7 +162,7 @@ ${SIGNATURE}`,
     subject: 'SBIR grant support inquiry — success-fee engagement for dementia SaMD platform',
     body: `Hi TurboSBIR team,
 
-I'm Christo Mac, founder of Gentle Reminder — a clinical-grade dementia care platform with 23 patentable innovations and FDA SaMD pathway readiness.
+I'm Christo Mack, founder of Gentle Reminder — a clinical-grade dementia care platform with 23 patentable innovations and FDA SaMD pathway readiness.
 
 Your contingency / pay-upon-award engagement model is the right fit for our stage. What we have ready to submit against:
 
@@ -201,7 +201,7 @@ ${SIGNATURE}`,
     subject: 'Pay-Upon-Award inquiry — NIH SBIR support for dementia medical device',
     body: `Hi Blue Haven Grant Consultants,
 
-I'm Christo Mac, founder of Gentle Reminder — a clinical-grade dementia care platform with 23 patents and full FDA SaMD documentation.
+I'm Christo Mack, founder of Gentle Reminder — a clinical-grade dementia care platform with 23 patents and full FDA SaMD documentation.
 
 Your "Pay Upon Award" guarantee model is exactly what pre-seed startups like us need. We're targeting NIA SBIR Phase I ($275K) and additional federal grants in 2026.
 
@@ -237,7 +237,7 @@ ${SIGNATURE}`,
     subject: 'SBIR proposal development inquiry — dementia SaMD platform',
     body: `Hi InteliSpark team,
 
-I'm Christo Mac, founder of Gentle Reminder — a clinical-grade dementia care platform.
+I'm Christo Mack, founder of Gentle Reminder — a clinical-grade dementia care platform.
 
 Understand your model is partial contingency + upfront. Please share:
 1. Split between upfront and contingent portion
@@ -271,7 +271,7 @@ ${SIGNATURE}`,
     subject: 'Fractional CFO inquiry — pre-seed dementia SaMD platform, $5M raise',
     body: `Hi Healthcare CFO team,
 
-I'm Christo Mac, founder of Gentle Reminder — a clinical-grade dementia care platform in the FDA SaMD pathway. We're preparing a $5M seed round over the next 4-6 months and evaluating fractional CFO firms.
+I'm Christo Mack, founder of Gentle Reminder — a clinical-grade dementia care platform in the FDA SaMD pathway. We're preparing a $5M seed round over the next 4-6 months and evaluating fractional CFO firms.
 
 Your healthcare/biotech/life sciences exclusive focus makes you our top pick.
 
@@ -280,7 +280,7 @@ Current state:
 - 23 USPTO provisional patents drafted/filed
 - Full FDA SaMD documentation (IEC 62304, ISO 14971, QMS, CFR Part 11)
 - Production platform: 53K LOC, 5 deployed apps
-- Core team: Christo Mac (CEO/COO), Leo Kinsman (CTO), Chris Hamel (CFO in-house), Jayla Patzer (Clinical Partnerships)
+- Core team: Christo Mack (CEO/COO), Leo Kinsman (CTO), Chris Hamel (CFO in-house), Jayla Patzer (Clinical Partnerships)
 
 What we need:
 1. Seed-round fundraising support: financial model, data room, diligence response
@@ -315,7 +315,7 @@ ${SIGNATURE}`,
     subject: 'Fractional CFO inquiry — VC-backed digital health startup, $5M seed',
     body: `Hi Burkland team,
 
-I'm Christo Mac, founder of Gentle Reminder — a clinical-grade dementia care platform with 23 patents and FDA SaMD pathway. Preparing $5M seed round; evaluating fractional CFO firms with VC-backed startup experience.
+I'm Christo Mack, founder of Gentle Reminder — a clinical-grade dementia care platform with 23 patents and FDA SaMD pathway. Preparing $5M seed round; evaluating fractional CFO firms with VC-backed startup experience.
 
 Interested in your healthcare + biotech vertical team.
 
@@ -350,7 +350,7 @@ ${SIGNATURE}`,
     subject: 'Fractional CFO inquiry — AI healthcare SaMD startup',
     body: `Hi CFO Advisors team,
 
-I'm Christo Mac, founder of Gentle Reminder — a clinical-grade AI-powered dementia care platform (23 patents, FDA SaMD pathway).
+I'm Christo Mack, founder of Gentle Reminder — a clinical-grade AI-powered dementia care platform (23 patents, FDA SaMD pathway).
 
 Your AI + healthcare specialty directly matches our profile. Preparing $5M seed.
 
@@ -384,7 +384,7 @@ ${SIGNATURE}`,
     subject: 'Advisor inquiry — dementia platform with 23 patents + FDA SaMD pathway',
     body: `Dear Dr. Miller,
 
-I'm Christo Mac, founder and CEO of Gentle Reminder, a clinical-grade dementia care platform. I'm reaching out because your work leading the UCSF Memory and Aging Center and your frontotemporal dementia research directly informs what we're trying to build — and your guidance would be transformative.
+I'm Christo Mack, founder and CEO of Gentle Reminder, a clinical-grade dementia care platform. I'm reaching out because your work leading the UCSF Memory and Aging Center and your frontotemporal dementia research directly informs what we're trying to build — and your guidance would be transformative.
 
 What we've built:
 - 23 USPTO provisional patents including a three-state positive-only cognitive assessment system that architecturally prevents anxiety-inducing pass/fail feedback (addressing a documented clinical problem with MMSE/MoCA)
@@ -416,7 +416,7 @@ ${SIGNATURE.trim()}`,
     subject: 'Advisor inquiry — dementia platform (complementary to Leqembi / anti-amyloid)',
     body: `Dear Dr. Sperling,
 
-I'm Christo Mac, founder of Gentle Reminder — a clinical-grade dementia care platform (23 patents, FDA SaMD pathway). Your leadership of the A4 and AHEAD prevention studies makes you uniquely qualified to evaluate where we can add value.
+I'm Christo Mack, founder of Gentle Reminder — a clinical-grade dementia care platform (23 patents, FDA SaMD pathway). Your leadership of the A4 and AHEAD prevention studies makes you uniquely qualified to evaluate where we can add value.
 
 We've built the first dementia-safe cognitive assessment system — 23 USPTO provisional patents including a three-state positive-only feedback architecture that structurally prevents the anxiety / agitation documented in standard assessments (MMSE/MoCA). Applications include digital companion tools for anti-amyloid therapy patients between dosing.
 
@@ -442,7 +442,7 @@ ${SIGNATURE.trim()}`,
     subject: 'Advisor inquiry — dementia cognitive assessment platform',
     body: `Dear Dr. Petersen,
 
-I'm Christo Mac, founder of Gentle Reminder. Your work defining mild cognitive impairment and leading the Mayo Clinic Study of Aging makes you the ideal external reviewer of what we're building.
+I'm Christo Mack, founder of Gentle Reminder. Your work defining mild cognitive impairment and leading the Mayo Clinic Study of Aging makes you the ideal external reviewer of what we're building.
 
 We have 23 patent-pending innovations for dementia cognitive assessment, including a three-state positive-only feedback architecture designed to eliminate anxiety cascades in MCI / early-AD populations during testing.
 
@@ -469,7 +469,7 @@ ${SIGNATURE}`,
     twitterUrl: 'https://twitter.com/EricTopol',
     linkedinUrl: 'https://www.linkedin.com/in/erictopol/',
     subject: 'Dementia platform with patented AI — 20 min for your critique?',
-    body: `Hi Eric — Christo Mac, founder of Gentle Reminder (dementia platform, 23 patents, FDA SaMD pathway). Would love your critique. Core innovation: three-state positive-only cognitive assessment that architecturally prevents MMSE-style anxiety cascades. Full IP portfolio + platform: https://gentle-reminder-pitch.vercel.app/ip. 20 min if you're game — your take matters. mack@matrixadvancedsolutions.com`,
+    body: `Hi Eric — Christo Mack, founder of Gentle Reminder (dementia platform, 23 patents, FDA SaMD pathway). Would love your critique. Core innovation: three-state positive-only cognitive assessment that architecturally prevents MMSE-style anxiety cascades. Full IP portfolio + platform: https://gentle-reminder-pitch.vercel.app/ip. 20 min if you're game — your take matters. mack@matrixadvancedsolutions.com`,
     notes: 'Twitter DM — 400 char max. Keep short. Follow with email if connects.',
   },
   {
@@ -484,7 +484,7 @@ ${SIGNATURE}`,
     channel: 'linkedin-dm',
     linkedinUrl: 'https://www.linkedin.com/in/glentullman/',
     subject: 'Dementia care platform — advisor inquiry',
-    body: `Hi Glen — Christo Mac, founder of Gentle Reminder. 23-patent dementia care platform with FDA SaMD pathway and 3 revenue streams (facility SaaS, DTx, pharma). Livongo pattern-matching is exactly what we need as we scale commercialization. Would love 20 min to share the approach & discuss advisor/board fit. Overview: gentle-reminder-pitch.vercel.app. Happy to work around your calendar. Thanks!`,
+    body: `Hi Glen — Christo Mack, founder of Gentle Reminder. 23-patent dementia care platform with FDA SaMD pathway and 3 revenue streams (facility SaaS, DTx, pharma). Livongo pattern-matching is exactly what we need as we scale commercialization. Would love 20 min to share the approach & discuss advisor/board fit. Overview: gentle-reminder-pitch.vercel.app. Happy to work around your calendar. Thanks!`,
     notes: 'LinkedIn. Lead with Livongo pattern-match reference.',
   },
   {
@@ -499,7 +499,7 @@ ${SIGNATURE}`,
     channel: 'linkedin-dm',
     linkedinUrl: 'https://www.linkedin.com/in/atulbutte/',
     subject: 'Biomedical AI for dementia — 20 min for your critique?',
-    body: `Dr. Butte — Christo Mac, founder of Gentle Reminder. Clinical-grade dementia platform with 23 patents (incl. multimodal cognitive state classifier, composite digital biomarker engine). Your UCSF data pipelines + biomedical AI work directly informs our architecture. Would love 20 min for your critique. gentle-reminder-pitch.vercel.app/ip. mack@matrixadvancedsolutions.com`,
+    body: `Dr. Butte — Christo Mack, founder of Gentle Reminder. Clinical-grade dementia platform with 23 patents (incl. multimodal cognitive state classifier, composite digital biomarker engine). Your UCSF data pipelines + biomedical AI work directly informs our architecture. Would love 20 min for your critique. gentle-reminder-pitch.vercel.app/ip. mack@matrixadvancedsolutions.com`,
     notes: 'LinkedIn. Reference UCSF institutional work.',
   },
 ];

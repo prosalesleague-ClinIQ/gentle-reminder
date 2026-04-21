@@ -1,7 +1,7 @@
 # Data Room — Access Policy
 
 **Purpose:** Decision rules for who gets which tier of access, when, and how to revoke it.
-**Owner:** Christo Mac, Founder
+**Owner:** Christo Mack, Founder
 **Last updated:** 2026-04-20
 
 ---

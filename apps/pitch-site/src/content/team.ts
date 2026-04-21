@@ -24,7 +24,7 @@ export interface RecruitingRole {
 export const CURRENT_TEAM: TeamMember[] = [
   {
     id: 'christo-mac',
-    name: 'Christo Mac',
+    name: 'Christo Mack',
     role: 'Founder, CEO & COO',
     bio: 'Leads overall direction, operations, and platform strategy for Gentle Reminder. Drives product vision from algorithm design through production deployment.',
     initials: 'CM',

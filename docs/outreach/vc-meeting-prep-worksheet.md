@@ -25,7 +25,7 @@ Budget: 60-90 minutes per VC for first meeting. Repeat VCs need only a 15-minute
 - Firm: __________
 - Meeting date / time: __________
 - Attendees (their side): __________
-- Attendees (our side): Christo Mac, [optional: Leo Kinsman (CTO) if technical deep-dive]
+- Attendees (our side): Christo Mack, [optional: Leo Kinsman (CTO) if technical deep-dive]
 - Meeting format: [Zoom / in-person / phone]
 - Meeting length: __________
 - GHL contact ID: __________

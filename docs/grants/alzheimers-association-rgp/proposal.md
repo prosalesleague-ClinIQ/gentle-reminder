@@ -3,7 +3,7 @@
 **Title:** Real-World Deployment and Caregiver Impact of a Dementia-Safe Cognitive Assessment Platform
 
 **Principal Investigator:** [Academic PI Name], [Title], [Institution]
-**Industry Co-Investigator:** Christo Mac, Founder & CEO/COO, Gentle Reminder
+**Industry Co-Investigator:** Christo Mack, Founder & CEO/COO, Gentle Reminder
 **Award Mechanism:** AARG-NTF (Non-Traditional Focus)
 
 ---

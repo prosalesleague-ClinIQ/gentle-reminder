@@ -35,11 +35,11 @@ export const DECK_DATA = {
   subtagline: '23 patented innovations. $186B market. FDA SaMD pathway.',
   ask: '$5M Seed',
   askTerms: '$25M post-money',
-  founder: 'Christo Mac',
+  founder: 'Christo Mack',
   founderTitle: 'Founder & CEO/COO',
   email: 'mack@matrixadvancedsolutions.com',
   phone: '[phone]',
-  teamSummary: 'Christo Mac (CEO/COO) · Leo Kinsman (CTO) · Chris Hamel (CFO) · Jayla Patzer (Clinic & Provider Partnerships)',
+  teamSummary: 'Christo Mack (CEO/COO) · Leo Kinsman (CTO) · Chris Hamel (CFO) · Jayla Patzer (Clinic & Provider Partnerships)',
   pitchSite: 'https://gentle-reminder-pitch.vercel.app',
 
   market: {

@@ -1,6 +1,6 @@
 # SPECIFIC AIMS — NIH R21
 
-*1-page limit. Academic PI leads; Gentle Reminder (Christo Mac, CEO/COO) as co-investigator/subawardee.*
+*1-page limit. Academic PI leads; Gentle Reminder (Christo Mack, CEO/COO) as co-investigator/subawardee.*
 
 ---
 
@@ -39,5 +39,5 @@ However, no platform has systematically tested whether multimodal digital signal
 ---
 
 *Academic PI: [Name], [Title], [Institution] — leads IRB, recruitment, diagnostic confirmation*
-*Industry Co-Investigator: Christo Mac, Founder & CEO/COO, Gentle Reminder — leads platform, data analysis, ML methodology*
+*Industry Co-Investigator: Christo Mack, Founder & CEO/COO, Gentle Reminder — leads platform, data analysis, ML methodology*
 *mack@matrixadvancedsolutions.com*

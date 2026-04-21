@@ -3,7 +3,7 @@
 **Document ID:** DL-001
 **Version:** 1.0
 **Effective Date:** 2026-04-20
-**Owner:** Christo Mac, Founder
+**Owner:** Christo Mack, Founder
 
 ---
 

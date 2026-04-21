@@ -2,7 +2,7 @@
 
 **Purpose:** Click-level checklist for the ~45 min of setup in the GHL web UI that **cannot be done via MCP**. Do this once; everything else ([import manifest](./import-manifest.md), templates, sends) automates afterward.
 **Sub-account:** Gentle Reminder (`locationId: Z7s02Er3ggqTnta4X8HB`)
-**Owner:** Christo Mac
+**Owner:** Christo Mack
 **Estimated time:** 40–55 minutes
 
 ---
@@ -38,7 +38,7 @@ Settings → **Business Profile** (or **Company Info**).
 | Field | Current placeholder | Change to |
 |-------|---------------------|-----------|
 | First name | `Chrito` | `Christo` |
-| Last name | `Pher` | `Mac` |
+| Last name | `Pher` | `Mack` |
 | Address | `123 main st` | *your real address, or leave blank until DE C-Corp forms* |
 | Business name | `Gentle Reminder` | *(no change)* |
 | Time zone | `America/Los_Angeles` | *(confirm, or change to your actual TZ)* |
@@ -120,7 +120,7 @@ Follow [gmail-connection.md](./gmail-connection.md) end to end. TL;DR:
 2. If you see it → click, sign in as `gentlereminderapp@gmail.com`, grant scopes, confirm "Connected" status
 3. If OAuth button isn't available → follow Path B (SMTP + App Password) in that doc
 4. Set `gentlereminderapp@gmail.com` as **default sending email**
-5. Set **From Name** = `Christo Mac · Gentle Reminder`
+5. Set **From Name** = `Christo Mack · Gentle Reminder`
 
 **Verification:** I'll re-run `get-location` and confirm `defaultEmailService` is no longer empty.
 

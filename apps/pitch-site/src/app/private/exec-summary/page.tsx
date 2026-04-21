@@ -239,7 +239,7 @@ export default function ExecSummaryPage() {
               Team
             </h2>
             <p style={{ fontSize: 10, lineHeight: 1.5, margin: 0 }}>
-              <strong>Christo Mac</strong> · Founder, CEO/COO · <strong>Leo Kinsman</strong> · CTO ·{' '}
+              <strong>Christo Mack</strong> · Founder, CEO/COO · <strong>Leo Kinsman</strong> · CTO ·{' '}
               <strong>Chris Hamel</strong> · CFO · <strong>Jayla Patzer</strong> · Nat. Dir., Clinic & Provider
               Partnerships. Recruiting clinical + tech advisory (UCSF, MGH, Mayo; Topol, Tullman, Slavitt targets).
             </p>

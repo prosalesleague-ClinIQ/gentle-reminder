@@ -12,7 +12,7 @@ const path = require('path');
 
 const pres = new pptxgen();
 pres.layout = 'LAYOUT_WIDE'; // 13.3" x 7.5" — true widescreen 16:9
-pres.author = 'Christo Mac';
+pres.author = 'Christo Mack';
 pres.company = 'Gentle Reminder';
 pres.title = 'Gentle Reminder — Seed Pitch';
 pres.subject = 'Clinical-grade dementia care platform seed round';
@@ -124,7 +124,7 @@ s.addShape(pres.shapes.RECTANGLE, {
   line: { color: C.border, width: 1 },
 });
 s.addText([
-  { text: 'Christo Mac', options: { fontSize: 18, bold: true, color: C.textBright, breakLine: true } },
+  { text: 'Christo Mack', options: { fontSize: 18, bold: true, color: C.textBright, breakLine: true } },
   { text: 'Founder & CEO/COO', options: { fontSize: 13, color: C.blue, breakLine: true } },
   { text: 'mack@matrixadvancedsolutions.com  ·  https://gentle-reminder-pitch.vercel.app', options: { fontSize: 12, color: C.textMuted } },
 ], { x: 1.0, y: 5.6, w: 11.0, h: 1.2, fontFace: 'Calibri', margin: 0 });
@@ -708,7 +708,7 @@ addKicker(s, 'TEAM', C.purple);
 addTitle(s, 'Experienced founding team.');
 
 const team = [
-  { name: 'Christo Mac', role: 'Founder & CEO/COO', initials: 'CM', color: C.blue },
+  { name: 'Christo Mack', role: 'Founder & CEO/COO', initials: 'CM', color: C.blue },
   { name: 'Leo Kinsman', role: 'CTO', initials: 'LK', color: C.green },
   { name: 'Chris Hamel', role: 'CFO', initials: 'CH', color: C.amber },
   { name: 'Jayla Patzer', role: 'Nat. Dir., Clinic & Provider Partnerships', initials: 'JP', color: C.purple },
@@ -901,7 +901,7 @@ s.addText('CONTACT', {
   fontSize: 12, bold: true, color: C.textMuted, charSpacing: 4, fontFace: 'Arial',
 });
 
-s.addText('Christo Mac', {
+s.addText('Christo Mack', {
   x: 8.5, y: 3.1, w: 4.3, h: 0.5,
   fontSize: 22, bold: true, color: C.textBright, fontFace: 'Arial',
 });

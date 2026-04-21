@@ -1,7 +1,7 @@
 # GHL (GoHighLevel) CRM Playbook
 
 **Purpose:** Operational setup for tracking 60+ parallel outreach conversations across investors, patent attorneys, grant specialists, clinical advisors, tech advisors, and strategic partners — without losing the thread on any one.
-**Owner:** Christo Mac, Founder
+**Owner:** Christo Mack, Founder
 **Last updated:** 2026-04-20
 **Status:** Documentation-only (this repo does not integrate with GHL API).
 

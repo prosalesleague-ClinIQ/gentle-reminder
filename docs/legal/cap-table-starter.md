@@ -32,7 +32,7 @@ Below is a recommended starting structure the day the entity forms. Numbers are 
 
 | Holder | Shares | % (fully diluted) | Notes |
 |--------|--------|-------------------|-------|
-| Christo Mac (Founder, CEO/COO) | 5,000,000 | 50.0% | 4-year vesting, 1-year cliff from entity formation date |
+| Christo Mack (Founder, CEO/COO) | 5,000,000 | 50.0% | 4-year vesting, 1-year cliff from entity formation date |
 | Leo Kinsman (CTO) | 2,000,000 | 20.0% | 4-year vesting, 1-year cliff |
 | Chris Hamel (CFO) | 800,000 | 8.0% | 4-year vesting, 1-year cliff |
 | Jayla Patzer (Nat. Director) | 700,000 | 7.0% | 4-year vesting, 1-year cliff |
@@ -107,7 +107,7 @@ Carta and Pulley auto-generate these. For spreadsheet, keep all four tabs.
 
 | Holder | Shares (pre-seed) | % pre-seed | Shares (post-seed) | % post-seed |
 |--------|-------------------|------------|---------------------|-------------|
-| Founder (Christo Mac) | 5,000,000 | 50.0% | 5,000,000 | 40.0% |
+| Founder (Christo Mack) | 5,000,000 | 50.0% | 5,000,000 | 40.0% |
 | Co-founders (Leo, Chris, Jayla) | 3,500,000 | 35.0% | 3,500,000 | 28.0% |
 | Option pool | 1,500,000 | 15.0% | 1,500,000 | 12.0% |
 | Seed investor(s) | — | — | 2,500,000 | 20.0% |
