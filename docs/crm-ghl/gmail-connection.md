@@ -175,13 +175,31 @@ After updating: regenerate PPTX + PDF (`node scripts/deck/generate-pitch-deck.js
 
 ## Post-connection checklist
 
-- [ ] OAuth or SMTP + App Password configured in GHL
-- [ ] Test send to self: inbound + outbound both logged in GHL
-- [ ] Default sending address set to `gentlereminderapp@gmail.com`
-- [ ] From Name set to `Christo Mack · Gentle Reminder`
-- [ ] Rate limits documented (500/day on Gmail free tier)
-- [ ] App Password (if SMTP path) stored in password manager
-- [ ] (Later) repo-wide signature update committed + redeployed
+- [x] OAuth or SMTP + App Password configured in GHL — **SMTP (Path B) used, 2026-04-20**
+- [x] Test send to self — MCP self-test queued successfully (messageId `SzeDZnLfiRCz3N43DlfV`, 2026-04-20); confirm inbox delivery to close the loop
+- [x] Default sending address set to `gentlereminderapp@gmail.com`
+- [ ] From Name set to `Christo Mack · Gentle Reminder` — verify in GHL Settings → Email Services
+- [x] Rate limits documented (500/day on Gmail free tier)
+- [x] App Password stored in password manager
+- [x] (Later) repo-wide signature update committed + redeployed — done in Phase 38h (`Christo Mac` → `Christo Mack`)
+
+## Execution log
+
+**2026-04-20 — SMTP configured via Path B.**
+
+OAuth (Path A) was not attempted because GHL's Email Services UI didn't offer a `Connect Gmail` button for this sub-account. Setup used:
+- Google 2-Step Verification (already on)
+- App Password generated at `myaccount.google.com/apppasswords`, labeled `GHL — Gentle Reminder`
+- SMTP config: `smtp.gmail.com:587` / TLS / `gentlereminderapp@gmail.com` / [App Password]
+
+**Security follow-up:** the App Password was pasted into the session chat to complete setup. **Rotate it** — delete the current App Password at `myaccount.google.com/apppasswords` and generate a new one, then update GHL's SMTP password field with the new value. 60-second task, closes the residual exposure risk.
+
+**MCP self-test (2026-04-20):**
+- Created throwaway contact `SMTP Self-Test (delete me)` (id `JRvIp26tF5bG891pskAR`, email `gentlereminderapp+smtptest@gmail.com`)
+- Sent test email via `conversations_send-a-new-message` → API returned `"Email queued successfully."` with messageId `SzeDZnLfiRCz3N43DlfV`, conversationId `ouDeyAwu5Qwtn0eWeZ8j`
+- Final confirmation: visual check of `gentlereminderapp@gmail.com` inbox for the test message
+
+Both the test contact and the test message can be deleted from GHL once the inbox delivery is confirmed.
 
 ## Related documents
 
