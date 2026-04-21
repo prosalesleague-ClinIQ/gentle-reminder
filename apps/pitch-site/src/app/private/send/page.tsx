@@ -61,6 +61,72 @@ export default function SendPage() {
           mail app → hit Send.
         </p>
 
+        {/* PRE-ENTITY banner — remove the day the DE C-Corp is filed */}
+        <div
+          style={{
+            padding: 16,
+            background: 'linear-gradient(135deg, rgba(210, 153, 34, 0.14), rgba(248, 81, 73, 0.08))',
+            border: '1px solid rgba(210, 153, 34, 0.45)',
+            borderRadius: 10,
+            marginBottom: 16,
+          }}
+        >
+          <div
+            style={{
+              fontSize: 11,
+              color: '#d29922',
+              fontWeight: 700,
+              letterSpacing: '0.1em',
+              marginBottom: 10,
+            }}
+          >
+            🛡️ PRE-ENTITY WEEK — SAFETY GATES ACTIVE
+          </div>
+          <div style={{ fontSize: 13, color: '#f0f6fc', lineHeight: 1.7, marginBottom: 8 }}>
+            Delaware C-Corp formation is in progress (target: this week). Until the entity is filed:
+          </div>
+          <ul style={{ marginLeft: 20, fontSize: 13, color: '#c9d1d9', lineHeight: 1.7 }}>
+            <li>
+              <strong style={{ color: '#3fb950' }}>✓ Safe to send:</strong> intro emails, public pitch
+              materials, calendar invites, written fee-quote requests.
+            </li>
+            <li>
+              <strong style={{ color: '#f85149' }}>✗ Do NOT sign this week:</strong> NDAs, engagement
+              letters (patent attorney / CFO / placement agent), term sheets, LOIs. Signing pre-entity
+              creates personal liability.
+            </li>
+            <li>
+              Every outreach draft below has the{' '}
+              <strong style={{ color: '#d29922' }}>entity-status disclosure</strong> pre-appended — do not
+              remove it.
+            </li>
+            <li>
+              If a counterparty pushes to sign this week: redline their document, schedule the signing
+              call for next week, cite entity formation as the reason.
+            </li>
+            <li>
+              Full guidance:{' '}
+              <a
+                href="https://github.com/prosalesleague-ClinIQ/gentle-reminder/blob/main/docs/legal/pre-entity-outreach-safety.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: '#58a6ff', textDecoration: 'underline' }}
+              >
+                docs/legal/pre-entity-outreach-safety.md
+              </a>{' '}
+              ·{' '}
+              <a
+                href="https://github.com/prosalesleague-ClinIQ/gentle-reminder/blob/main/docs/legal/trademark-filing-checklist.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: '#58a6ff', textDecoration: 'underline' }}
+              >
+                trademark-filing-checklist.md
+              </a>
+            </li>
+          </ul>
+        </div>
+
         {/* Safety banner */}
         <div
           style={{

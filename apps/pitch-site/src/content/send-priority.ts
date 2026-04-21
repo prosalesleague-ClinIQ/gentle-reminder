@@ -34,10 +34,19 @@ export interface SendItem {
 const SIGNATURE = `
 Best,
 Christo Mac
-Founder & CEO/COO, Gentle Reminder
+Founder, Gentle Reminder (Delaware C-Corp formation in final stages)
 mack@matrixadvancedsolutions.com
 https://www.linkedin.com/in/christomac
 Pitch site: https://gentle-reminder-pitch.vercel.app`;
+
+// Pre-entity disclosure inserted into every outreach email this week.
+// Signals the counterparty that any NDA / engagement letter is being delayed
+// intentionally (not evasively) until the DE C-Corp is filed — anticipated
+// within 7 days. Remove this block the day the entity is filed.
+const PRE_ENTITY_DISCLOSURE = `
+
+--
+Note on entity status: We're finalizing our Delaware C-Corp formation this week. Any NDA or engagement letter will execute under the incorporated entity once filed — anticipated within 7 days. In the interim I'm happy to schedule exploratory calls, share public materials, and exchange written fee quotes.`;
 
 export const SEND_PRIORITY_QUEUE: SendItem[] = [
   // ============================================================
@@ -57,7 +66,7 @@ export const SEND_PRIORITY_QUEUE: SendItem[] = [
     subject: '23-patent portfolio — equity or contingency engagement inquiry',
     body: `Hi Carson Patents team,
 
-I'm Christo Mac, founder and CEO of Gentle Reminder — a clinical-grade dementia care platform with 23 identified patentable innovations ready for provisional filing.
+I'm Christo Mac, founder of Gentle Reminder — a clinical-grade dementia care platform with 23 identified patentable innovations ready for provisional filing.
 
 Your firm's equity / contingency model is exactly what we need. Three reasons this fits:
 
@@ -65,17 +74,13 @@ Your firm's equity / contingency model is exactly what we need. Three reasons th
 2. Quality: Each draft is already written in USPTO-compliant format with 3+ independent claims and enabling disclosure. Your work is review + file, not draft from scratch.
 3. Upside: We're raising a $5M seed in parallel; equity or deferred-to-close fees can be triggered at close.
 
-Materials available for your review under NDA:
-- Full 23-IP docket with tier rankings
-- Pre-drafted provisional patent specifications
-- Prior art analysis per IP
-- Inventor disclosure with assignment chain
+This week I can share what's already public-safe on our pitch site and exchange written fee quotes. Full IP docket, pre-drafted specifications, prior art analysis, and inventor disclosure will follow NDA execution once the entity forms (see disclosure below).
 
-Could we schedule a 30-minute call this week to discuss fee structure?
+Could we schedule a 30-minute call this week to discuss fee structure, and pencil in an NDA + engagement execution for next week?
 
-Public pitch site: https://gentle-reminder-pitch.vercel.app
+Public pitch site: https://gentle-reminder-pitch.vercel.app${PRE_ENTITY_DISCLOSURE}
 ${SIGNATURE}`,
-    notes: 'Has direct email. Mailto will open immediately.',
+    notes: 'Has direct email. Mailto will open immediately. Pre-entity disclosure appended.',
   },
   {
     id: 'send-wojcik',
@@ -91,17 +96,17 @@ ${SIGNATURE}`,
     subject: '23-patent portfolio — equity / deferred fee inquiry',
     body: `Hi Wojcik Law Firm,
 
-I'm Christo Mac, founder and CEO of Gentle Reminder — a clinical-grade dementia care platform with 23 identified patentable innovations ready for provisional filing.
+I'm Christo Mac, founder of Gentle Reminder — a clinical-grade dementia care platform with 23 identified patentable innovations ready for provisional filing.
 
 Your "Equity & Deferred Fees" practice is an ideal fit. We have 23 USPTO provisional drafts in USPTO-compliant format with claims, prior art, and enabling disclosure complete. Your firm's work would be review + file.
 
 We're raising a $5M seed in parallel; equity or deferred-to-close fees can be triggered at close.
 
-Can we schedule a 30-minute intro call this week?
+Can we schedule a 30-minute intro call this week to discuss fee structure? Happy to share public pitch materials now and pencil in NDA + engagement execution for next week once our entity formation clears (see disclosure below).
 
-Pitch site: https://gentle-reminder-pitch.vercel.app
+Pitch site: https://gentle-reminder-pitch.vercel.app${PRE_ENTITY_DISCLOSURE}
 ${SIGNATURE}`,
-    notes: 'Contact form only. Paste subject + body into their form.',
+    notes: 'Contact form only. Paste subject + body into their form. Pre-entity disclosure appended.',
   },
   {
     id: 'send-miller-ip',
@@ -119,20 +124,20 @@ ${SIGNATURE}`,
 
 I'm Christo Mac, founder of Gentle Reminder. We have 23 pre-drafted provisional patents covering a clinical-grade dementia care platform, looking for a firm to review and file them under a fixed-fee arrangement.
 
-Portfolio snapshot:
+Portfolio snapshot (public-safe overview; full docket under NDA post-entity formation):
 - 5 Tier 1 (highest novelty): gentle feedback scoring, adaptive difficulty, dementia-adapted SM-2, multimodal cognitive state classifier, dementia speech emotion detection
 - 7 Tier 2 patents
 - 11 Tier 3 patents
 
 Each draft is USPTO-compliant with 3+ independent claims, prior art references, abstract, etc.
 
-Question: What's your firm's fixed-fee rate per provisional filing (attorney review + filing services; we pay the $300 USPTO fee directly)?
+Question: What's your firm's fixed-fee rate per provisional filing (attorney review + filing services; we pay the $300 USPTO fee directly)? A written quote this week would let me prep the engagement letter for execution next week once the entity is filed.
 
-Timeline: All 23 filed within 6 weeks.
+Timeline: All 23 filed within 6 weeks of engagement.
 
-Pitch site: https://gentle-reminder-pitch.vercel.app
+Pitch site: https://gentle-reminder-pitch.vercel.app${PRE_ENTITY_DISCLOSURE}
 ${SIGNATURE}`,
-    notes: 'Contact form. Has book-a-call link as well.',
+    notes: 'Contact form. Has book-a-call link as well. Pre-entity disclosure appended.',
   },
 
   // ============================================================

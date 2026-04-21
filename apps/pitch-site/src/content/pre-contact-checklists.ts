@@ -34,6 +34,107 @@ export interface Checklist {
 
 export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
   // ============================================================
+  // PRE-ENTITY SAFE OUTREACH — Gates while the DE C-Corp is forming
+  // ============================================================
+  {
+    id: 'pre-entity-safe-outreach',
+    label: 'Pre-Entity Safe Outreach (Week 0)',
+    description:
+      'Safety gates while Delaware C-Corp formation is in progress. Once entity forms, switch to the standard Universal Pre-Flight.',
+    when: 'Every outreach this week — before the C-Corp is filed.',
+    items: [
+      {
+        id: 'share-public-materials-only',
+        text: 'Only sharing public-safe materials (pitch site, /ip page, exec summary PDF, pitch deck PDF)',
+        critical: true,
+        defaultDone: true,
+        evidence:
+          'Repo only contains public-safe pitch materials; /ip omits claim language; deck omits trade-secret parameters',
+      },
+      {
+        id: 'no-trade-secret-params',
+        text: 'No trade-secret parameters (specific weights, thresholds, dictionaries) in any material shared',
+        critical: true,
+        defaultDone: true,
+        evidence:
+          'Trade-secret parameters retained separately from repo per standing policy; pitch site omits them',
+      },
+      {
+        id: 'no-unfiled-public-disclosure',
+        text: 'No public disclosure of unfiled inventions (blog posts, conference talks, press releases)',
+        critical: true,
+        defaultDone: true,
+        evidence:
+          'No conference talks, press releases, or blog posts for Gentle Reminder have been published; repo artifacts are private-by-noindex',
+      },
+      {
+        id: 'entity-disclosure-in-emails',
+        text:
+          'Every outreach email / DM includes the entity-status disclosure ("DE C-Corp formation in final stages; NDAs execute once filed")',
+        critical: true,
+        rationale:
+          'Protects you from premature-commitment pressure and documents that delay is intentional.',
+      },
+      {
+        id: 'no-nda-signed-this-week',
+        text: 'No NDA signed this week (wait for entity formation)',
+        critical: true,
+        rationale:
+          'NDAs signed as an unincorporated individual create personal liability. Redline counterparty NDAs this week, execute next week.',
+      },
+      {
+        id: 'no-engagement-letter-signed',
+        text: 'No patent-attorney / placement-agent / CFO engagement letter signed this week',
+        critical: true,
+        rationale:
+          'Engagement letters (especially equity / contingency) require the entity to exist. Collect written fee quotes only; execute next week.',
+      },
+      {
+        id: 'email-signature-honest',
+        text:
+          'Email signature uses "Founder, Gentle Reminder (Delaware C-Corp formation in final stages)" — not "CEO, Gentle Reminder Inc."',
+        critical: true,
+        rationale:
+          'Representing yourself as the corp before it exists is misleading. Say what is true.',
+      },
+      {
+        id: 'trademark-search-done',
+        text: 'USPTO TESS trademark search completed for "GENTLE REMINDER" in Classes 9 + 44',
+        critical: true,
+        rationale:
+          'File the trademark the week the entity forms. If TESS surfaces a collision, plan pivots or opposition now.',
+      },
+      {
+        id: 'trademark-plan-recorded',
+        text: 'Trademark filing plan recorded (Path A post-entity OR Path B founder-first-then-assign)',
+        critical: false,
+        rationale:
+          'See docs/legal/trademark-filing-checklist.md. Total filing cost ~$500 for Classes 9 + 44.',
+      },
+      {
+        id: 'domains-secured',
+        text: 'Brand domains secured (gentlereminder.com / .co / .app / .health)',
+        critical: false,
+        rationale: 'Domain squatters watch early-stage announcements. Secure before outreach scales.',
+      },
+      {
+        id: 'no-binding-term-sheets',
+        text: 'No term sheet or LOI accepted this week',
+        critical: true,
+        rationale:
+          'Nearly impossible for a VC to deliver a term sheet pre-entity, but guard against accidental verbal commitments.',
+      },
+      {
+        id: 'bcc-yourself',
+        text: 'BCC yourself on every outreach email (paper trail)',
+        critical: false,
+        rationale:
+          'Browser checkboxes here do not sync across devices. BCC creates a durable record of what was said and when.',
+      },
+    ],
+  },
+
+  // ============================================================
   // UNIVERSAL PRE-FLIGHT — Before any outreach
   // ============================================================
   {
