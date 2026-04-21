@@ -31,7 +31,13 @@ export interface SendItem {
   notes?: string;
 }
 
+// SIGNATURE bakes in the pre-entity disclosure so every draft below gets it.
+// Remove the disclosure paragraph the day the DE C-Corp is filed (Week 1).
 const SIGNATURE = `
+
+--
+Note on entity status: We're finalizing our Delaware C-Corp formation this week. Any NDA or engagement letter will execute under the incorporated entity once filed — anticipated within 7 days. In the interim I'm happy to schedule exploratory calls, share public materials, and exchange written fee quotes.
+
 Best,
 Christo Mac
 Founder, Gentle Reminder (Delaware C-Corp formation in final stages)
@@ -39,10 +45,9 @@ mack@matrixadvancedsolutions.com
 https://www.linkedin.com/in/christomac
 Pitch site: https://gentle-reminder-pitch.vercel.app`;
 
-// Pre-entity disclosure inserted into every outreach email this week.
-// Signals the counterparty that any NDA / engagement letter is being delayed
-// intentionally (not evasively) until the DE C-Corp is filed — anticipated
-// within 7 days. Remove this block the day the entity is filed.
+// Kept as a named constant for callers that want to insert the disclosure
+// explicitly in body (e.g., before a sign-off the sender wants to customize).
+// Most drafts just use ${SIGNATURE} which already includes the disclosure.
 const PRE_ENTITY_DISCLOSURE = `
 
 --
@@ -74,13 +79,13 @@ Your firm's equity / contingency model is exactly what we need. Three reasons th
 2. Quality: Each draft is already written in USPTO-compliant format with 3+ independent claims and enabling disclosure. Your work is review + file, not draft from scratch.
 3. Upside: We're raising a $5M seed in parallel; equity or deferred-to-close fees can be triggered at close.
 
-This week I can share what's already public-safe on our pitch site and exchange written fee quotes. Full IP docket, pre-drafted specifications, prior art analysis, and inventor disclosure will follow NDA execution once the entity forms (see disclosure below).
+This week I can share what's already public-safe on our pitch site and exchange written fee quotes. Full IP docket, pre-drafted specifications, prior art analysis, and inventor disclosure will follow NDA execution once the entity forms (see signature note).
 
 Could we schedule a 30-minute call this week to discuss fee structure, and pencil in an NDA + engagement execution for next week?
 
-Public pitch site: https://gentle-reminder-pitch.vercel.app${PRE_ENTITY_DISCLOSURE}
+Public pitch site: https://gentle-reminder-pitch.vercel.app
 ${SIGNATURE}`,
-    notes: 'Has direct email. Mailto will open immediately. Pre-entity disclosure appended.',
+    notes: 'Has direct email. Mailto will open immediately. Pre-entity disclosure carried in SIGNATURE.',
   },
   {
     id: 'send-wojcik',
@@ -102,11 +107,11 @@ Your "Equity & Deferred Fees" practice is an ideal fit. We have 23 USPTO provisi
 
 We're raising a $5M seed in parallel; equity or deferred-to-close fees can be triggered at close.
 
-Can we schedule a 30-minute intro call this week to discuss fee structure? Happy to share public pitch materials now and pencil in NDA + engagement execution for next week once our entity formation clears (see disclosure below).
+Can we schedule a 30-minute intro call this week to discuss fee structure? Happy to share public pitch materials now and pencil in NDA + engagement execution for next week once our entity formation clears (see signature note).
 
-Pitch site: https://gentle-reminder-pitch.vercel.app${PRE_ENTITY_DISCLOSURE}
+Pitch site: https://gentle-reminder-pitch.vercel.app
 ${SIGNATURE}`,
-    notes: 'Contact form only. Paste subject + body into their form. Pre-entity disclosure appended.',
+    notes: 'Contact form only. Paste subject + body into their form. Pre-entity disclosure carried in SIGNATURE.',
   },
   {
     id: 'send-miller-ip',
@@ -135,9 +140,9 @@ Question: What's your firm's fixed-fee rate per provisional filing (attorney rev
 
 Timeline: All 23 filed within 6 weeks of engagement.
 
-Pitch site: https://gentle-reminder-pitch.vercel.app${PRE_ENTITY_DISCLOSURE}
+Pitch site: https://gentle-reminder-pitch.vercel.app
 ${SIGNATURE}`,
-    notes: 'Contact form. Has book-a-call link as well. Pre-entity disclosure appended.',
+    notes: 'Contact form. Has book-a-call link as well. Pre-entity disclosure carried in SIGNATURE.',
   },
 
   // ============================================================

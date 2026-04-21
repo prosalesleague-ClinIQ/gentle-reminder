@@ -74,6 +74,9 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         critical: true,
         rationale:
           'Protects you from premature-commitment pressure and documents that delay is intentional.',
+        defaultDone: true,
+        evidence:
+          'send-priority.ts SIGNATURE constant bakes the 2-sentence disclosure into every draft; PRE-ENTITY banner on /private/send reminds the founder to mirror it in any ad-hoc email outside this page',
       },
       {
         id: 'no-nda-signed-this-week',
@@ -96,6 +99,9 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         critical: true,
         rationale:
           'Representing yourself as the corp before it exists is misleading. Say what is true.',
+        defaultDone: true,
+        evidence:
+          'send-priority.ts SIGNATURE constant uses the honest wording on every draft; mirror in your Gmail/Outlook signature for ad-hoc outreach',
       },
       {
         id: 'trademark-search-done',
@@ -130,6 +136,9 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         critical: false,
         rationale:
           'Browser checkboxes here do not sync across devices. BCC creates a durable record of what was said and when.',
+        defaultDone: true,
+        evidence:
+          'buildMailto() in /private/send auto-includes bcc=mack@matrixadvancedsolutions.com on every mailto: — so every launched email lands a copy in the founder inbox. For contact-form and ad-hoc emails, CC/BCC yourself manually.',
       },
     ],
   },

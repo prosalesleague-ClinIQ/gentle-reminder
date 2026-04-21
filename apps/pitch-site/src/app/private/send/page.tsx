@@ -3,11 +3,17 @@
 import React, { useState } from 'react';
 import { SEND_PRIORITY_QUEUE, type SendItem, type LaunchTier } from '../../../content/send-priority';
 
+// Auto-BCC the founder on every outgoing mailto so there's a durable paper
+// trail in the founder's own inbox. Satisfies the bcc-yourself checklist
+// item automatically for every send launched from this page.
+const BCC_SELF = 'mack@matrixadvancedsolutions.com';
+
 function buildMailto(item: SendItem): string {
   if (!item.email) return '';
   const subject = encodeURIComponent(item.subject);
   const body = encodeURIComponent(item.body);
-  return `mailto:${item.email}?subject=${subject}&body=${body}`;
+  const bcc = encodeURIComponent(BCC_SELF);
+  return `mailto:${item.email}?bcc=${bcc}&subject=${subject}&body=${body}`;
 }
 
 type TierFilter = 'all' | LaunchTier;
