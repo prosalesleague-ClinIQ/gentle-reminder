@@ -90,8 +90,13 @@ export default function SendPage() {
               copied subject + body.
             </li>
             <li>
-              <strong>BCC yourself</strong> on every outreach (via your mail app) to keep a record — browser
-              checkboxes here don't sync across devices.
+              <strong>BCC yourself</strong> on every outreach to keep a record — browser checkboxes here don't sync
+              across devices.
+            </li>
+            <li>
+              <strong>Log every send in GHL (GoHighLevel):</strong> create a contact, tag with recipient type
+              (patent-attorney / grant-specialist / fractional-cfo / clinical-advisor / tech-advisor), and advance
+              the pipeline stage. Without this, 15+ parallel conversations become impossible to track.
             </li>
             <li>
               <strong>Personalize placeholders</strong> like{' '}

@@ -56,6 +56,7 @@ export default function PrivateLayout({ children }: { children: React.ReactNode 
             </Link>
             <Link href="/private" style={{ fontSize: 13, color: '#c9d1d9' }}>Dashboard</Link>
             <Link href="/private/send" style={{ fontSize: 13, color: '#58a6ff', fontWeight: 700 }}>🚀 Send</Link>
+            <Link href="/private/responses" style={{ fontSize: 13, color: '#d29922', fontWeight: 600 }}>📬 Responses</Link>
             <Link href="/private/execute" style={{ fontSize: 13, color: '#f85149', fontWeight: 600 }}>🔥 Execute</Link>
             <Link href="/private/materials" style={{ fontSize: 13, color: '#3fb950', fontWeight: 600 }}>📚 Materials</Link>
             <Link href="/private/team" style={{ fontSize: 13, color: '#a371f7', fontWeight: 600 }}>👥 Team</Link>
