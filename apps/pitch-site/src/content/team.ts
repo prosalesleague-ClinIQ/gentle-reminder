@@ -30,7 +30,7 @@ export const CURRENT_TEAM: TeamMember[] = [
     initials: 'CM',
     gradient: 'linear-gradient(135deg, #58a6ff, #3fb950)',
     linkedin: 'https://www.linkedin.com/in/christomac',
-    email: 'mack@matrixadvancedsolutions.com',
+    email: 'gentlereminderapp@gmail.com',
   },
   {
     id: 'leo-kinsman',

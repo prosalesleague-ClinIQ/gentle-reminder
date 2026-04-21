@@ -177,7 +177,7 @@ We may update this Privacy Policy to reflect changes in our practices, technolog
 
 For questions about this Privacy Policy, to exercise your rights, or to report a privacy concern:
 
-- **Privacy Officer Email:** mack@matrixadvancedsolutions.com (interim — will route to privacy@ address once branded domain is activated post-seed)
+- **Privacy Officer Email:** gentlereminderapp@gmail.com (interim — will route to privacy@ address once branded domain is activated post-seed)
 - **Mailing Address:** [Facility address to be configured per deployment]
 - **Phone:** [Contact number to be configured per deployment]
 

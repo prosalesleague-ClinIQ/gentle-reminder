@@ -119,4 +119,4 @@ Approach: send targeted inquiry (see [../../clinical-advisors/outreach/](../../c
 ## Contact
 
 Christo Mack, Founder & CEO/COO, Gentle Reminder
-mack@matrixadvancedsolutions.com
+gentlereminderapp@gmail.com

@@ -6,7 +6,7 @@ import { SEND_PRIORITY_QUEUE, type SendItem, type LaunchTier } from '../../../co
 // Auto-BCC the founder on every outgoing mailto so there's a durable paper
 // trail in the founder's own inbox. Satisfies the bcc-yourself checklist
 // item automatically for every send launched from this page.
-const BCC_SELF = 'mack@matrixadvancedsolutions.com';
+const BCC_SELF = 'gentlereminderapp@gmail.com';
 
 function buildMailto(item: SendItem): string {
   if (!item.email) return '';
@@ -154,7 +154,7 @@ export default function SendPage() {
             </li>
             <li>
               Emails will appear to come from whatever is set as your default mail account — should be{' '}
-              <code style={{ color: '#58a6ff' }}>mack@matrixadvancedsolutions.com</code>. Double-check the "From"
+              <code style={{ color: '#58a6ff' }}>gentlereminderapp@gmail.com</code>. Double-check the "From"
               line before sending.
             </li>
             <li>

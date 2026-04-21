@@ -37,7 +37,7 @@ export const DECK_DATA = {
   askTerms: '$25M post-money',
   founder: 'Christo Mack',
   founderTitle: 'Founder & CEO/COO',
-  email: 'mack@matrixadvancedsolutions.com',
+  email: 'gentlereminderapp@gmail.com',
   phone: '[phone]',
   teamSummary: 'Christo Mack (CEO/COO) · Leo Kinsman (CTO) · Chris Hamel (CFO) · Jayla Patzer (Clinic & Provider Partnerships)',
   pitchSite: 'https://gentle-reminder-pitch.vercel.app',

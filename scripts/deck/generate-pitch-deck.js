@@ -126,7 +126,7 @@ s.addShape(pres.shapes.RECTANGLE, {
 s.addText([
   { text: 'Christo Mack', options: { fontSize: 18, bold: true, color: C.textBright, breakLine: true } },
   { text: 'Founder & CEO/COO', options: { fontSize: 13, color: C.blue, breakLine: true } },
-  { text: 'mack@matrixadvancedsolutions.com  ·  https://gentle-reminder-pitch.vercel.app', options: { fontSize: 12, color: C.textMuted } },
+  { text: 'gentlereminderapp@gmail.com  ·  https://gentle-reminder-pitch.vercel.app', options: { fontSize: 12, color: C.textMuted } },
 ], { x: 1.0, y: 5.6, w: 11.0, h: 1.2, fontFace: 'Calibri', margin: 0 });
 
 addSlideNumber(s, 1);
@@ -911,7 +911,7 @@ s.addText('Founder & CEO/COO', {
 });
 
 s.addText([
-  { text: 'mack@matrixadvancedsolutions.com', options: { color: C.blue, breakLine: true, paraSpaceAfter: 8 } },
+  { text: 'gentlereminderapp@gmail.com', options: { color: C.blue, breakLine: true, paraSpaceAfter: 8 } },
   { text: 'https://www.linkedin.com/in/christomac', options: { color: C.textMuted, breakLine: true, paraSpaceAfter: 8 } },
   { text: 'Pitch site:', options: { color: C.textMuted, breakLine: true } },
   { text: 'gentle-reminder-pitch.vercel.app', options: { color: C.blue } },

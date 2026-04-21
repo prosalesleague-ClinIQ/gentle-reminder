@@ -40,4 +40,4 @@ However, no platform has systematically tested whether multimodal digital signal
 
 *Academic PI: [Name], [Title], [Institution] — leads IRB, recruitment, diagnostic confirmation*
 *Industry Co-Investigator: Christo Mack, Founder & CEO/COO, Gentle Reminder — leads platform, data analysis, ML methodology*
-*mack@matrixadvancedsolutions.com*
+*gentlereminderapp@gmail.com*

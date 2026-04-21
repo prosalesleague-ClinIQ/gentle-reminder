@@ -46,7 +46,7 @@ export default function PrivateDashboard() {
               </div>
               <div style={{ fontSize: 22, fontWeight: 800, marginBottom: 4 }}>Launch Pad</div>
               <div style={{ fontSize: 13, opacity: 0.9 }}>
-                15 pre-drafted emails + contact-form messages ready. Click → review → send from mack@matrixadvancedsolutions.com
+                15 pre-drafted emails + contact-form messages ready. Click → review → send from gentlereminderapp@gmail.com
               </div>
             </div>
             <div style={{ fontSize: 32 }}>→</div>

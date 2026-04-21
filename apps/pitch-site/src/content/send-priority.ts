@@ -41,7 +41,7 @@ Note on entity status: We're finalizing our Delaware C-Corp formation this week.
 Best,
 Christo Mack
 Founder, Gentle Reminder (Delaware C-Corp formation in final stages)
-mack@matrixadvancedsolutions.com
+gentlereminderapp@gmail.com
 https://www.linkedin.com/in/christomac
 Pitch site: https://gentle-reminder-pitch.vercel.app`;
 
@@ -469,7 +469,7 @@ ${SIGNATURE}`,
     twitterUrl: 'https://twitter.com/EricTopol',
     linkedinUrl: 'https://www.linkedin.com/in/erictopol/',
     subject: 'Dementia platform with patented AI — 20 min for your critique?',
-    body: `Hi Eric — Christo Mack, founder of Gentle Reminder (dementia platform, 23 patents, FDA SaMD pathway). Would love your critique. Core innovation: three-state positive-only cognitive assessment that architecturally prevents MMSE-style anxiety cascades. Full IP portfolio + platform: https://gentle-reminder-pitch.vercel.app/ip. 20 min if you're game — your take matters. mack@matrixadvancedsolutions.com`,
+    body: `Hi Eric — Christo Mack, founder of Gentle Reminder (dementia platform, 23 patents, FDA SaMD pathway). Would love your critique. Core innovation: three-state positive-only cognitive assessment that architecturally prevents MMSE-style anxiety cascades. Full IP portfolio + platform: https://gentle-reminder-pitch.vercel.app/ip. 20 min if you're game — your take matters. gentlereminderapp@gmail.com`,
     notes: 'Twitter DM — 400 char max. Keep short. Follow with email if connects.',
   },
   {
@@ -499,7 +499,7 @@ ${SIGNATURE}`,
     channel: 'linkedin-dm',
     linkedinUrl: 'https://www.linkedin.com/in/atulbutte/',
     subject: 'Biomedical AI for dementia — 20 min for your critique?',
-    body: `Dr. Butte — Christo Mack, founder of Gentle Reminder. Clinical-grade dementia platform with 23 patents (incl. multimodal cognitive state classifier, composite digital biomarker engine). Your UCSF data pipelines + biomedical AI work directly informs our architecture. Would love 20 min for your critique. gentle-reminder-pitch.vercel.app/ip. mack@matrixadvancedsolutions.com`,
+    body: `Dr. Butte — Christo Mack, founder of Gentle Reminder. Clinical-grade dementia platform with 23 patents (incl. multimodal cognitive state classifier, composite digital biomarker engine). Your UCSF data pipelines + biomedical AI work directly informs our architecture. Would love 20 min for your critique. gentle-reminder-pitch.vercel.app/ip. gentlereminderapp@gmail.com`,
     notes: 'LinkedIn. Reference UCSF institutional work.',
   },
 ];

@@ -13,7 +13,7 @@
 - [x] Market positioning — `/private/exec-summary` + deck Slides 2, 5
 - [x] Competitive landscape — deck Slide 11
 - [x] Regulatory pathway summary — deck Slide 7 + `/clinical` on pitch site
-- [x] Contact information — `mack@matrixadvancedsolutions.com`
+- [x] Contact information — `gentlereminderapp@gmail.com`
 
 ## Tier 2 — Post-NDA diligence (Docsend)
 

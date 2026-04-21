@@ -178,4 +178,4 @@ Thank you for considering.
 Best regards,
 Christo Mack
 Founder & CEO/COO
-mack@matrixadvancedsolutions.com | [Phone]
+gentlereminderapp@gmail.com | [Phone]

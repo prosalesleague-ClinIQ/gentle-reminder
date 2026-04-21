@@ -106,4 +106,4 @@ These are historical references; not all targets for our specific cycle. Strateg
 ## Contact
 
 Christo Mack, Founder & CEO/COO, Gentle Reminder
-mack@matrixadvancedsolutions.com
+gentlereminderapp@gmail.com

@@ -249,7 +249,7 @@ export default function ExecSummaryPage() {
               Contact
             </h2>
             <p style={{ fontSize: 10, lineHeight: 1.5, margin: 0 }}>
-              <strong>mack@matrixadvancedsolutions.com</strong> · [phone]
+              <strong>gentlereminderapp@gmail.com</strong> · [phone]
               <br />
               <strong>gentle-reminder-pitch.vercel.app</strong> · Full data room under NDA
             </p>

@@ -4,7 +4,7 @@
  * When advisors/investors/partners reply to outreach, use these to accelerate
  * response time. Keep replies under 24 hours during active fundraise.
  *
- * All signed as Christo Mack · mack@matrixadvancedsolutions.com
+ * All signed as Christo Mack · gentlereminderapp@gmail.com
  */
 
 export type ResponseScenario =
@@ -41,7 +41,7 @@ const SIGNATURE = `
 Best,
 Christo Mack
 Founder & CEO/COO, Gentle Reminder
-mack@matrixadvancedsolutions.com
+gentlereminderapp@gmail.com
 https://gentle-reminder-pitch.vercel.app`;
 
 export const RESPONSE_TEMPLATES: ResponseTemplate[] = [

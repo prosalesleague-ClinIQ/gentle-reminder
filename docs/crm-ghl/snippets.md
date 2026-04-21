@@ -56,7 +56,7 @@ Note on entity status: We're finalizing our Delaware C-Corp formation this week.
 Best,
 Christo Mack
 Founder, Gentle Reminder (Delaware C-Corp formation in final stages)
-mack@matrixadvancedsolutions.com
+gentlereminderapp@gmail.com
 ```
 
 **When to use:** Meeting Scheduled automation (auto-prep); also manual use when reply requests materials.
@@ -84,7 +84,7 @@ Note on entity status: We're finalizing our Delaware C-Corp formation this week.
 Best,
 Christo Mack
 Founder, Gentle Reminder (Delaware C-Corp formation in final stages)
-mack@matrixadvancedsolutions.com
+gentlereminderapp@gmail.com
 ```
 
 **Mapped to:** `response-templates.ts#no-response-followup`
@@ -108,7 +108,7 @@ Note on entity status: We're finalizing our Delaware C-Corp formation this week.
 Best,
 Christo Mack
 Founder, Gentle Reminder (Delaware C-Corp formation in final stages)
-mack@matrixadvancedsolutions.com
+gentlereminderapp@gmail.com
 ```
 
 **When to use:** NDA Sent → 3-Day Chase automation.
@@ -141,7 +141,7 @@ Happy to schedule a 30-minute diligence call once you've had a chance to orient.
 Best,
 Christo Mack
 Founder & CEO/COO, Gentle Reminder
-mack@matrixadvancedsolutions.com
+gentlereminderapp@gmail.com
 ```
 
 **Mapped to:** `response-templates.ts#inv-request-data-room` (adapted for post-NDA)
@@ -171,7 +171,7 @@ If any of this changes the picture for your fund (or your portfolio might be a f
 Best,
 Christo Mack
 Founder & CEO/COO, Gentle Reminder
-mack@matrixadvancedsolutions.com
+gentlereminderapp@gmail.com
 https://gentle-reminder-pitch.vercel.app
 ```
 
@@ -195,7 +195,7 @@ Or reply with a few times and I'll send an invite.
 Best,
 Christo Mack
 Founder & CEO/COO, Gentle Reminder
-mack@matrixadvancedsolutions.com
+gentlereminderapp@gmail.com
 ```
 
 **When to use:** Meeting No-Show automation. Low-key, no guilt, makes re-booking frictionless.
@@ -222,7 +222,7 @@ No pressure on either. I'll keep you posted on our milestones — would welcome 
 Best,
 Christo Mack
 Founder & CEO/COO, Gentle Reminder
-mack@matrixadvancedsolutions.com
+gentlereminderapp@gmail.com
 ```
 
 **Mapped to:** `response-templates.ts#inv-passed`

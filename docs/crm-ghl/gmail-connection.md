@@ -129,23 +129,7 @@ For Week-0 outreach (15 drafts split across Tier 1–5), you are nowhere near th
 
 ## What changes in the pitch-site repo
 
-Short answer: nothing automatic — but you'll likely want to update the `SIGNATURE` constant and BCC address in the repo from `mack@matrixadvancedsolutions.com` to `gentlereminderapp@gmail.com` so `/private/send` drafts use the new address by default.
-
-Change sites (do after confirming the connection works):
-- `apps/pitch-site/src/content/send-priority.ts` — `SIGNATURE` constant (replace email in footer)
-- `apps/pitch-site/src/app/private/send/page.tsx` — `BCC_SELF` constant (auto-BCC target)
-- `apps/pitch-site/src/content/response-templates.ts` — `SIGNATURE` constant
-- `apps/pitch-site/src/content/pitch-deck.ts` — `DECK_DATA.email` (Slide 1 + Slide 16)
-- `scripts/deck/generate-pitch-deck.js` — two hardcoded `mack@matrixadvancedsolutions.com` strings
-- `apps/pitch-site/src/content/advisor-outreach-templates.ts` — signature
-- `apps/pitch-site/src/content/email-templates.ts` — signature
-- `apps/pitch-site/src/content/execute-plan.ts` — if referenced
-- `docs/legal/pre-entity-outreach-safety.md` — incidental mentions
-- `docs/clinical-validation/*` — PI/sponsor contact fields
-
-After updating: regenerate PPTX + PDF (`node scripts/deck/generate-pitch-deck.js` + Chrome headless PDF), commit, redeploy Vercel.
-
-**Recommendation:** don't do this wholesale repo update today. Fire off the 3 Tier 1 drafts manually with the updated signature (they'll open in your Gmail compose already logged into `gentlereminderapp@gmail.com`, and the BCC + signature in the draft body already point at the new address). Do the repo update in a single commit after you've confirmed the workflow works end-to-end.
+**Done on 2026-04-20 (Phase 38k):** repo-wide sweep of `mack@matrixadvancedsolutions.com` → `gentlereminderapp@gmail.com` across 24 files — signatures, BCC targets, deck slides, grant docs, response templates, etc. PPTX + PDFs regenerated from source.
 
 ---
 

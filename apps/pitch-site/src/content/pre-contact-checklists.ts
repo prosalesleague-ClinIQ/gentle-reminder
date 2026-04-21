@@ -138,7 +138,7 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
           'Browser checkboxes here do not sync across devices. BCC creates a durable record of what was said and when.',
         defaultDone: true,
         evidence:
-          'buildMailto() in /private/send auto-includes bcc=mack@matrixadvancedsolutions.com on every mailto: — so every launched email lands a copy in the founder inbox. For contact-form and ad-hoc emails, CC/BCC yourself manually.',
+          'buildMailto() in /private/send auto-includes bcc=gentlereminderapp@gmail.com on every mailto: — so every launched email lands a copy in the founder inbox. For contact-form and ad-hoc emails, CC/BCC yourself manually.',
       },
     ],
   },

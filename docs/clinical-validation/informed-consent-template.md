@@ -30,7 +30,7 @@ Validation of the Gentle Reminder Cognitive Monitoring Platform Against Standard
 - **Phone:** [PI OFFICE PHONE, 24-HOUR LINE]
 - **Email:** [PI EMAIL]
 
-**Industry Sponsor:** Gentle Reminder, Inc. (Christo Mack, CEO/COO — `mack@matrixadvancedsolutions.com`)
+**Industry Sponsor:** Gentle Reminder, Inc. (Christo Mack, CEO/COO — `gentlereminderapp@gmail.com`)
 
 ## 3. WHY YOU ARE BEING ASKED TO PARTICIPATE
 
