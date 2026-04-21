@@ -108,8 +108,8 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         id: 'trademark-plan-recorded',
         text: 'Trademark filing plan recorded (Path A post-entity OR Path B founder-first-then-assign)',
         critical: false,
-        rationale:
-          'See docs/legal/trademark-filing-checklist.md. Total filing cost ~$500 for Classes 9 + 44.',
+        defaultDone: true,
+        evidence: 'docs/legal/trademark-filing-checklist.md — Path A (post-entity, recommended) + Path B (founder-first, assign after) + TESS search steps + Classes 9 + 44 + ~$500 budget. Decision log at bottom of the doc; user fills in chosen path when TESS completes.',
       },
       {
         id: 'domains-secured',
@@ -158,13 +158,13 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         id: 'cap-table',
         text: 'Cap table exists and is clean (Carta, Pulley, or spreadsheet)',
         critical: true,
-        rationale: 'Investors ask immediately.',
+        rationale: 'Investors ask immediately. Starter structure + day-of-formation checklist in docs/legal/cap-table-starter.md (CT-001) — 4-founder split, 15% option pool, $5M seed waterfall, 83(b) mechanics.',
       },
       {
         id: 'ip-assignments',
         text: 'All founders have signed Invention Assignment Agreements',
         critical: true,
-        rationale: 'Missing IP assignment can void the entire company value.',
+        rationale: 'Missing IP assignment can void the entire company value. Template ready at docs/legal/ip-assignment-agreement-template.md (FIAA-001) — execute day of entity formation, record each patent/TM assignment with USPTO (Form PTO-1595 / EPAS, ~$40 each).',
       },
       {
         id: 'public-docs',
@@ -299,6 +299,7 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         id: 'uspto-registered',
         text: 'Attorney is registered with USPTO (verify at uspto.gov/patents/apply/using-legal-services/finding-patent-practitioner)',
         critical: true,
+        rationale: 'Full patent-attorney vetting worksheet at docs/legal/vendor-vetting-worksheets.md §1 (VVW-001) — USPTO registration, state bar, disciplinary history, conflict check, fee structure, references, red-flag checklist.',
       },
       {
         id: 'bar-active',
@@ -362,7 +363,7 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         id: 'broker-dealer-license',
         text: 'FINRA broker-dealer registration verified at finra.org/brokercheck',
         critical: true,
-        rationale: 'Unregistered brokers cannot legally collect success fees and can invalidate your round.',
+        rationale: 'Unregistered brokers cannot legally collect success fees and can invalidate your round (15 U.S.C. § 78o). Full placement-agent vetting worksheet at docs/legal/vendor-vetting-worksheets.md §2 (VVW-001) — FINRA + SEC + state verification, attributed-investor definition, tail-period + exclusivity carve-outs.',
       },
       {
         id: 'individual-rep',
@@ -470,6 +471,8 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         id: 'financial-model',
         text: '5-year financial model ready to share post-meeting',
         critical: false,
+        defaultDone: true,
+        evidence: 'docs/financial-model/ — README.md + 5-year-projection.csv + unit-economics.csv + use-of-funds.csv + assumptions.md; aligns with deck Slide 9',
       },
       {
         id: 'references-prep',
@@ -535,6 +538,8 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         id: 'material-limited',
         text: 'Initial disclosure limited to portfolio overview + 3-5 most relevant IPs (not entire docket)',
         critical: true,
+        defaultDone: true,
+        evidence: 'docs/data-room/access-policy.md §"Strategic / pharma partners" — codifies 3-5 IP initial-disclosure cap, clean-team provisions, 24+ month non-compete covenant',
       },
       {
         id: 'counsel-present',
