@@ -254,11 +254,17 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         id: 'material-disclosed',
         text: 'List of materials being disclosed is documented (for audit trail)',
         critical: false,
+        defaultDone: true,
+        evidence:
+          'docs/legal/disclosure-log-template.md — per-entry schema for counterparty, cover agreement, materials, delivery, watermark, GHL stage, purpose',
       },
       {
         id: 'watermark',
         text: 'Documents include confidentiality watermark or footer',
         critical: false,
+        defaultDone: true,
+        evidence:
+          'Every pitch deck slide carries "NN / 16 · GENTLE REMINDER" footer; Slide 1 kicker "SEED PITCH · CONFIDENTIAL"; /private pages carry "🔒 INTERNAL" top banner',
       },
       {
         id: 'docsend-tracking',
@@ -549,18 +555,24 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
     items: [
       {
         id: 'subaward-agreement',
-        text: 'Subaward Agreement template reviewed',
+        text: 'Subaward Agreement template drafted (review per-collaboration before signing)',
         critical: true,
+        defaultDone: true,
+        evidence: 'docs/legal/subaward-agreement-template.md (SA-001) — 11 sections covering scope, budget, IP split, publication rights, Bayh-Dole flow-down, data, reporting, termination',
       },
       {
         id: 'publication-rights',
         text: 'Publication rights clearly defined (30-day review period for confidential content)',
         critical: true,
+        defaultDone: true,
+        evidence: 'subaward-agreement-template.md §5.1 — 30-day review, Prime scope limited to Confidential Info + patentable inventions, +60 day delay if filing required, ICMJE authorship',
       },
       {
         id: 'ip-ownership',
         text: 'IP ownership: Gentle Reminder owns platform-derived IP; PI owns clinical data findings',
         critical: true,
+        defaultDone: true,
+        evidence: 'subaward-agreement-template.md §4.2 — Platform-derived IP assigned to Prime; Clinical findings IP owned by Subawardee with royalty-free license back; Joint IP with cross-license',
       },
       {
         id: 'irb-approval',
@@ -572,17 +584,23 @@ export const PRE_CONTACT_CHECKLISTS: Checklist[] = [
         id: 'data-use-agreement',
         text: 'Data Use Agreement drafted for any PHI flowing to company',
         critical: true,
+        defaultDone: true,
+        evidence: 'docs/legal/data-use-agreement-template.md (DUA-001) — HIPAA 45 CFR 164.514(e) Limited Data Set template; §4 safeguards, §5 5-day breach reporting, §8 return/destruction',
       },
       {
         id: 'funding-mechanism',
         text: 'Funding flow understood (prime vs subaward structure)',
         critical: true,
+        defaultDone: true,
+        evidence: 'subaward-agreement-template.md §3 (Budget + Reimbursement, quarterly-in-arrears, 30/30) + bayh-dole-obligations.md §1 (awardee definitions)',
       },
       {
         id: 'reporting-obligations',
         text: 'Federal reporting obligations (Bayh-Dole Act) understood',
         critical: true,
         rationale: 'Federal funding triggers disclosure requirements for any new IP.',
+        defaultDone: true,
+        evidence: 'docs/legal/bayh-dole-obligations.md (BD-001) — 2-month disclosure, 2-year election, 1-year filing, iEdison mechanics, funding statement language, march-in rights',
       },
     ],
   },
