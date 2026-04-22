@@ -25,7 +25,10 @@ export const config = {
   matcher: ['/private/:path*'],
 };
 
-const WWW_AUTHENTICATE = 'Basic realm="Gentle Reminder — Private"';
+// IMPORTANT: realm must be ASCII-only. Non-ASCII characters (like em-dash)
+// cause Vercel's edge to strip the WWW-Authenticate header entirely, which
+// kills the browser's native Basic Auth popup. Use ASCII hyphen.
+const WWW_AUTHENTICATE = 'Basic realm="Gentle Reminder - Private", charset="UTF-8"';
 
 export function middleware(req: NextRequest) {
   const USERNAME = process.env.PRIVATE_USERNAME || 'founder';
@@ -35,7 +38,9 @@ export function middleware(req: NextRequest) {
 
   if (!PASSWORD) {
     // Production without PRIVATE_PASSWORD → fail closed.
-    return new NextResponse('Private area not configured', { status: 503 });
+    const res = new NextResponse('Private area not configured', { status: 503 });
+    res.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return res;
   }
 
   const authHeader = req.headers.get('authorization');
@@ -64,11 +69,11 @@ export function middleware(req: NextRequest) {
     }
   }
 
-  return new NextResponse('Authentication required', {
-    status: 401,
-    headers: {
-      'WWW-Authenticate': WWW_AUTHENTICATE,
-      'X-Robots-Tag': 'noindex, nofollow',
-    },
-  });
+  // Build 401 response using .headers.set() pattern (safer under Edge
+  // Runtime than the constructor-options form — some Vercel edge paths
+  // drop headers passed via `init.headers`).
+  const res = new NextResponse('Authentication required', { status: 401 });
+  res.headers.set('WWW-Authenticate', WWW_AUTHENTICATE);
+  res.headers.set('X-Robots-Tag', 'noindex, nofollow');
+  return res;
 }
