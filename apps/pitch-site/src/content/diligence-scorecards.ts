@@ -225,31 +225,50 @@ export const FORTRESS_REPORT: FortressReport = {
 
 export const MOAT_REPORT: MoatReport = {
   runDate: '2026-04-22',
-  score: 0,
+  score: 56,
   tier: 'DEFENSIBLE',
-  topAsset: 'TBD — pending evaluation',
-  topGap: 'TBD — pending evaluation',
+  topAsset:
+    'IP #01 Three-State Positive-Only Feedback (docs/ip/tier-1/01-gentle-feedback-scoring.md) — 17k-word spec, 12 claims, no direct prior-art patent identified. Architectural channel separation blocks Cogstate / Akili / Lumosity / Neurotrack in dementia-adapted cognitive assessment.',
+  topGap:
+    'Zero filings + inventors `[TBD]` on every draft + unsigned git commits + no TM + no copyright. Moat is a document library, not an enforceable right.',
   summary:
-    'IP Moat Evaluation is running in a background audit agent. Scoring 23 provisional patents across 10 axes (breadth, claim depth, prior art posture, commercial relevance, enablement, freedom-to-operate, geographic coverage, time-to-non-provisional, portfolio construction, defensive measures). Results populate here on completion.',
+    'Substantial but unfiled 23-patent provisional portfolio. Every draft has titled claims, numeric enabling disclosure, and reference code paths. Prior-art search file exists with candid novelty rankings. OTS timestamping executed on all 23 drafts. But: zero filings, inventors [TBD], commits unsigned, no TM, no copyright. Core tier-1 concepts have real blocking power if filed promptly. Revised filing count: 13-16 of 23 (drop 7 weakest to trade secret; defensively publish #22 on arXiv).',
   patentCount: 23,
   tierCounts: { tier1: 5, tier2: 7, tier3: 11 },
   axes: [
-    { name: 'Breadth', score: 0, max: 10, note: 'Pending' },
-    { name: 'Claim depth', score: 0, max: 10, note: 'Pending' },
-    { name: 'Prior art posture', score: 0, max: 10, note: 'Pending' },
-    { name: 'Commercial relevance', score: 0, max: 10, note: 'Pending' },
-    { name: 'Enablement / reduction to practice', score: 0, max: 10, note: 'Pending' },
-    { name: 'Freedom-to-operate risk', score: 0, max: 10, note: 'Pending' },
-    { name: 'Geographic coverage', score: 0, max: 10, note: 'Pending' },
-    { name: 'Time-to-non-provisional', score: 0, max: 10, note: 'Pending' },
-    { name: 'Portfolio construction', score: 0, max: 10, note: 'Pending' },
-    { name: 'Defensive measures', score: 0, max: 10, note: 'Pending' },
+    { name: 'Breadth', score: 7, max: 10, note: '23 inventions spanning scoring, biomarkers, UX, regulatory, interop. USPTO-only (1 jurisdiction).' },
+    { name: 'Claim depth', score: 6, max: 10, note: 'Tier-1 layered dependents; tier-3 omnibus claims with "Claims 2-5: standard" placeholder.' },
+    { name: 'Prior art posture', score: 6, max: 10, note: 'PRIOR-ART-SEARCH.md populated with specific patent numbers cited. No professional search retained.' },
+    { name: 'Commercial relevance', score: 8, max: 10, note: 'Every IP maps to a concrete code path. Tier-1 protects revenue-bearing features.' },
+    { name: 'Enablement / RTP', score: 7, max: 10, note: 'Tier-1 4-8k words w/ pseudocode + tables. Tier-3 thinner (<2 pages on some). Cap applied.' },
+    { name: 'Freedom-to-operate', score: 5, max: 10, note: 'No FTO analysis. IP #17 vs Salesforce, IP #20 vs Apple HealthKit are obvious blocking risks.' },
+    { name: 'Geographic coverage', score: 4, max: 10, note: 'US provisionals only. PCT documented but unfunded. No EU/JP/CN filings planned.' },
+    { name: 'Time-to-non-provisional', score: 3, max: 10, note: 'CAPPED. No attorney engaged, no funded budget.' },
+    { name: 'Portfolio construction', score: 7, max: 10, note: 'Explicit tiering. Picket-fence on cognitive-engine (#01/#02/#03/#04/#12). Tier-3 dilutes.' },
+    { name: 'Defensive measures', score: 3, max: 10, note: 'CAPPED. OTS done (27 .ots files). Git signing UNSIGNED despite setup doc. No TM, no copyright.' },
   ],
-  topStrengths: [],
-  topWeaknesses: [],
-  filingPlan: [],
+  topStrengths: [
+    { title: 'Rare patent-plan depth for pre-seed', evidence: '23 drafts with titled claims + pseudocode + parameter tables + code-path references. Most pre-seed healthtechs have 0-2.' },
+    { title: 'Clear picket-fence around cognitive engine', evidence: 'Tier-1 #01/#02/#03/#04/#05 reinforce each other; infringing one triggers 2-3 others.' },
+    { title: 'OpenTimestamps executed on all 23 drafts', evidence: '27+ .ots files present. Bitcoin-anchored tamper-evident priority evidence. Rare pre-filing.' },
+    { title: 'Candid self-assessment of novelty', evidence: 'PRIOR-ART-SEARCH.md ranks HIGH/MEDIUM/LOW and recommends trade-secret for 7 of 23. Investors respect honesty.' },
+    { title: 'Tight commercial tie', evidence: 'Every draft cites actual file + function name in codebase (gentle-scorer.ts etc). Reduction-to-practice is real.' },
+  ],
+  topWeaknesses: [
+    { title: 'Zero filings', evidence: 'No provisional, no TM, no copyright with USPTO/Copyright Office.', fix: 'File 5 Tier-1 provisionals within 30 days.' },
+    { title: 'No patent attorney engaged', evidence: 'Three firms identified; no engagement letter executed.', fix: 'Engage Carr & Ferrell or Shay Glenn LLP ($500-$1,500/provisional fixed-fee).' },
+    { title: 'Inventors `[TBD]` across every draft', evidence: 'Cannot file without named inventor(s) + signed IAA per invention.', fix: 'Complete INVENTOR-DISCLOSURE.md; extract conception dates from git history.' },
+    { title: 'Git commits unsigned despite setup doc', evidence: '`git log --pretty="%G?"` returns N on all 10 recent commits.', fix: 'Configure GPG signing + sign attestation commit (30 min).' },
+    { title: 'No FTO + critical competitors missing', evidence: 'Dthera, Cognito Therapeutics, Biofourmis, deeper Neurotrack read absent. IP #17 + #20 have obvious blocking risk.', fix: 'Commission FTO on Tier-1 ($15k-$30k) before non-provisional conversion.' },
+  ],
+  filingPlan: [
+    'Day 0-30 ($3k-$5.7k): Engage patent attorney. Complete INVENTOR-DISCLOSURE.md. Configure GPG signing. File TM "GENTLE REMINDER" Class 9+44 TEAS Plus ITU ($500). File Copyright Batch 1 ($195).',
+    'Day 30-60 ($6k-$10k): File 5 Tier-1 provisionals (#01-#05). File IP #06 (Sundowning). Commission FTO on Tier-1 ($5k-$15k).',
+    'Day 60-90 ($4k-$8k): File 7 more provisionals (#07, #08, #14, #15, #19, #23, +1 of #09/#10/#11 strengthened). Drop/trade-secret: #12, #16, #17, #18, #20, #21, #22. Defensively publish #22 on arXiv.',
+    'Day-90 cumulative: $15k-$25k. Year-1 pre-conversion: $35k-$50k (13 provisionals + FTO + PCT prep).',
+  ],
   sourceFile: 'docs/ip/ip-moat-eval-2026-04-22.md',
-  status: 'running',
+  status: 'complete',
 };
 
 // =============================================================================

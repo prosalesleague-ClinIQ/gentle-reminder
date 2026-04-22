@@ -378,6 +378,7 @@ function FortressView() {
 function MoatView() {
   const m = MOAT_REPORT;
   const running = m.status !== 'complete';
+  const band = scoreBand(m.score);
 
   if (running) {
     return (
@@ -410,10 +411,163 @@ function MoatView() {
     );
   }
 
-  // Placeholder for complete state (populated after IP moat agent finishes)
   return (
-    <div style={{ fontSize: 14, color: '#c9d1d9' }}>
-      IP Moat Eval results render here when the evaluation completes.
+    <div>
+      {/* Summary bar */}
+      <div
+        style={{
+          background: '#0d1117',
+          border: '1px solid #21262d',
+          borderRadius: 12,
+          padding: 24,
+          marginBottom: 20,
+        }}
+      >
+        <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 24, alignItems: 'center' }}>
+          <div>
+            <div style={{ fontSize: 64, fontWeight: 800, color: band.color, lineHeight: 1 }}>{m.score}</div>
+            <div style={{ fontSize: 14, color: '#8b949e', marginTop: 4 }}>/ 100</div>
+            <div
+              style={{
+                display: 'inline-block',
+                marginTop: 8,
+                padding: '4px 10px',
+                borderRadius: 6,
+                background: tierColor(m.tier),
+                color: '#f0f6fc',
+                fontSize: 11,
+                fontWeight: 700,
+              }}
+            >
+              {m.tier}
+            </div>
+          </div>
+          <div>
+            <h2 style={{ fontSize: 20, fontWeight: 700, color: '#f0f6fc', marginTop: 0, marginBottom: 8 }}>
+              IP Moat Evaluation — Executive Summary
+            </h2>
+            <p style={{ fontSize: 14, color: '#c9d1d9', lineHeight: 1.6, marginBottom: 0 }}>{m.summary}</p>
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
+          <StatPill label="Patents" value={String(m.patentCount)} />
+          <StatPill label="Tier 1" value={String(m.tierCounts.tier1)} color="#3D8158" />
+          <StatPill label="Tier 2" value={String(m.tierCounts.tier2)} color="#92A53F" />
+          <StatPill label="Tier 3" value={String(m.tierCounts.tier3)} color="#1F7AE0" />
+        </div>
+      </div>
+
+      {/* Top asset + gap */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: 12, marginBottom: 24 }}>
+        <div
+          style={{
+            background: '#0d1117',
+            border: '1px solid #3D815860',
+            borderRadius: 10,
+            padding: 16,
+          }}
+        >
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#3D8158', marginBottom: 6, textTransform: 'uppercase' }}>
+            Top IP Asset
+          </div>
+          <div style={{ fontSize: 13, color: '#c9d1d9', lineHeight: 1.55 }}>{m.topAsset}</div>
+        </div>
+        <div
+          style={{
+            background: '#0d1117',
+            border: '1px solid #f8514960',
+            borderRadius: 10,
+            padding: 16,
+          }}
+        >
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#f85149', marginBottom: 6, textTransform: 'uppercase' }}>
+            Top IP Gap
+          </div>
+          <div style={{ fontSize: 13, color: '#c9d1d9', lineHeight: 1.55 }}>{m.topGap}</div>
+        </div>
+      </div>
+
+      {/* 10-axis scorecard */}
+      <Section title="10-axis scorecard">
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr style={{ borderBottom: '1px solid #21262d' }}>
+              <Th>Axis</Th>
+              <Th align="right">Score</Th>
+              <Th>Note</Th>
+            </tr>
+          </thead>
+          <tbody>
+            {m.axes.map((a) => {
+              const pct = (a.score / a.max) * 100;
+              const barColor = pct >= 70 ? '#3D8158' : pct >= 50 ? '#E5A300' : '#C0392B';
+              return (
+                <tr key={a.name} style={{ borderBottom: '1px solid #161b22' }}>
+                  <Td>
+                    <div style={{ fontWeight: 600, color: '#f0f6fc' }}>{a.name}</div>
+                  </Td>
+                  <Td align="right">
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4 }}>
+                      <span style={{ fontWeight: 700, color: barColor }}>
+                        {a.score}/{a.max}
+                      </span>
+                      <div style={{ width: 80, height: 4, background: '#21262d', borderRadius: 2, overflow: 'hidden' }}>
+                        <div style={{ width: `${pct}%`, height: '100%', background: barColor }} />
+                      </div>
+                    </div>
+                  </Td>
+                  <Td style={{ color: '#8b949e', fontSize: 12 }}>{a.note}</Td>
+                </tr>
+              );
+            })}
+            <tr style={{ borderTop: '2px solid #388bfd', background: '#161b22' }}>
+              <Td style={{ fontWeight: 700, color: '#f0f6fc' }}>Total</Td>
+              <Td align="right" style={{ fontWeight: 700, color: band.color, fontSize: 16 }}>
+                {m.score} / 100
+              </Td>
+              <Td />
+            </tr>
+          </tbody>
+        </table>
+      </Section>
+
+      {/* Strengths + weaknesses */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: 12, marginBottom: 24 }}>
+        <Section title={`Top 5 strengths (${m.topStrengths.length})`}>
+          <ol style={{ paddingLeft: 20, margin: 0 }}>
+            {m.topStrengths.map((s, idx) => (
+              <li key={idx} style={{ fontSize: 13, color: '#c9d1d9', lineHeight: 1.55, marginBottom: 10 }}>
+                <strong style={{ color: '#f0f6fc' }}>{s.title}.</strong>{' '}
+                <span style={{ color: '#8b949e' }}>{s.evidence}</span>
+              </li>
+            ))}
+          </ol>
+        </Section>
+        <Section title={`Top 5 weaknesses (${m.topWeaknesses.length})`}>
+          <ol style={{ paddingLeft: 20, margin: 0 }}>
+            {m.topWeaknesses.map((w, idx) => (
+              <li key={idx} style={{ fontSize: 13, color: '#c9d1d9', lineHeight: 1.55, marginBottom: 12 }}>
+                <strong style={{ color: '#f0f6fc' }}>{w.title}.</strong>{' '}
+                <span style={{ color: '#8b949e' }}>{w.evidence}</span>
+                <div style={{ marginTop: 4, fontSize: 12, color: '#3D8158' }}>
+                  <strong>Fix:</strong> {w.fix}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </Section>
+      </div>
+
+      {/* Filing plan */}
+      <Section title="30 / 60 / 90 filing plan">
+        <ul style={{ paddingLeft: 20, margin: 0 }}>
+          {m.filingPlan.map((item, idx) => (
+            <li key={idx} style={{ fontSize: 13, color: '#c9d1d9', lineHeight: 1.6, marginBottom: 8 }}>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </Section>
     </div>
   );
 }
