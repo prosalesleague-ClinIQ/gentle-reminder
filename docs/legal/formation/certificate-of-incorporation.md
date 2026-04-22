@@ -1,7 +1,7 @@
-# CERTIFICATE OF INCORPORATION OF GENTLE REMINDER CORP
+# CERTIFICATE OF INCORPORATION OF GENTLE REMINDER HEALTH CORP
 
 **Document ID:** FORM-001
-**Entity:** Gentle Reminder Corp
+**Entity:** Gentle Reminder Health Corp
 **State:** Delaware
 **Status:** DRAFT — review + file at https://icis.corp.delaware.gov/
 **Filing fee:** $109 standard / $189 24-hour expedited
@@ -13,7 +13,7 @@ The undersigned, an individual competent to contract, for the purpose of forming
 
 ## ARTICLE I — NAME
 
-The name of the corporation is **Gentle Reminder Corp** (the "Corporation").
+The name of the corporation is **Gentle Reminder Health Corp** (the "Corporation").
 
 ## ARTICLE II — REGISTERED OFFICE AND REGISTERED AGENT
 
@@ -80,8 +80,8 @@ Unless the Corporation consents in writing to the selection of an alternative fo
 The name and mailing address of the incorporator are:
 
 **Christopher McPherson**
-**[MAILING ADDRESS — FILL IN]**
-**[CITY], [STATE] [ZIP]**
+**505 S CENTRAL AVE**
+**LODI, CA 95240**
 
 The powers of the incorporator shall terminate upon the filing of this Certificate of Incorporation. Thereafter, the name and mailing address of each person who is to serve as a director of the Corporation until the first annual meeting of stockholders or until a successor is duly elected and qualified shall be as set forth in the Action by Sole Incorporator.
 

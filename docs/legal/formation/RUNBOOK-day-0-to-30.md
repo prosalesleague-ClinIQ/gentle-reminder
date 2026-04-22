@@ -1,4 +1,4 @@
-# RUNBOOK — Gentle Reminder Corp Formation (Day 0 → Day 30)
+# RUNBOOK — Gentle Reminder Health Corp Formation (Day 0 → Day 30)
 
 **Owner:** Christopher McPherson (Founder)
 **Claude assist:** Drafting, review, repo updates, GHL updates
@@ -10,7 +10,7 @@
 
 ## Purpose
 
-Establish **Gentle Reminder Corp** as a Delaware C-Corporation via DIY direct filing, issue founder stock, file the 83(b) election within the 30-day statutory deadline, obtain EIN, open business banking, and unlock the outreach + repo cascade that has been gated on entity formation.
+Establish **Gentle Reminder Health Corp** as a Delaware C-Corporation via DIY direct filing, issue founder stock, file the 83(b) election within the 30-day statutory deadline, obtain EIN, open business banking, and unlock the outreach + repo cascade that has been gated on entity formation.
 
 **Critical hard deadline:** 🔴 **83(b) election must be postmarked within 30 days of founder stock issuance (Day 5-7).** Missing this costs $100K–$2M+ over the corp's life. Certified mail with return receipt is non-negotiable.
 
@@ -53,7 +53,7 @@ Open https://tmsearch.uspto.gov/
 ### Step 1.2 — Delaware Name Availability Check
 ```
 Open https://icis.corp.delaware.gov/ecorp/entitysearch/namesearch.aspx
-  → Enter: "Gentle Reminder Corp"
+  → Enter: "Gentle Reminder Health Corp"
   → Search
 ```
 **Expected result:** "Entity name is available."
@@ -75,7 +75,7 @@ If you want to lock the name for 120 days while preparing the Cert, file a Name 
 
 ### Verification (End of Phase 1)
 - [ ] TESS search returned no live conflicts in Class 9 or 44
-- [ ] DE name check confirmed "Gentle Reminder Corp" available
+- [ ] DE name check confirmed "Gentle Reminder Health Corp" available
 - [ ] Screenshots saved to repo
 
 ---
@@ -125,7 +125,7 @@ Save PDF email attachment from DE Division to:
 
 Record:
   - File number (DE assigns one)
-  - Filing date (this is the "birth date" of Gentle Reminder Corp)
+  - Filing date (this is the "birth date" of Gentle Reminder Health Corp)
   - Effective date (usually same as filing date)
 ```
 
@@ -194,11 +194,11 @@ Open docs/legal/formation/founder-ip-assignment-filled.md
 ```
 **Save:** `docs/legal/formation/founder-ip-assignment-signed.pdf`.
 
-### Step 3.6 — Pay $500 to Gentle Reminder Corp
+### Step 3.6 — Pay $500 to Gentle Reminder Health Corp
 
 You don't have a bank account yet. Options:
-- **Keep the $500 in cash** in a marked envelope labeled "Gentle Reminder Corp initial capitalization — $500 founder stock purchase — [DATE]". Deposit into the Corp bank account when opened (Day 10).
-- **Write a personal check** payable to "Gentle Reminder Corp" and hold it until bank account opens.
+- **Keep the $500 in cash** in a marked envelope labeled "Gentle Reminder Health Corp initial capitalization — $500 founder stock purchase — [DATE]". Deposit into the Corp bank account when opened (Day 10).
+- **Write a personal check** payable to "Gentle Reminder Health Corp" and hold it until bank account opens.
 - **Wait to open bank account first** (Day 10), then wire $500. Slightly awkward — you'd have issued stock before payment, which is fine if you mark it as "paid via promissory note due on demand."
 
 **Recommended:** Write the check and hold it. Deposit Day 10 alongside bank account opening.
@@ -268,7 +268,7 @@ Save:
 ```
 
 ### Step 4.6 — Notify the Corporation
-Per FSPA § 5.3, provide Copy 3 to Gentle Reminder Corp's records within 7 days of mailing.
+Per FSPA § 5.3, provide Copy 3 to Gentle Reminder Health Corp's records within 7 days of mailing.
 
 ### Step 4.7 — Apply for EIN at IRS
 ```
@@ -313,7 +313,7 @@ Open https://tmep.uspto.gov/
   → Complete TEAS Plus application for "GENTLE REMINDER"
   → Classes 9 (software) + 44 (medical services)
   → Filing basis: 1(b) Intent to Use
-  → Applicant: Gentle Reminder Corp (not personal)
+  → Applicant: Gentle Reminder Health Corp (not personal)
   → Pay: $250 × 2 classes = $500
 ```
 **Per:** `docs/legal/trademark-filing-checklist.md`.
@@ -333,7 +333,7 @@ Update docs/legal/trademark-filing-checklist.md:
 ```
 Claude will run a single commit updating:
   - send-priority.ts SIGNATURE (remove "formation in final stages")
-  - pitch-deck.ts DECK_DATA (add "Gentle Reminder Corp, a Delaware corporation")
+  - pitch-deck.ts DECK_DATA (add "Gentle Reminder Health Corp, a Delaware corporation")
   - nda-templates.ts (all 3 templates: update party line)
   - pre-contact-checklists.ts (auto-check entity-exists, ein-ready, ip-assignments)
   - /private/send page (remove PRE-ENTITY banner)
@@ -341,7 +341,7 @@ Claude will run a single commit updating:
   - Regenerate pitch deck PPTX + PDF
   - cap-table-starter.md → cap-table.md with real data
 
-Commit: "Phase 39: Gentle Reminder Corp formed in Delaware — entity unlock"
+Commit: "Phase 39: Gentle Reminder Health Corp formed in Delaware — entity unlock"
 Redeploy: vercel deploy --prod
 ```
 **Timing:** Claude runs this within 24 hours of user confirming Cert is stamped AND FSPA + 83(b) are mailed.
@@ -361,7 +361,7 @@ Verify: GHL smart-list "tag is pre-entity-hold" should return 0 contacts.
 GHL → Settings → Business Profile:
   First name: Christopher (or Christo if preferred branding)
   Last name: McPherson (or Mack if preferred branding)
-  Business name: Gentle Reminder Corp
+  Business name: Gentle Reminder Health Corp
   Address: [PRINCIPAL OFFICE ADDRESS]
   City/State/Zip: [UPDATE]
   Phone: [CONFIRM ACCURATE]
@@ -371,7 +371,7 @@ GHL → Settings → Business Profile:
 ```
 Open /private/send on pitch site.
 Send Carson / Wojcik / Miller IP drafts — they now carry:
-  - Accurate entity status: "Gentle Reminder Corp, a Delaware corporation"
+  - Accurate entity status: "Gentle Reminder Health Corp, a Delaware corporation"
   - Real EIN (don't include in email, just on file)
   - Clean signature without "formation in final stages" qualifier
 ```
@@ -383,7 +383,7 @@ After Carson / Wojcik / Miller IP reply with fee quotes (expected within 3-7 day
   → Compare fees vs vendor vetting worksheet (docs/legal/vendor-vetting-worksheets.md §1)
   → Select winning firm
   → Sign engagement letter (Corp signs — not you personally)
-  → Execute unilateral NDA (Gentle Reminder Corp is Disclosing Party)
+  → Execute unilateral NDA (Gentle Reminder Health Corp is Disclosing Party)
   → Begin 6-week sprint filing 23 provisional patents
 ```
 
@@ -434,7 +434,7 @@ Set recurring calendar reminders:
 
 ## VERIFICATION — WHAT "DONE" LOOKS LIKE AT DAY 30
 
-- [ ] Gentle Reminder Corp exists in DE Division of Corporations search (status: Active)
+- [ ] Gentle Reminder Health Corp exists in DE Division of Corporations search (status: Active)
 - [ ] Corp has EIN registered with IRS
 - [ ] Corp has a business bank account with $500 initial capital
 - [ ] You own 5,000,000 shares of Common Stock, 0% vested (cliff in 12 months)
@@ -510,7 +510,7 @@ If a **fatal error** is discovered (e.g., incorrect entity name, wrong founder s
 | Founder Stock Purchase Agreement (FORM-005) | `docs/legal/formation/founder-stock-purchase-agreement.md` |
 | Share Certificate #1 (FORM-006) | `docs/legal/formation/share-certificate-001.md` |
 | 83(b) Election Letter (FORM-007) | `docs/legal/formation/83b-election-letter.md` |
-| FIAA filled for Gentle Reminder Corp (FORM-008) | `docs/legal/formation/founder-ip-assignment-filled.md` |
+| FIAA filled for Gentle Reminder Health Corp (FORM-008) | `docs/legal/formation/founder-ip-assignment-filled.md` |
 | Cap Table Starter (CT-001) | `docs/legal/cap-table-starter.md` |
 | Trademark Filing Checklist | `docs/legal/trademark-filing-checklist.md` |
 | Pre-Entity Outreach Safety | `docs/legal/pre-entity-outreach-safety.md` |

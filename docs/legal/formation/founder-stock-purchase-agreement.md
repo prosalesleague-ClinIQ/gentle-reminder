@@ -1,7 +1,7 @@
 # FOUNDER STOCK PURCHASE AGREEMENT
 
 **Document ID:** FORM-005
-**Entity:** Gentle Reminder Corp (a Delaware corporation)
+**Entity:** Gentle Reminder Health Corp (a Delaware corporation)
 **Purchaser:** Christopher McPherson (the "Founder")
 **Shares:** 5,000,000 shares of Common Stock
 **Purchase price:** $0.0001 per share ($500.00 total)
@@ -10,7 +10,7 @@
 
 ---
 
-This Founder Stock Purchase Agreement (this "**Agreement**") is entered into as of the date first written above, by and between **Gentle Reminder Corp**, a Delaware corporation (the "**Corporation**"), and **Christopher McPherson** (the "**Purchaser**").
+This Founder Stock Purchase Agreement (this "**Agreement**") is entered into as of the date first written above, by and between **Gentle Reminder Health Corp**, a Delaware corporation (the "**Corporation**"), and **Christopher McPherson** (the "**Purchaser**").
 
 ## 1. PURCHASE AND SALE OF SHARES
 
@@ -22,7 +22,7 @@ Subject to the terms and conditions of this Agreement, the Corporation agrees to
 
 The Purchaser shall pay the Purchase Price to the Corporation on the Effective Date by (check applicable):
 - [X] **Cash / wire transfer** of $500.00 to the Corporation's bank account
-- [ ] **Personal check** payable to "Gentle Reminder Corp" in the amount of $500.00
+- [ ] **Personal check** payable to "Gentle Reminder Health Corp" in the amount of $500.00
 - [ ] **Cancellation of debt** owed by the Corporation to the Purchaser in the amount of $500.00 (note: requires documented pre-existing debt)
 
 ### 1.3 Issuance
@@ -207,13 +207,13 @@ IN WITNESS WHEREOF, the parties have executed this Founder Stock Purchase Agreem
 
 **CORPORATION:**
 
-**GENTLE REMINDER CORP**
+**GENTLE REMINDER HEALTH CORP**
 
 By: _______________________________
 Name: Christopher McPherson
 Title: Chief Executive Officer
 Date: _______________________________
-Address: [PRINCIPAL OFFICE ADDRESS]
+Address: 505 S CENTRAL AVE, LODI, CA 95240
 
 ---
 
@@ -222,7 +222,7 @@ Address: [PRINCIPAL OFFICE ADDRESS]
 _______________________________
 **Christopher McPherson**
 Date: _______________________________
-Address: [PURCHASER MAILING ADDRESS]
+Address: 505 S CENTRAL AVE, LODI, CA 95240
 Social Security Number: [REDACTED — enter on final signed copy, not in repo]
 
 ---
@@ -239,18 +239,18 @@ Social Security Number: [REDACTED — enter on final signed copy, not in repo]
 2. **Fill in:**
    - Vesting Commencement Date (Section 2.1) = the date the Cert of Incorporation was filed and stamped by Delaware
    - Effective Date (top) = same as Vesting Commencement Date, or the date you actually sign (they should match for cleanest record)
-   - Principal office address (Section 9.1 signature block) = Gentle Reminder Corp's principal office
+   - Principal office address (Section 9.1 signature block) = Gentle Reminder Health Corp's principal office
    - Purchaser mailing address = your personal address
    - **SSN appears ONLY on final executed copy you retain in personal records + send to IRS with 83(b)**. Do NOT paste SSN into this repo.
 3. **Sign the CEO line + the Purchaser line** — yes, you're signing both capacities. This is standard for sole-founder issuance.
-4. **Pay the Purchase Price** ($500) to Gentle Reminder Corp's bank account on the same day (Section 1.2). The $500 must actually transfer — an IOU is allowed per the checkbox but cash is cleanest.
+4. **Pay the Purchase Price** ($500) to Gentle Reminder Health Corp's bank account on the same day (Section 1.2). The $500 must actually transfer — an IOU is allowed per the checkbox but cash is cleanest.
 5. **Issue the stock certificate** (FORM-006 — Share Certificate #1) with matching date.
 6. **File 83(b) Election** (FORM-007) within 30 days — see separate document.
 7. **Save signed FSPA** as `docs/legal/formation/founder-stock-purchase-agreement-signed.pdf` (with SSN redacted in the repo version; full unredacted in your private records).
 
 ## What this document does (plain English)
 
-This is the actual sale: you buy 5,000,000 shares of Gentle Reminder Corp for $500. The shares vest over 4 years with a 1-year cliff, meaning:
+This is the actual sale: you buy 5,000,000 shares of Gentle Reminder Health Corp for $500. The shares vest over 4 years with a 1-year cliff, meaning:
 - If you quit or are terminated within the first 12 months, the corp can buy back ALL your shares for $500 (you'd get your money back, no equity)
 - After month 12, 25% is yours permanently; the rest vests monthly over 36 more months
 - Full vesting at month 48

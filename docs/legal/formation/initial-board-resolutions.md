@@ -1,13 +1,13 @@
-# INITIAL RESOLUTIONS OF THE BOARD OF DIRECTORS OF GENTLE REMINDER CORP
+# INITIAL RESOLUTIONS OF THE BOARD OF DIRECTORS OF GENTLE REMINDER HEALTH CORP
 
 **Document ID:** FORM-004
-**Entity:** Gentle Reminder Corp (a Delaware corporation)
+**Entity:** Gentle Reminder Health Corp (a Delaware corporation)
 **Date:** [DATE — same day or after Action by Sole Incorporator]
 **Status:** DRAFT — sign after Action by Sole Incorporator (FORM-003)
 
 ---
 
-The undersigned, being the sole director of **Gentle Reminder Corp**, a Delaware corporation (the "Corporation"), acting by written consent in lieu of a meeting pursuant to Section 141(f) of the General Corporation Law of the State of Delaware and the Corporation's Bylaws, hereby adopts the following resolutions:
+The undersigned, being the sole director of **Gentle Reminder Health Corp**, a Delaware corporation (the "Corporation"), acting by written consent in lieu of a meeting pursuant to Section 141(f) of the General Corporation Law of the State of Delaware and the Corporation's Bylaws, hereby adopts the following resolutions:
 
 ---
 
@@ -37,9 +37,9 @@ The undersigned, being the sole director of **Gentle Reminder Corp**, a Delaware
 
 ## 4. PRINCIPAL OFFICE
 
-**RESOLVED**, that the principal executive office of the Corporation shall be located at **[PRINCIPAL OFFICE ADDRESS]**, or at such other location as the Board of Directors may from time to time designate.
+**RESOLVED**, that the principal executive office of the Corporation shall be located at **505 S CENTRAL AVE, LODI, CA 95240**, or at such other location as the Board of Directors may from time to time designate.
 
-> **TO FILL:** Enter the address where Gentle Reminder Corp will operate. Can be a home address, a coworking membership, or a leased office. This is not the registered office in Delaware (that's the registered agent's DE address, set in the Cert).
+> **TO FILL:** Enter the address where Gentle Reminder Health Corp will operate. Can be a home address, a coworking membership, or a leased office. This is not the registered office in Delaware (that's the registered agent's DE address, set in the Cert).
 
 ## 5. FISCAL YEAR
 
@@ -130,7 +130,7 @@ Sole Director
 
 ## What this document does (plain English)
 
-This is the first "board meeting" of Gentle Reminder Corp — held as a written consent (no actual meeting required under DE GCL § 141(f)). It authorizes the 15 key things that turn the corp from a legal shell into a functioning business:
+This is the first "board meeting" of Gentle Reminder Health Corp — held as a written consent (no actual meeting required under DE GCL § 141(f)). It authorizes the 15 key things that turn the corp from a legal shell into a functioning business:
 
 1. Ratifies the incorporator's actions so no future dispute can unwind what you did
 2. Elects officers (all you, at formation)

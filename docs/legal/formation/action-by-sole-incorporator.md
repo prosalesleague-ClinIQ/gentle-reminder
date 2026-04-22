@@ -1,13 +1,13 @@
-# ACTION BY SOLE INCORPORATOR OF GENTLE REMINDER CORP
+# ACTION BY SOLE INCORPORATOR OF GENTLE REMINDER HEALTH CORP
 
 **Document ID:** FORM-003
-**Entity:** Gentle Reminder Corp (a Delaware corporation)
+**Entity:** Gentle Reminder Health Corp (a Delaware corporation)
 **Date:** [DATE — same day or after Cert of Incorporation filing]
 **Status:** DRAFT — sign and date after receiving stamped Certificate of Incorporation from DE Division of Corporations
 
 ---
 
-The undersigned, being the sole incorporator (the "Incorporator") of **Gentle Reminder Corp**, a Delaware corporation (the "Corporation"), organized pursuant to the Certificate of Incorporation filed with the Secretary of State of Delaware on ________________, 2026, hereby takes the following actions:
+The undersigned, being the sole incorporator (the "Incorporator") of **Gentle Reminder Health Corp**, a Delaware corporation (the "Corporation"), organized pursuant to the Certificate of Incorporation filed with the Secretary of State of Delaware on ________________, 2026, hereby takes the following actions:
 
 ---
 
@@ -33,7 +33,7 @@ Sole Incorporator
 
 ---
 
-**EXHIBIT A** — Bylaws of Gentle Reminder Corp (see `docs/legal/formation/bylaws.md`)
+**EXHIBIT A** — Bylaws of Gentle Reminder Health Corp (see `docs/legal/formation/bylaws.md`)
 
 ---
 

@@ -1,7 +1,7 @@
-# FOUNDER INVENTION ASSIGNMENT AGREEMENT (FILLED — GENTLE REMINDER CORP)
+# FOUNDER INVENTION ASSIGNMENT AGREEMENT (FILLED — GENTLE REMINDER HEALTH CORP)
 
 **Document ID:** FORM-008 (instantiation of FIAA-001 template at `docs/legal/ip-assignment-agreement-template.md`)
-**Entity:** Gentle Reminder Corp (a Delaware corporation)
+**Entity:** Gentle Reminder Health Corp (a Delaware corporation)
 **Founder:** Christopher McPherson
 **Effective Date:** [SAME AS FSPA SIGNING DATE]
 **Status:** DRAFT — sign same day as FSPA (FORM-005)
@@ -12,9 +12,9 @@
 
 This Founder Invention Assignment Agreement (this "**Agreement**") is entered into as of **[EFFECTIVE DATE]** (the "**Effective Date**") by and between:
 
-**Christopher McPherson**, an individual residing at **[FOUNDER MAILING ADDRESS]** ("**Founder**"); and
+**Christopher McPherson**, an individual residing at **505 S CENTRAL AVE, LODI, CA 95240** ("**Founder**"); and
 
-**Gentle Reminder Corp**, a Delaware corporation with its principal place of business at **[PRINCIPAL OFFICE ADDRESS]** ("**Company**").
+**Gentle Reminder Health Corp**, a Delaware corporation with its principal place of business at **505 S CENTRAL AVE, LODI, CA 95240** ("**Company**").
 
 ## 2. RECITALS
 
@@ -157,15 +157,15 @@ All 23 patent-pending innovations in the Gentle Reminder IP Portfolio, as docume
 _______________________________
 **Christopher McPherson**
 Date: _______________________________
-Address: **[FOUNDER MAILING ADDRESS]**
+Address: **505 S CENTRAL AVE, LODI, CA 95240**
 
-**GENTLE REMINDER CORP:**
+**GENTLE REMINDER HEALTH CORP:**
 
 By: _______________________________
 Name: Christopher McPherson
 Title: Chief Executive Officer
 Date: _______________________________
-Address: **[PRINCIPAL OFFICE ADDRESS]**
+Address: **505 S CENTRAL AVE, LODI, CA 95240**
 
 ---
 
@@ -175,7 +175,7 @@ Address: **[PRINCIPAL OFFICE ADDRESS]**
 - [ ] Copy recorded in `docs/legal/disclosure-log-template.md` (DL-001) as first post-formation IP transfer
 - [ ] Upon first provisional patent filing: **USPTO Patent Assignment Recordation** via Form PTO-1595 or Electronic Patent Assignment System (EPAS) for each provisional patent application that relates to Assigned IP (~$40 per document; recommended but not legally required)
 - [ ] Upon trademark application filing: **USPTO Trademark Assignment Recordation** via TEAS Assignment Cover Sheet for "GENTLE REMINDER" mark (~$40)
-- [ ] Copyright notice updates in repo: update `apps/pitch-site/package.json` author field, GitHub repo README copyright notice to "© Gentle Reminder Corp"
+- [ ] Copyright notice updates in repo: update `apps/pitch-site/package.json` author field, GitHub repo README copyright notice to "© Gentle Reminder Health Corp"
 - [ ] Cap table updated to reflect founder stock issuance simultaneous with IP assignment (already done via FORM-005 FSPA)
 - [ ] Investor-diligence response template: "Yes, Corporation owns all pre-formation IP via Founder Invention Assignment Agreement executed **[EFFECTIVE DATE]**, attached as diligence exhibit"
 
@@ -192,9 +192,9 @@ Before today, you (Christopher McPherson) personally own:
 - The Gentle Reminder brand + trademark application
 - All the docs, pitch materials, and trade-secret parameters
 
-**If you do nothing:** Gentle Reminder Corp owns NOTHING. It's an empty shell.
+**If you do nothing:** Gentle Reminder Health Corp owns NOTHING. It's an empty shell.
 
-**What this document does:** Transfers all that IP (past + future) to Gentle Reminder Corp.
+**What this document does:** Transfers all that IP (past + future) to Gentle Reminder Health Corp.
 
 **Why it must be signed Day 1:**
 - Every investor will ask "does the corp own the IP?" in diligence

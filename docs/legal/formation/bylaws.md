@@ -1,7 +1,7 @@
-# BYLAWS OF GENTLE REMINDER CORP
+# BYLAWS OF GENTLE REMINDER HEALTH CORP
 
 **Document ID:** FORM-002
-**Entity:** Gentle Reminder Corp
+**Entity:** Gentle Reminder Health Corp
 **State:** Delaware
 **Adopted:** [DATE OF ADOPTION BY BOARD]
 **Status:** DRAFT — adopt via Initial Board Resolutions (FORM-004) after Cert of Incorporation filing
@@ -173,7 +173,7 @@ These Bylaws may be amended, altered, or repealed (a) by the affirmative vote of
 
 **CERTIFICATION**
 
-The undersigned, being the Secretary of Gentle Reminder Corp (the "Corporation"), hereby certifies that the foregoing Bylaws were duly adopted by the Board of Directors of the Corporation on ________________, 2026.
+The undersigned, being the Secretary of Gentle Reminder Health Corp (the "Corporation"), hereby certifies that the foregoing Bylaws were duly adopted by the Board of Directors of the Corporation on ________________, 2026.
 
 _______________________________
 **Christopher McPherson**, Secretary

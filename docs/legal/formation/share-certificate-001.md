@@ -1,8 +1,8 @@
-# SHARE CERTIFICATE NO. 001 — GENTLE REMINDER CORP
+# SHARE CERTIFICATE NO. 001 — GENTLE REMINDER HEALTH CORP
 
 **Document ID:** FORM-006
 **Certificate Number:** 1
-**Entity:** Gentle Reminder Corp (a Delaware corporation)
+**Entity:** Gentle Reminder Health Corp (a Delaware corporation)
 **Issue Date:** [EFFECTIVE DATE — same as FSPA]
 **Status:** DRAFT — issue and sign on same date as FSPA (FORM-005)
 
@@ -10,7 +10,7 @@
 
 ## STOCK CERTIFICATE
 
-**GENTLE REMINDER CORP**
+**GENTLE REMINDER HEALTH CORP**
 A Delaware Corporation
 
 **Certificate No.:** 1
@@ -20,7 +20,7 @@ A Delaware Corporation
 
 ---
 
-This certifies that **Christopher McPherson**, a resident of **[STATE OF RESIDENCE]**, is the record holder of **five million (5,000,000) shares** of the Common Stock of **Gentle Reminder Corp**, transferable only on the books of the Corporation, in person or by duly authorized attorney, upon surrender of this Certificate properly endorsed.
+This certifies that **Christopher McPherson**, a resident of **California**, is the record holder of **five million (5,000,000) shares** of the Common Stock of **Gentle Reminder Health Corp**, transferable only on the books of the Corporation, in person or by duly authorized attorney, upon surrender of this Certificate properly endorsed.
 
 This Certificate and the shares represented hereby are issued and shall be held subject to all the provisions of the Certificate of Incorporation and Bylaws of the Corporation, copies of which are on file at the principal office of the Corporation.
 
@@ -85,7 +85,7 @@ _______________________________
 
 ## What this document does (plain English)
 
-This is the physical (or digital) evidence that you own 5,000,000 shares of Gentle Reminder Corp. It's to stock what a deed is to land.
+This is the physical (or digital) evidence that you own 5,000,000 shares of Gentle Reminder Health Corp. It's to stock what a deed is to land.
 
 Under modern DE law, a corp can choose to have certificated OR uncertificated (book-entry) stock. Either is legally sufficient. For pre-seed simplicity, a single paper/PDF certificate per stockholder is conventional and clear.
 

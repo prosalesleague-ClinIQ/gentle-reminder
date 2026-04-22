@@ -12,7 +12,7 @@ Claude cannot programmatically query the DE Division's stateful ASP.NET search f
 
 **URL:** [https://icis.corp.delaware.gov/ecorp/entitysearch/namesearch.aspx](https://icis.corp.delaware.gov/ecorp/entitysearch/namesearch.aspx)
 
-**Search term:** `Gentle Reminder Corp`
+**Search term:** `Gentle Reminder Health Corp`
 
 **Expected result:** "No record found" or "Entity name is available."
 
@@ -60,7 +60,7 @@ Alternatives (for reference):
 1. Go to [https://www.delawareinc.com/ourservices/appoint-registered-agent/](https://www.delawareinc.com/ourservices/appoint-registered-agent/)
 2. Click "Appoint Harvard Business Services as your Registered Agent"
 3. Fill in:
-   - Company name: `Gentle Reminder Corp` *(pending formation — that's fine; Harvard accepts RA engagements before Cert is filed)*
+   - Company name: `Gentle Reminder Health Corp` *(pending formation — that's fine; Harvard accepts RA engagements before Cert is filed)*
    - Your name: `Christopher McPherson`
    - Your contact email: `gentlereminderapp@gmail.com`
    - Your phone: [your number]
@@ -188,7 +188,7 @@ A 1-3 hour counsel review of FIAA + FSPA + Cert cures 80% of the risk for ~10% o
 ```
 Hi [attorney name],
 
-I'm Christopher McPherson, founder of Gentle Reminder Corp — a pre-seed
+I'm Christopher McPherson, founder of Gentle Reminder Health Corp — a pre-seed
 dementia care platform forming as a Delaware C-Corp via direct DIY
 filing this week.
 
@@ -214,7 +214,7 @@ sign a short engagement letter and pay upfront if preferred.
 
 Thanks,
 Christopher McPherson
-Founder, Gentle Reminder Corp (forming)
+Founder, Gentle Reminder Health Corp (forming)
 gentlereminderapp@gmail.com
 ```
 

@@ -2,7 +2,7 @@
 
 **Document ID:** FORM-007
 **Taxpayer:** Christopher McPherson
-**Entity:** Gentle Reminder Corp (a Delaware corporation)
+**Entity:** Gentle Reminder Health Corp (a Delaware corporation)
 **Shares subject to election:** 5,000,000 shares of Common Stock
 **Status:** DRAFT — sign and certified-mail within 30 days of FSPA (FORM-005) signing
 **CRITICAL DEADLINE:** 30 days from the FSPA Effective Date. Missing this is permanent and irreversible.
@@ -12,7 +12,7 @@
 ## 83(b) ELECTION UNDER 26 U.S.C. § 83(b)
 
 **To:** Internal Revenue Service
-**[IRS SERVICE CENTER ADDRESS — see filing instructions below to identify the correct address for your state of residence]**
+**Department of the Treasury, Internal Revenue Service, Fresno, CA 93888-0002**
 
 **Re:** Election under Section 83(b) of the Internal Revenue Code of 1986, as Amended
 
@@ -23,13 +23,13 @@ The following information is provided as required by Treasury Regulation § 1.83
 ### 1. Name, address, and taxpayer identification number of the taxpayer making the election:
 
 **Name:** Christopher McPherson
-**Address:** [YOUR PERSONAL MAILING ADDRESS]
-**[CITY], [STATE] [ZIP]**
+**Address:** 505 S CENTRAL AVE
+**LODI, CA 95240**
 **Taxpayer Identification Number (SSN):** [FILL IN ON SIGNED COPY ONLY — NEVER COMMIT TO REPO]
 
 ### 2. Description of the property with respect to which the election is made:
 
-**5,000,000 shares** of **Common Stock**, par value **$0.0001 per share**, of **Gentle Reminder Corp**, a Delaware corporation (the "Corporation").
+**5,000,000 shares** of **Common Stock**, par value **$0.0001 per share**, of **Gentle Reminder Health Corp**, a Delaware corporation (the "Corporation").
 
 ### 3. Date on which the property was transferred:
 
@@ -92,7 +92,7 @@ For reference (as of 2026-04-21, verify on IRS site before mailing):
 You need THREE originals (or three copies) of this signed letter:
 1. **Copy 1:** Mailed to IRS (the "filed" copy)
 2. **Copy 2:** Retained with your personal tax records (permanent)
-3. **Copy 3:** Provided to Gentle Reminder Corp for its corporate records
+3. **Copy 3:** Provided to Gentle Reminder Health Corp for its corporate records
 
 ### Step 3: Fill in All Fields
 
@@ -120,7 +120,7 @@ Before signing:
 
 ### Step 6: Notify the Corporation
 
-Within 7 days of mailing (per FSPA § 5.3), provide Copy 3 to Gentle Reminder Corp.
+Within 7 days of mailing (per FSPA § 5.3), provide Copy 3 to Gentle Reminder Health Corp.
 
 ### Step 7: Retain
 

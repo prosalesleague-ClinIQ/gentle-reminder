@@ -1,8 +1,8 @@
-# Legal Risk Assessment — Gentle Reminder Corp DIY Formation
+# Legal Risk Assessment — Gentle Reminder Health Corp DIY Formation
 
 **Date:** 2026-04-21
 **Assessor:** Claude (in-house drafting assistant) — NOT legal counsel
-**Matter:** DIY Delaware C-Corp formation for Gentle Reminder Corp (Christopher McPherson, CA resident, first-time founder). No formation counsel engaged; supporting docs drafted from Cooley GO + YC templates.
+**Matter:** DIY Delaware C-Corp formation for Gentle Reminder Health Corp (Christopher McPherson, CA resident, first-time founder). No formation counsel engaged; supporting docs drafted from Cooley GO + YC templates.
 **Privileged:** No — this is an operational risk register, not attorney-client work product.
 
 **Important disclaimer:** This document applies the severity × likelihood framework from `legal:legal-risk-assessment` skill. It is NOT legal advice. Before signing any of the 8 foundational documents (FORM-001 through FORM-008), the user should have at minimum a 1-hour counsel review of the FSPA + FIAA, which is the highest-leverage spend on legal.
@@ -129,7 +129,7 @@
 
 ### Risk 5 — FIAA (IP Assignment) Scope Insufficient
 
-**Description:** Founder Invention Assignment Agreement transfers pre-existing and future IP from Christopher McPherson to Gentle Reminder Corp. Risk that (a) pre-existing IP isn't fully captured (e.g., one of the 23 patents gets missed in Exhibit A), (b) California Labor Code § 2870 carve-out is too broad/narrow, (c) retroactive effect wording has a gap.
+**Description:** Founder Invention Assignment Agreement transfers pre-existing and future IP from Christopher McPherson to Gentle Reminder Health Corp. Risk that (a) pre-existing IP isn't fully captured (e.g., one of the 23 patents gets missed in Exhibit A), (b) California Labor Code § 2870 carve-out is too broad/narrow, (c) retroactive effect wording has a gap.
 
 **Severity: 5 — Critical.** If FIAA has a gap, Corp doesn't own the IP. "Does the Corp own all the IP?" is the single most common kill-the-deal question in Series A diligence. Gap leads to re-papering work ($5-10K legal), delays, or investor walk-away.
 
