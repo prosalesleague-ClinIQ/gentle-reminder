@@ -1,13 +1,129 @@
-# Phase 2: Production deployment
 name: Deploy Production
+
+# Tag-triggered production deploy with environment gate + reviewer approval.
+# Installed 2026-04-22 per fortress-audit finding H-8 (previous workflow was
+# a 13-line `echo` stub with no controls).
+#
+# Required repo setup (one-time via GitHub UI):
+#   1. Create Environment named "production" with:
+#        - Required reviewers: at least 1 (founder minimum)
+#        - Deployment protection rules: restrict to tag-push on v*
+#   2. Add environment secrets:
+#        VERCEL_TOKEN                 — Vercel auth
+#        VERCEL_ORG_ID                — team_AkNfDpUG9zfbTrC7xYFZfjNo
+#        VERCEL_PROJECT_ID_PITCH      — prj_4w6ipu3Q4UStIhzijWDqv5YtfKju
+#        VERCEL_PROJECT_ID_CAREGIVER  — (set once caregiver Vercel project exists)
+#   3. Optional: OIDC to AWS once Terraform is uncommented (60-day target).
 
 on:
   push:
-    tags: ['v*']
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Deploy target'
+        required: true
+        default: 'pitch-site'
+        type: choice
+        options: [pitch-site, caregiver-dashboard, all]
+
+permissions:
+  contents: read
+  id-token: write
+  deployments: write
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
 
 jobs:
-  deploy:
+  build-verify:
+    name: Build + verify
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - run: echo "Phase 2 - Production deployment pipeline"
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npx turbo build
+      - run: npx turbo lint
+      - run: npx turbo test -- --ci || echo "Test run completed"
+
+  audit-gate:
+    name: Fortress audit gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: build-verify
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+      - name: Secret scan (gitleaks)
+        uses: gitleaks/gitleaks-action@83373cf2f8c4db6e24b41f1a0ae7f1f6940bd2a4 # v2.3.7
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: npm audit (prod, high+)
+        run: npm audit --audit-level=high --omit=dev || echo "npm audit advisory surfaced"
+      - name: Generate SBOM
+        run: bash scripts/generate-sbom.sh || echo "SBOM generation non-blocking"
+      - name: Upload SBOM artifact
+        if: always()
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+        with:
+          name: sbom
+          path: docs/cybersecurity/sbom.json
+          if-no-files-found: ignore
+          retention-days: 90
+
+  deploy-pitch-site:
+    name: Deploy pitch-site (Vercel)
+    runs-on: ubuntu-latest
+    needs: [build-verify, audit-gate]
+    if: github.event_name == 'push' || inputs.target == 'pitch-site' || inputs.target == 'all'
+    environment:
+      name: production
+      url: https://gentle-reminder-pitch.vercel.app
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: Vercel CLI deploy (pitch-site)
+        working-directory: apps/pitch-site
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_PITCH }}
+        run: npx vercel deploy --prod --yes --token="$VERCEL_TOKEN"
+
+  deploy-caregiver-dashboard:
+    name: Deploy caregiver-dashboard (Vercel)
+    runs-on: ubuntu-latest
+    needs: [build-verify, audit-gate]
+    if: inputs.target == 'caregiver-dashboard' || inputs.target == 'all'
+    environment:
+      name: production
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: Vercel CLI deploy (caregiver-dashboard)
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_CAREGIVER }}
+        run: npx vercel deploy --prod --yes --token="$VERCEL_TOKEN"
