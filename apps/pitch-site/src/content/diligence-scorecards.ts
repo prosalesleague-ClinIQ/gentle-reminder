@@ -1,0 +1,283 @@
+// Diligence scorecard source data — Fortress Audit + IP Moat Evaluation.
+// Updated by audit runs. Rendered by /private/diligence/page.tsx.
+// Source reports:
+//   - docs/security/fortress-audit-2026-04-22.md
+//   - docs/ip/ip-moat-eval-2026-04-22.md (populated after IP Moat Eval agent completes)
+
+export type Severity = 'critical' | 'high' | 'medium' | 'low';
+export type SecurityTier =
+  | 'EXCEPTIONAL'
+  | 'STRONG'
+  | 'ACCEPTABLE'
+  | 'HIGH_DILIGENCE_RISK'
+  | 'BELOW_50';
+export type MoatTier = 'EXCEPTIONAL' | 'STRONG' | 'DEFENSIBLE' | 'THIN' | 'UNPROTECTED';
+
+export interface FortressAxis {
+  name: string;
+  weight: number;
+  score: number;
+  capName?: string;
+  capThreshold?: string;
+  capTriggered?: boolean;
+  note: string;
+}
+
+export interface FortressFinding {
+  id: string;
+  severity: Severity;
+  title: string;
+  file: string;
+  effort: string;
+  active: boolean; // vs latent (dashboards are shells so some criticals are latent)
+}
+
+export interface FortressCap {
+  name: string;
+  threshold: string;
+  triggered: boolean;
+  binding: boolean;
+  evidence: string;
+}
+
+export interface FortressRemediation {
+  rank: number;
+  title: string;
+  refFinding: string;
+  effort: string;
+  owner: string;
+}
+
+export interface FortressPhase {
+  horizon: '30-day' | '60-day' | '90-day';
+  targetScore: number;
+  targetTier: SecurityTier | 'ACCEPTABLE' | 'STRONG';
+  items: string[];
+}
+
+export interface FortressReport {
+  runDate: string;
+  score: number;
+  tier: SecurityTier;
+  topBlocker: string;
+  summary: string;
+  counts: Record<Severity, number>;
+  axes: FortressAxis[];
+  caps: FortressCap[];
+  criticals: FortressFinding[];
+  top10Fixes: FortressRemediation[];
+  phases: FortressPhase[];
+  sourceFile: string;
+  status: 'complete' | 'running';
+}
+
+export interface MoatAxis {
+  name: string;
+  score: number;
+  max: number;
+  note: string;
+}
+
+export interface MoatStrength {
+  title: string;
+  evidence: string;
+}
+
+export interface MoatWeakness {
+  title: string;
+  evidence: string;
+  fix: string;
+}
+
+export interface MoatReport {
+  runDate: string;
+  score: number;
+  tier: MoatTier;
+  topAsset: string;
+  topGap: string;
+  summary: string;
+  patentCount: number;
+  tierCounts: { tier1: number; tier2: number; tier3: number };
+  axes: MoatAxis[];
+  topStrengths: MoatStrength[];
+  topWeaknesses: MoatWeakness[];
+  filingPlan: string[];
+  sourceFile: string;
+  status: 'complete' | 'running' | 'pending';
+}
+
+// =============================================================================
+// FORTRESS AUDIT — 2026-04-22
+// =============================================================================
+
+export const FORTRESS_REPORT: FortressReport = {
+  runDate: '2026-04-22',
+  score: 29,
+  tier: 'BELOW_50',
+  topBlocker:
+    'services/memory-graph/src/graph/MemoryQuery.ts:34 + middleware/auth.ts:13 — cross-tenant PHI retrieval with JWT fail-open. Single-exploit path to full multi-tenant compromise if services are reachable from the public internet.',
+  summary:
+    'Dashboards are pre-wire shells (render mock data only), so the most investor-visible surface is effectively inert. Real active risk concentrates in three backend services where authentication + tenant isolation gaps are exploitable TODAY if services are reachable from the public internet. Secrets hygiene is clean (zero live credentials ever committed). This is a fixable 30-day remediation sprint, not a structural rewrite.',
+  counts: { critical: 10, high: 33, medium: 33, low: 21 },
+  axes: [
+    { name: 'Identity and access controls', weight: 18, score: 4, capName: 'Admin without MFA', capThreshold: '40% = 7.2', capTriggered: true, note: 'JWT defaults fail-open, no MFA, no tenantId in JWT, no logout endpoint, 7-day refresh no rotation.' },
+    { name: 'Application and API security', weight: 18, score: 7, note: 'Services have helmet + CORS + Zod + rate-limit; AI unauth, FHIR no role guard, pitch-site /private obscurity-only.' },
+    { name: 'Cloud and network hardening', weight: 14, score: 5, capName: 'No WAF on public', capThreshold: '70% = 9.8', capTriggered: true, note: 'K8s NetworkPolicy good; Terraform base stack 100% commented; no WAF; Dockerfiles root on :latest.' },
+    { name: 'Data protection and key management', weight: 12, score: 2, note: 'No encryption evidence, JWT defaults, no key rotation, backups lack --sse, 23/25 PHI models unscoped.' },
+    { name: 'AI-specific safety controls', weight: 10, score: 4, note: 'Narrow surface (only Whisper live); no BAA gate; prompt templates no boundary markers (dormant).' },
+    { name: 'Detection and incident readiness', weight: 10, score: 2, capName: 'No auth/admin logging', capThreshold: '30% = 3', capTriggered: true, note: 'AuditLog model exists, zero writers. No IR runbook, no alerting. Cap-bound.' },
+    { name: 'Supply-chain and CI/CD security', weight: 10, score: 3, note: 'Clean history, but floating deps, no SHA pinning, no SBOM in CI, prod deploy is stub.' },
+    { name: 'Resilience and recovery', weight: 5, score: 1, capName: 'No restore evidence', capThreshold: '40% = 2', capTriggered: true, note: 'pg_dump CronJob exists; no PITR, no drill, no key separation. Cap-bound.' },
+    { name: 'Governance and evidence quality', weight: 3, score: 1, note: 'HIPAA doc contradicts code (MFA/AuditLog/RS256 all claimed but unimplemented).' },
+  ],
+  caps: [
+    { name: 'Any open CRITICAL on exposed path', threshold: 'total ≤ 69', triggered: true, binding: false, evidence: '10 criticals identified' },
+    { name: 'Cross-tenant data exposure', threshold: 'total ≤ 49', triggered: true, binding: false, evidence: 'memory-graph + 23/25 PHI models unscoped' },
+    { name: 'No auth/admin logging', threshold: 'detection ≤ 3/10', triggered: true, binding: true, evidence: 'AuditLog unused in services/**' },
+    { name: 'No restore evidence', threshold: 'resilience ≤ 2/5', triggered: true, binding: true, evidence: 'no drill, no PITR' },
+    { name: 'No WAF on public', threshold: 'cloud ≤ 9.8/14', triggered: true, binding: false, evidence: 'Terraform commented, no ingress WAF' },
+    { name: 'Admin without MFA', threshold: 'identity ≤ 7.2/18', triggered: true, binding: false, evidence: 'no MFA library imported anywhere' },
+    { name: 'Plaintext prod secret in git', threshold: 'total ≤ 59', triggered: false, binding: false, evidence: 'k8s/secrets.yaml placeholder-only; clean history' },
+    { name: 'Prod deploy with CI secrets exposed', threshold: 'total ≤ 59', triggered: false, binding: false, evidence: 'no pull_request_target anywhere' },
+    { name: 'AI tool execution without validation', threshold: 'AI ≤ 3/10', triggered: false, binding: false, evidence: 'no prod agent/tool loop' },
+  ],
+  criticals: [
+    { id: 'C-1', severity: 'critical', title: 'Cross-tenant PHI leak in memory-graph: no tenant scoping on any Cypher query', file: 'services/memory-graph/src/graph/MemoryQuery.ts:34', effort: '2-3 days', active: true },
+    { id: 'C-2', severity: 'critical', title: 'services/ai: all endpoints unauthenticated; /transcribe ships PHI to OpenAI with no BAA gate', file: 'services/ai/src/main.py:204-277', effort: '1.5 days', active: true },
+    { id: 'C-3', severity: 'critical', title: 'JWT_SECRET default fallbacks in three places (fail-open auth)', file: 'services/api/src/config/env.ts:5-6', effort: '30 min', active: true },
+    { id: 'C-4', severity: 'critical', title: 'AuditLog model exists but is never written — HIPAA logging claim is false', file: 'packages/database/prisma/schema.prisma:690', effort: '3 days', active: true },
+    { id: 'C-5', severity: 'critical', title: 'Pitch-site /private/* "security through obscurity only" protects investor materials', file: 'apps/pitch-site/src/middleware.ts:5-11', effort: '20 min', active: true },
+    { id: 'C-6', severity: 'critical', title: 'Dashboards have zero auth gate at layout / middleware level (deferred — mitigated today by mock data)', file: 'apps/{admin,caregiver,clinician,family}-dashboard/src/app/layout.tsx', effort: '1 day', active: false },
+    { id: 'C-7', severity: 'critical', title: '23 of 25 PHI Prisma models have no tenantId column', file: 'packages/database/prisma/schema.prisma', effort: '5 days', active: true },
+    { id: 'C-8', severity: 'critical', title: 'No logout endpoint on API server; refresh tokens have no rotation/denylist', file: 'services/api/src/routes/auth.routes.ts', effort: '1 day', active: true },
+    { id: 'C-9', severity: 'critical', title: 'CFR 21 Part 11 signRecord is plain SHA-256 with no key — forgeable', file: 'packages/clinical-export/src/CFR11Compliance.ts:29-47', effort: '2 days', active: true },
+    { id: 'C-10', severity: 'critical', title: 'Clinical-export exportWithSignature takes userId as an unauthenticated string', file: 'packages/clinical-export/src/DataExporter.ts:201-231', effort: '1 day', active: true },
+  ],
+  top10Fixes: [
+    { rank: 1, title: 'Remove JWT_SECRET dev fallbacks; fail-fast on missing env', refFinding: 'C-3', effort: '30 min', owner: 'Backend lead' },
+    { rank: 2, title: 'Re-enable pitch-site /private/* auth (revert HTTP Basic Auth removal)', refFinding: 'C-5', effort: '20 min', owner: 'Founder' },
+    { rank: 3, title: 'Tighten MCP scope in .claude/settings.local.json', refFinding: 'H-19/H-20/H-21', effort: '5 min', owner: 'Dev tooling' },
+    { rank: 4, title: 'Add services/ai auth + 25MB upload cap + content-type allow-list + BAA env gate', refFinding: 'C-2', effort: '1.5 days', owner: 'AI lead + Legal' },
+    { rank: 5, title: 'Add tenant scoping to memory-graph (JWT tenantId, Cypher filter, Neo4j constraint, integration test)', refFinding: 'C-1', effort: '2-3 days', owner: 'Backend lead' },
+    { rank: 6, title: 'Wire AuditLog writer via middleware on every PHI route', refFinding: 'C-4', effort: '3 days', owner: 'Backend + Compliance' },
+    { rank: 7, title: 'Add middleware.ts with session gate to all 4 dashboards (before any live data-fetch PR)', refFinding: 'C-6', effort: '1 day', owner: 'Frontend lead' },
+    { rank: 8, title: 'Add POST /auth/logout + refresh-token rotation/denylist', refFinding: 'C-8', effort: '1 day', owner: 'Backend lead' },
+    { rank: 9, title: 'Populate deploy-production.yml with environment-gated OIDC-signed deploy + SHA-pinned actions + cosign signing', refFinding: 'H-8', effort: '1 day', owner: 'Platform/DevOps' },
+    { rank: 10, title: 'Add security headers to vercel.json + next.config.js (CSP/HSTS/XFO/Referrer-Policy/Permissions-Policy)', refFinding: 'H-15', effort: '2 hours', owner: 'Frontend lead' },
+  ],
+  phases: [
+    {
+      horizon: '30-day',
+      targetScore: 65,
+      targetTier: 'ACCEPTABLE',
+      items: [
+        'Top 10 fixes landed',
+        'packages/auth/src/jwt.ts — add tenantId + facilityId to TokenPayload',
+        'Prisma migration adding tenantId to all 23 remaining PHI models + backfill',
+        'scopedDb(tenantId) Prisma extension auto-injecting tenant filter',
+        'packages/clinical-export CFR11Compliance — replace SHA-256 with HMAC or Ed25519',
+        'gitleaks + pnpm audit + pip-audit in CI',
+        'Pin GitHub Actions to SHA; pin Next to ≥14.2.25',
+        'SBOM generated in CI + attached to releases',
+        'Execute OpenAI + ElevenLabs BAAs; publish docs/legal/vendor-baa-register.md',
+        'Replace k8s/secrets.yaml commit with external-secrets operator + AWS Secrets Manager',
+      ],
+    },
+    {
+      horizon: '60-day',
+      targetScore: 78,
+      targetTier: 'ACCEPTABLE',
+      items: [
+        'Activate Terraform base stack (VPC, KMS, RDS encrypted, ALB + WAF, CloudWatch, S3 SSE-KMS)',
+        'Apply NetworkPolicy to prod cluster',
+        'WAF rules in front of all services',
+        'Non-root USER in Dockerfiles; image digest pinning; cosign sign in deploy',
+        'Sentry/DataDog/OpenTelemetry wired; structured logging',
+        'Publish docs/runbooks/ (incident-response, breach-notification, dr-restore, on-call)',
+        'Severity classification (P0-P4) + on-call rotation',
+        'Backup restore drill with documented RTO/RPO',
+        'MFA for clinician + admin (TOTP / WebAuthn)',
+      ],
+    },
+    {
+      horizon: '90-day',
+      targetScore: 85,
+      targetTier: 'STRONG',
+      items: [
+        'Third-party pentest (Cobalt / NCC / Bishop Fox) — ~$15-30K scope',
+        'Remediate pentest findings',
+        'SOC 2 Type I readiness assessment (Vanta / Drata / Secureframe)',
+        'Trust center: security.gentlereminder.com with SBOM, subprocessors, uptime',
+        'SIG Lite + CAIQ Lite portal for enterprise questionnaires',
+        'Idle-logoff, audit-log export to SIEM',
+      ],
+    },
+  ],
+  sourceFile: 'docs/security/fortress-audit-2026-04-22.md',
+  status: 'complete',
+};
+
+// =============================================================================
+// IP MOAT EVALUATION — 2026-04-22
+// =============================================================================
+// Populated after IP Moat Eval agent run completes.
+// Until then: status = 'running', placeholder data shown.
+
+export const MOAT_REPORT: MoatReport = {
+  runDate: '2026-04-22',
+  score: 0,
+  tier: 'DEFENSIBLE',
+  topAsset: 'TBD — pending evaluation',
+  topGap: 'TBD — pending evaluation',
+  summary:
+    'IP Moat Evaluation is running in a background audit agent. Scoring 23 provisional patents across 10 axes (breadth, claim depth, prior art posture, commercial relevance, enablement, freedom-to-operate, geographic coverage, time-to-non-provisional, portfolio construction, defensive measures). Results populate here on completion.',
+  patentCount: 23,
+  tierCounts: { tier1: 5, tier2: 7, tier3: 11 },
+  axes: [
+    { name: 'Breadth', score: 0, max: 10, note: 'Pending' },
+    { name: 'Claim depth', score: 0, max: 10, note: 'Pending' },
+    { name: 'Prior art posture', score: 0, max: 10, note: 'Pending' },
+    { name: 'Commercial relevance', score: 0, max: 10, note: 'Pending' },
+    { name: 'Enablement / reduction to practice', score: 0, max: 10, note: 'Pending' },
+    { name: 'Freedom-to-operate risk', score: 0, max: 10, note: 'Pending' },
+    { name: 'Geographic coverage', score: 0, max: 10, note: 'Pending' },
+    { name: 'Time-to-non-provisional', score: 0, max: 10, note: 'Pending' },
+    { name: 'Portfolio construction', score: 0, max: 10, note: 'Pending' },
+    { name: 'Defensive measures', score: 0, max: 10, note: 'Pending' },
+  ],
+  topStrengths: [],
+  topWeaknesses: [],
+  filingPlan: [],
+  sourceFile: 'docs/ip/ip-moat-eval-2026-04-22.md',
+  status: 'running',
+};
+
+// =============================================================================
+// Helpers
+// =============================================================================
+
+export function tierColor(tier: SecurityTier | MoatTier): string {
+  const m: Record<string, string> = {
+    EXCEPTIONAL: '#3D8158',
+    STRONG: '#3D8158',
+    ACCEPTABLE: '#92A53F',
+    DEFENSIBLE: '#92A53F',
+    HIGH_DILIGENCE_RISK: '#E5A300',
+    THIN: '#E5A300',
+    BELOW_50: '#C0392B',
+    UNPROTECTED: '#C0392B',
+  };
+  return m[tier] ?? '#8b949e';
+}
+
+export function severityColor(s: Severity): string {
+  return { critical: '#C0392B', high: '#E5A300', medium: '#92A53F', low: '#3D8158' }[s];
+}
+
+export function scoreBand(score: number): { label: string; color: string } {
+  if (score >= 95) return { label: 'Exceptional', color: '#3D8158' };
+  if (score >= 85) return { label: 'Strong', color: '#3D8158' };
+  if (score >= 70) return { label: 'Acceptable', color: '#92A53F' };
+  if (score >= 50) return { label: 'High diligence risk', color: '#E5A300' };
+  return { label: 'Not diligence-ready', color: '#C0392B' };
+}

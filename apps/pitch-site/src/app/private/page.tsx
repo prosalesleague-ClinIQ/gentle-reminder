@@ -198,6 +198,7 @@ export default function PrivateDashboard() {
               { label: 'Email Templates', href: '/private/templates', desc: '11 outreach templates by audience' },
               { label: 'NDA Templates', href: '/private/nda', desc: 'Mutual, unilateral, and short-form NDAs' },
               { label: 'Pre-Contact Checklists', href: '/private/checklists', desc: 'What must be in place before contact / IP share' },
+              { label: 'Diligence Scorecards', href: '/private/diligence', desc: 'Fortress Audit + IP Moat Eval — investor-ready' },
             ].map((item) => (
               <Link
                 key={item.href}
