@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import * as familiesController from '../controllers/families.controller.js';
+import { auditPhiAccess } from "../middleware/audit.js";
 import { authenticate } from '../middleware/auth.js';
 import { roleGuard } from '../middleware/roleGuard.js';
 import { validateRequest } from '../middleware/validateRequest.js';
@@ -11,6 +12,9 @@ import {
 } from '../validators/patient.validator.js';
 
 const router = Router();
+
+// Audit PHI access (fortress-audit C-4, 2026-04-22)
+router.use(auditPhiAccess("families"));
 
 router.get(
   '/patient/:patientId',

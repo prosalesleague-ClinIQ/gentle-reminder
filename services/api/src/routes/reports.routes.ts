@@ -1,7 +1,11 @@
 import { Router } from 'express';
 import { authenticate } from '../middleware/auth.js';
+import { auditPhiAccess } from "../middleware/audit.js";
 
 const router = Router();
+
+// Audit PHI access (fortress-audit C-4, 2026-04-22)
+router.use(auditPhiAccess("reports"));
 router.use(authenticate);
 
 router.get('/daily/:patientId', async (req, res, next) => {

@@ -30,3 +30,7 @@ export {
   listTenants,
   deactivateTenant,
 } from './tenant.js';
+
+// Audit-log writer (fortress-audit C-4, 2026-04-22)
+export { logAudit, redactPHI } from './audit.js';
+export type { AuditEntry, AuditAction, AuditOptions } from './audit.js';

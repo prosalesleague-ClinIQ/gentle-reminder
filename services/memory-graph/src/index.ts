@@ -150,9 +150,18 @@ apiRouter.post('/stories/:storyId/link/:personId', async (req, res, next) => {
 });
 
 // ── Context queries (for AI) ─────────────────────────────────
+// All tenant-scoped per fortress-audit C-1 (2026-04-22).
+// System admins (tenantId=null, role=system_admin) see across tenants;
+// any other role with null tenantId is rejected by authenticate() in prod.
 apiRouter.get('/context/patient/:patientId', async (req, res, next) => {
   try {
-    const context = await getPatientContext(req.params.patientId);
+    const tenantId = req.user?.role === 'system_admin' ? null : (req.user?.tenantId ?? null);
+    const context = await getPatientContext(req.params.patientId, tenantId);
+    if (!context.patient) {
+      // Not found OR cross-tenant — same response either way to avoid enumeration.
+      res.status(404).json({ success: false, error: { code: 'NOT_FOUND', message: 'Patient not found' } });
+      return;
+    }
     res.json({ success: true, data: context });
   } catch (error) { next(error); }
 });
@@ -160,7 +169,12 @@ apiRouter.get('/context/patient/:patientId', async (req, res, next) => {
 apiRouter.get('/context/conversation/:patientId', async (req, res, next) => {
   try {
     const intent = (req.query.intent as string) || '';
-    const context = await getConversationContext(req.params.patientId, intent);
+    const tenantId = req.user?.role === 'system_admin' ? null : (req.user?.tenantId ?? null);
+    const context = await getConversationContext(req.params.patientId, intent, tenantId);
+    if (!context.patient) {
+      res.status(404).json({ success: false, error: { code: 'NOT_FOUND', message: 'Patient not found' } });
+      return;
+    }
     res.json({ success: true, data: context });
   } catch (error) { next(error); }
 });
@@ -172,7 +186,8 @@ apiRouter.get('/search/memories', async (req, res, next) => {
       res.status(400).json({ success: false, error: { message: 'Query parameter q is required' } });
       return;
     }
-    const results = await findRelatedMemories(query);
+    const tenantId = req.user?.role === 'system_admin' ? null : (req.user?.tenantId ?? null);
+    const results = await findRelatedMemories(query, tenantId);
     res.json({ success: true, data: results });
   } catch (error) { next(error); }
 });

@@ -1,9 +1,13 @@
 import { Router } from 'express';
 import * as tenantsController from '../controllers/tenants.controller.js';
+import { auditPhiAccess } from "../middleware/audit.js";
 import { authenticate } from '../middleware/auth.js';
 import { requireRole } from '../middleware/roleGuard.js';
 
 const router = Router();
+
+// Audit PHI access (fortress-audit C-4, 2026-04-22)
+router.use(auditPhiAccess("tenants"));
 
 // All tenant management routes require system_admin role
 router.post(

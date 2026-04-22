@@ -4,6 +4,13 @@ export interface AuthenticatedUser {
   userId: string;
   email: string;
   role: UserRole;
+  /**
+   * Tenant scope for this session. Undefined/null = no tenant claim in the
+   * JWT; services must treat such sessions as system-level or reject them.
+   * Added 2026-04-22 per fortress-audit finding C-1.
+   */
+  tenantId?: string | null;
+  facilityId?: string | null;
 }
 
 export interface AuthConfig {

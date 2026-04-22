@@ -26,4 +26,11 @@ router.post(
   authController.refresh,
 );
 
+// Fortress-audit C-8 (2026-04-22): server-side session revocation.
+router.post(
+  '/logout',
+  authLimiter,
+  authController.logout,
+);
+
 export default router;

@@ -7,9 +7,13 @@
 
 import { Router } from 'express';
 import * as fhirController from '../controllers/fhir.controller.js';
+import { auditPhiAccess } from "../middleware/audit.js";
 import { authenticate } from '../middleware/auth.js';
 
 const router = Router();
+
+// Audit PHI access (fortress-audit C-4, 2026-04-22)
+router.use(auditPhiAccess("fhir"));
 
 // CapabilityStatement (unauthenticated per FHIR spec)
 router.get('/metadata', fhirController.getCapabilityStatement);

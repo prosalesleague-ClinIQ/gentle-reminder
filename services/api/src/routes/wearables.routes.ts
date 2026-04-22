@@ -1,10 +1,14 @@
 import { Router } from 'express';
 import * as wearablesController from '../controllers/wearables.controller.js';
+import { auditPhiAccess } from "../middleware/audit.js";
 import { authenticate } from '../middleware/auth.js';
 import { roleGuard } from '../middleware/roleGuard.js';
 import { Resource, Action } from '@gentle-reminder/auth';
 
 const router = Router();
+
+// Audit PHI access (fortress-audit C-4, 2026-04-22)
+router.use(auditPhiAccess("wearables"));
 
 // Ingest a batch of wearable signals
 router.post(

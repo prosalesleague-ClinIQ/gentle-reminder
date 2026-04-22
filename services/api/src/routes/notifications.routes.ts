@@ -7,8 +7,12 @@
 
 import { Router, Request, Response, NextFunction } from 'express';
 import { authenticate } from '../middleware/auth.js';
+import { auditPhiAccess } from "../middleware/audit.js";
 
 const router = Router();
+
+// Audit PHI access (fortress-audit C-4, 2026-04-22)
+router.use(auditPhiAccess("notifications"));
 
 // All routes require authentication
 router.use(authenticate);

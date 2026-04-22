@@ -11,9 +11,87 @@ import time
 from contextlib import asynccontextmanager
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException, UploadFile, File, Query
+import os
+import secrets
+from fastapi import FastAPI, HTTPException, UploadFile, File, Query, Depends, Header, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
+
+# ---------------------------------------------------------------------------
+# Authentication + Upload Limits (Fortress-audit C-2, 2026-04-22)
+# ---------------------------------------------------------------------------
+# services/ai is an INTERNAL service and must not be reachable from the public
+# internet. The gateway (services/api) proxies audio with a signed internal
+# token. We enforce:
+#
+#   1. Bearer token check on every non-/health endpoint
+#      (AI_INTERNAL_TOKEN env; min 32 bytes in production)
+#   2. Max upload size per request (AI_MAX_UPLOAD_MB, default 25)
+#   3. Content-type allow-list for /transcribe (audio/wav, audio/mpeg, etc.)
+#   4. WHISPER_MODE=api requires explicit OPENAI_BAA_ACKNOWLEDGED=true
+
+_FORBIDDEN_TOKENS = {
+    "dev-internal-token",
+    "CHANGE_ME",
+    "changeme",
+    "secret",
+    "password",
+    "test-key",
+}
+
+
+def _resolve_internal_token() -> Optional[str]:
+    raw = os.environ.get("AI_INTERNAL_TOKEN")
+    env = os.environ.get("ENVIRONMENT", os.environ.get("NODE_ENV", "development"))
+    is_prod = env == "production"
+    if not raw:
+        if is_prod:
+            raise RuntimeError(
+                "[services/ai] AI_INTERNAL_TOKEN is required in production. Refusing to boot."
+            )
+        return None  # Dev mode: auth disabled for localhost ergonomics.
+    if raw in _FORBIDDEN_TOKENS:
+        raise RuntimeError(
+            "[services/ai] AI_INTERNAL_TOKEN matches a well-known default. Regenerate."
+        )
+    if is_prod and len(raw) < 32:
+        raise RuntimeError(
+            "[services/ai] AI_INTERNAL_TOKEN must be ≥32 bytes in production."
+        )
+    return raw
+
+
+_INTERNAL_TOKEN = _resolve_internal_token()
+MAX_UPLOAD_BYTES = int(os.environ.get("AI_MAX_UPLOAD_MB", "25")) * 1024 * 1024
+
+
+def require_internal_token(authorization: Optional[str] = Header(default=None)) -> None:
+    """FastAPI dependency that enforces the internal-token Bearer auth.
+
+    If AI_INTERNAL_TOKEN is unset in a dev environment this is a no-op; in
+    production it raises 401 on missing or invalid token. Constant-time
+    comparison prevents timing oracles.
+    """
+    if _INTERNAL_TOKEN is None:
+        return  # Dev mode.
+    if not authorization or not authorization.lower().startswith("bearer "):
+        raise HTTPException(status_code=401, detail="Missing or invalid Authorization header")
+    token = authorization[7:].strip()
+    if not secrets.compare_digest(token, _INTERNAL_TOKEN):
+        raise HTTPException(status_code=401, detail="Invalid internal token")
+
+
+def check_baa_if_openai_mode() -> None:
+    """Enforce BAA acknowledgement env var when routing PHI to OpenAI Whisper."""
+    if os.environ.get("WHISPER_MODE") == "api":
+        if os.environ.get("OPENAI_BAA_ACKNOWLEDGED") != "true":
+            raise HTTPException(
+                status_code=503,
+                detail=(
+                    "WHISPER_MODE=api requires OPENAI_BAA_ACKNOWLEDGED=true. "
+                    "Execute OpenAI BAA before enabling off-premise transcription."
+                ),
+            )
 
 from services.transcription import TranscriptionService
 from services.emotion_detection import EmotionDetector
@@ -201,7 +279,21 @@ async def health_check():
     }
 
 
-@app.post("/transcribe")
+_ALLOWED_AUDIO_CONTENT_TYPES = {
+    "audio/wav",
+    "audio/x-wav",
+    "audio/mpeg",
+    "audio/mp3",
+    "audio/mp4",
+    "audio/x-m4a",
+    "audio/aac",
+    "audio/ogg",
+    "audio/webm",
+    "application/octet-stream",  # common browser fallback
+}
+
+
+@app.post("/transcribe", dependencies=[Depends(require_internal_token)])
 async def transcribe_audio(
     audio: UploadFile = File(...),
     timestamps: bool = Query(False, description="Include word-level timestamps"),
@@ -213,14 +305,30 @@ async def transcribe_audio(
     the transcription along with detected speech biomarkers.
 
     Use ?timestamps=true to include word-level timing information.
+
+    Auth: internal Bearer token (AI_INTERNAL_TOKEN). Max upload: 25 MB.
+    PHI egress: WHISPER_MODE=api blocked unless OPENAI_BAA_ACKNOWLEDGED=true.
     """
     if transcription_service is None:
         raise HTTPException(status_code=503, detail="Transcription service not ready")
+    check_baa_if_openai_mode()
+
+    # Content-type guard (fortress-audit C-2)
+    if audio.content_type and audio.content_type not in _ALLOWED_AUDIO_CONTENT_TYPES:
+        raise HTTPException(
+            status_code=415,
+            detail=f"Unsupported content-type: {audio.content_type}",
+        )
 
     try:
         audio_bytes = await audio.read()
         if len(audio_bytes) == 0:
             raise HTTPException(status_code=400, detail="Empty audio file")
+        if len(audio_bytes) > MAX_UPLOAD_BYTES:
+            raise HTTPException(
+                status_code=413,
+                detail=f"Audio file exceeds max size of {MAX_UPLOAD_BYTES // (1024 * 1024)}MB",
+            )
 
         if timestamps:
             result = transcription_service.transcribe_with_timestamps(audio_bytes)
@@ -244,7 +352,7 @@ async def transcribe_audio(
         raise HTTPException(status_code=500, detail="Transcription failed")
 
 
-@app.post("/transcribe/batch")
+@app.post("/transcribe/batch", dependencies=[Depends(require_internal_token)])
 async def submit_batch_transcription(
     audio: UploadFile = File(...),
     timestamps: bool = Query(False, description="Include word-level timestamps"),
@@ -253,14 +361,28 @@ async def submit_batch_transcription(
     Submit an audio file for asynchronous batch transcription.
 
     Returns a job_id that can be polled via GET /transcribe/batch/{job_id}.
+
+    Auth: internal Bearer token. Max upload: 25 MB.
     """
     if batch_processor is None:
         raise HTTPException(status_code=503, detail="Batch processor not ready")
+    check_baa_if_openai_mode()
+
+    if audio.content_type and audio.content_type not in _ALLOWED_AUDIO_CONTENT_TYPES:
+        raise HTTPException(
+            status_code=415,
+            detail=f"Unsupported content-type: {audio.content_type}",
+        )
 
     try:
         audio_bytes = await audio.read()
         if len(audio_bytes) == 0:
             raise HTTPException(status_code=400, detail="Empty audio file")
+        if len(audio_bytes) > MAX_UPLOAD_BYTES:
+            raise HTTPException(
+                status_code=413,
+                detail=f"Audio file exceeds max size of {MAX_UPLOAD_BYTES // (1024 * 1024)}MB",
+            )
 
         job_id = await batch_processor.submit_job(
             audio_bytes, {"timestamps": timestamps}
@@ -277,7 +399,7 @@ async def submit_batch_transcription(
         raise HTTPException(status_code=500, detail="Batch submission failed")
 
 
-@app.get("/transcribe/batch/{job_id}")
+@app.get("/transcribe/batch/{job_id}", dependencies=[Depends(require_internal_token)])
 async def get_batch_job_status(job_id: str):
     """
     Get the status and result of a batch transcription job.
@@ -292,7 +414,7 @@ async def get_batch_job_status(job_id: str):
     return status
 
 
-@app.post("/analyze-speech")
+@app.post("/analyze-speech", dependencies=[Depends(require_internal_token)])
 async def analyze_speech(request: SpeechAnalysisRequest):
     """
     Extract speech biomarkers from transcript text.
@@ -316,7 +438,7 @@ async def analyze_speech(request: SpeechAnalysisRequest):
         raise HTTPException(status_code=500, detail="Speech analysis failed")
 
 
-@app.post("/detect-emotion")
+@app.post("/detect-emotion", dependencies=[Depends(require_internal_token)])
 async def detect_emotion(request: EmotionDetectionRequest):
     """
     Detect emotional tone from text and optional audio features.
@@ -342,7 +464,7 @@ async def detect_emotion(request: EmotionDetectionRequest):
         raise HTTPException(status_code=500, detail="Emotion detection failed")
 
 
-@app.post("/summarize-story")
+@app.post("/summarize-story", dependencies=[Depends(require_internal_token)])
 async def summarize_story(request: SummarizationRequest):
     """
     Summarize a patient's story or conversation, extracting
@@ -368,7 +490,7 @@ async def summarize_story(request: SummarizationRequest):
         raise HTTPException(status_code=500, detail="Summarization failed")
 
 
-@app.post("/predict-decline")
+@app.post("/predict-decline", dependencies=[Depends(require_internal_token)])
 async def predict_decline(request: DeclinePredictionRequest):
     """
     Predict cognitive decline risk based on session score trends.
@@ -400,7 +522,7 @@ async def predict_decline(request: DeclinePredictionRequest):
         raise HTTPException(status_code=500, detail="Decline prediction failed")
 
 
-@app.post("/classify-state")
+@app.post("/classify-state", dependencies=[Depends(require_internal_token)])
 async def classify_cognitive_state(request: CognitiveClassificationRequest):
     """
     Classify the patient's current cognitive state from

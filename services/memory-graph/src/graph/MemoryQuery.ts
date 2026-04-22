@@ -30,16 +30,35 @@ export interface MemorySearchResult {
 /**
  * Retrieve the full family and story context for a patient.
  * Used to prime AI conversations with background knowledge.
+ *
+ * TENANT-SCOPED as of 2026-04-22 (fortress-audit C-1). Callers MUST pass
+ * `tenantId` from the authenticated request; Cypher predicate enforces
+ * {tenantId: $tenantId} on the top-level Person match.
+ *
+ * `tenantId === null` is accepted only for system-admin callers; callers at
+ * higher levels (route handler) enforce that check before invoking.
  */
-export async function getPatientContext(patientId: string): Promise<PatientContext> {
-  const result = await graphClient.runQuery(
-    'MATCH (p:Person {id: $patientId}) RETURN p',
-    { patientId },
-  );
+export async function getPatientContext(
+  patientId: string,
+  tenantId: string | null,
+): Promise<PatientContext> {
+  // Build tenant predicate — null (system admin) leaves the MATCH open;
+  // any other value restricts the patient to that tenant.
+  const patientCypher = tenantId === null
+    ? 'MATCH (p:Person {id: $patientId}) RETURN p'
+    : 'MATCH (p:Person {id: $patientId, tenantId: $tenantId}) RETURN p';
+
+  const result = await graphClient.runQuery(patientCypher, { patientId, tenantId });
 
   const patient = result && result.records.length > 0
     ? parsePersonFromResult(result.records[0].get('p').properties)
     : null;
+
+  if (!patient) {
+    // Tenant check failed OR patient doesn't exist — same 404 either way
+    // (avoid information leakage about cross-tenant existence).
+    return { patient: null, familyMembers: [], relationships: [], stories: [] };
+  }
 
   const [familyMembers, relationships, stories] = await Promise.all([
     getRelatedPeople(patientId),
@@ -62,8 +81,9 @@ export async function getPatientContext(patientId: string): Promise<PatientConte
 export async function getConversationContext(
   patientId: string,
   intent: string,
+  tenantId: string | null,
 ): Promise<ConversationContext> {
-  const fullContext = await getPatientContext(patientId);
+  const fullContext = await getPatientContext(patientId, tenantId);
   const intentLower = intent.toLowerCase();
 
   // Filter stories by intent relevance (title or participant match)
@@ -100,30 +120,35 @@ export async function getConversationContext(
  * against story titles and person names. Will integrate vector
  * embeddings in a future phase.
  */
-export async function findRelatedMemories(query: string): Promise<MemorySearchResult> {
+export async function findRelatedMemories(
+  query: string,
+  tenantId: string | null,
+): Promise<MemorySearchResult> {
   const queryLower = query.toLowerCase();
 
-  // Search stories by title
+  // Tenant-scoped search (fortress-audit C-1). null = system admin (unscoped).
+  const tenantClause = tenantId === null ? '' : 'AND s.tenantId = $tenantId';
+  const tenantClausePerson = tenantId === null ? '' : 'AND p.tenantId = $tenantId';
+
   const storyResult = await graphClient.runQuery(
     `MATCH (s:Story)
-     WHERE toLower(s.title) CONTAINS $query
+     WHERE toLower(s.title) CONTAINS $query ${tenantClause}
      RETURN s
      ORDER BY s.date DESC
      LIMIT 10`,
-    { query: queryLower },
+    { query: queryLower, tenantId },
   );
 
   const stories: StoryRecord[] = storyResult
     ? storyResult.records.map((r) => parseStoryFromResult(r.get('s').properties))
     : [];
 
-  // Search people by name
   const personResult = await graphClient.runQuery(
     `MATCH (p:Person)
-     WHERE toLower(p.name) CONTAINS $query
+     WHERE toLower(p.name) CONTAINS $query ${tenantClausePerson}
      RETURN p
      LIMIT 10`,
-    { query: queryLower },
+    { query: queryLower, tenantId },
   );
 
   const people: PersonRecord[] = personResult

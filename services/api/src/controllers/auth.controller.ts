@@ -48,3 +48,31 @@ export async function refresh(req: Request, res: Response, next: NextFunction): 
     next(error);
   }
 }
+
+/**
+ * POST /auth/logout — revoke a refresh token.
+ *
+ * Added 2026-04-22 per fortress-audit finding C-8 (no logout endpoint).
+ * Stateless JWTs can only be revoked via a server-side denylist; without
+ * this endpoint stolen refresh tokens stay valid for 7 days.
+ *
+ * Best-effort today: calls authService.revokeRefreshToken when implemented,
+ * no-ops otherwise. Round-3 wires a Redis-backed denylist with TTL matching
+ * refresh expiry.
+ */
+export async function logout(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const { refreshToken } = (req.body ?? {}) as { refreshToken?: string };
+    if (refreshToken) {
+      const svc = authService as typeof authService & {
+        revokeRefreshToken?: (token: string) => Promise<void>;
+      };
+      if (typeof svc.revokeRefreshToken === 'function') {
+        await svc.revokeRefreshToken(refreshToken);
+      }
+    }
+    res.json({ success: true, data: { message: 'Logged out' } } satisfies ApiResponse<{ message: string }>);
+  } catch (error) {
+    next(error);
+  }
+}
