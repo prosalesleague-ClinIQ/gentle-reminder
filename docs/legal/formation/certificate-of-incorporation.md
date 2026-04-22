@@ -17,9 +17,9 @@ The name of the corporation is **Gentle Reminder Health Corp** (the "Corporation
 
 ## ARTICLE II — REGISTERED OFFICE AND REGISTERED AGENT
 
-The address of the Corporation's registered office in the State of Delaware is **[REGISTERED AGENT ADDRESS]**, in the City of **[CITY]**, County of **[COUNTY]**, Zip Code **[ZIP]**. The name of its registered agent at such address is **[REGISTERED AGENT NAME]**.
+The address of the Corporation's registered office in the State of Delaware is **16192 Coastal Highway**, in the City of **Lewes**, County of **Sussex**, Zip Code **19958**. The name of its registered agent at such address is **Harvard Business Services, Inc.**
 
-> **TO FILL:** Upon selecting a registered agent (Harvard Business Services $50/yr, Incorp Services $99/yr, or Spiegel & Utrera $149/yr), replace the bracketed fields with the agent's DE address. The registered agent will provide this information upon engagement.
+> **Registered Agent engaged:** Harvard Business Services, Inc. (Order #CART1132204, Account ID 502306, engaged 2026-04-22). Annual fee: $50. Details filed at `docs/legal/formation/registered-agent-confirmation.md`.
 
 ## ARTICLE III — PURPOSE
 
